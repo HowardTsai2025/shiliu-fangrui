@@ -1,0 +1,43 @@
+/* ===== iPhone Safari ===== */
+.a2hs.ios .notch{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:56px;height:16px;border-radius:9px;background:#111;z-index:9}
+.a2hs.ios .web{background:#fff}
+.a2hs.ios .web .hd{height:44px;margin-top:26px;display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid #eee}
+.a2hs.ios .web .hd svg{width:16px;height:16px;color:var(--acc)}
+.a2hs.ios .web .hd b{color:var(--acc);font-family:"Noto Serif TC","Noto Serif CJK TC",serif;letter-spacing:.12em;font-size:13px}
+.a2hs.ios .web .ln{height:7px;border-radius:4px;background:#e6e6ea;margin:10px 12px 0}
+.a2hs.ios .web .ln.s{width:55%} .a2hs.ios .web .ln.t{height:12px;width:45%;background:#d6d6dc;margin-top:16px}
+.a2hs.ios .web .vb{margin:12px 12px 0;height:46px;border-radius:6px;background:color-mix(in srgb,var(--acc) 10%,#fff);border-left:3px solid var(--acc)}
+.a2hs.ios .bar{position:absolute;left:10px;right:10px;bottom:12px;height:38px;border-radius:19px;background:rgba(255,255,255,.92);box-shadow:0 2px 10px rgba(0,0,0,.15);display:flex;align-items:center;gap:8px;padding:0 10px;font-size:10px;color:#666}
+.a2hs.ios .bar .url{flex:1;text-align:center;white-space:nowrap;overflow:hidden}
+.a2hs.ios .bar .ic{width:24px;height:24px;border-radius:12px;display:grid;place-items:center;font-size:14px;color:#111;font-weight:700}
+.a2hs.ios .menu{inset:auto 10px 58px auto;width:150px;height:auto;background:rgba(250,250,252,.98);border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.2);font-size:11.5px;overflow:hidden;opacity:0;transform:scale(.85) translateY(10px);transform-origin:bottom right}
+.a2hs.ios .menu div{padding:8px 12px;border-bottom:1px solid #e9e9ee;display:flex;justify-content:space-between}
+.a2hs.ios .menu div:last-child{border:none}
+.a2hs.ios .sheet{top:auto;height:300px;bottom:0;background:#f2f2f7;border-radius:16px 16px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,.18);transform:translateY(105%);overflow:hidden}
+.a2hs.ios .sheet .top{display:flex;gap:8px;align-items:center;padding:12px 12px 8px;font-size:11px}
+.a2hs.ios .sheet .top i.lg{width:30px;height:30px;border-radius:7px}
+.a2hs.ios .sheet .apps{display:flex;gap:10px;padding:4px 12px 10px}
+.a2hs.ios .sheet .apps span{width:34px;height:34px;border-radius:9px;background:#d9d9e0}
+.a2hs.ios .list{margin:0 10px;background:#fff;border-radius:10px;font-size:11.5px;transition:transform .9s cubic-bezier(.3,.7,.2,1)}
+.a2hs.ios .list div{padding:9px 12px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}
+.a2hs.ios .list div:last-child{border:none}
+.a2hs.ios .list .tg{font-weight:600}
+.a2hs.ios .sq{display:inline-grid;place-items:center;width:15px;height:15px;border:1.5px solid #333;border-radius:4px;font-size:11px;line-height:1}
+.a2hs.ios .add{background:#f2f2f7;transform:translateY(105%)}
+.a2hs.ios .add .nav{margin-top:28px;display:flex;justify-content:space-between;padding:8px 12px;font-size:11.5px}
+.a2hs.ios .add .nav .c{color:#0a7aff} .a2hs.ios .add .nav .n{color:#0a7aff;font-weight:700;padding:2px 6px;border-radius:6px}
+.a2hs.ios .add .box{margin:8px 10px;background:#fff;border-radius:10px;padding:10px;display:flex;gap:10px;align-items:center;font-size:12px}
+.a2hs.ios .add .box i.lg{width:40px;height:40px;border-radius:10px}
+.a2hs.ios .add .tog{margin:0 10px;background:#fff;border-radius:10px;padding:9px 10px;display:flex;justify-content:space-between;align-items:center;font-size:11px}
+.a2hs.ios .add .tog b{width:30px;height:18px;border-radius:9px;background:#34c759;position:relative}
+.a2hs.ios .add .tog b::after{content:"";position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+.a2hs.ios .home{background:linear-gradient(160deg,#c9d6e8,#e9d9dc);opacity:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px 0;padding:44px 12px 0;align-content:start;justify-items:center}
+.a2hs.ios .home span{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.55)}
+.a2hs.ios .me{display:grid;justify-items:center;gap:3px;font-size:8.5px;color:#222;transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1) .2s}
+.a2hs.ios .me i.lg{width:36px;height:36px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.a2hs.ios[data-s="2"] .menu{opacity:1;transform:none}
+.a2hs.ios[data-s="3"] .sheet,.a2hs.ios[data-s="4"] .sheet{transform:none}
+.a2hs.ios[data-s="4"] .list{transform:translateY(-118px)}
+.a2hs.ios[data-s="5"] .add{transform:none}
+.a2hs.ios[data-s="6"] .home{opacity:1}
+.a2hs.ios[data-s="6"] .me{transform:scale(1)}

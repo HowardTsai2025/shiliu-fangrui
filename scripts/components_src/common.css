@@ -1,0 +1,27 @@
+/* ===== 共用：手機外框、手指、重新播放、步驟說明 ===== */
+.a2hs{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+@media (max-width:520px){.a2hs{grid-template-columns:1fr;justify-items:center}}
+.a2hs .phone{position:relative;width:200px;height:400px;border-radius:30px;background:#111;padding:8px;box-shadow:0 8px 24px color-mix(in srgb,var(--ink) 18%,transparent)}
+.a2hs .scr{position:relative;width:100%;height:100%;border-radius:23px;overflow:hidden;background:#f2f2f7;font-family:-apple-system,Roboto,"PingFang TC","Noto Sans TC","Noto Sans CJK TC",sans-serif;color:#111}
+.a2hs .ly{position:absolute;inset:0;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1)}
+.a2hs i.lg{font-style:normal;background:var(--acc);color:#fff;display:grid;place-items:center;flex:none}
+.a2hs i.lg svg{width:72%;height:72%}
+.a2hs .finger{position:absolute;width:26px;height:26px;border-radius:50%;background:rgba(40,40,40,.28);border:2px solid rgba(255,255,255,.9);z-index:8;transition:left .6s ease,top .6s ease,opacity .3s;left:150px;top:300px;opacity:0;pointer-events:none}
+.a2hs .finger.tap{animation:a2tap .5s ease}
+@keyframes a2tap{40%{transform:scale(.7);background:rgba(40,40,40,.5)}100%{transform:scale(1)}}
+.a2hs .hl{animation:a2hl 1s ease}
+@keyframes a2hl{0%,100%{background:transparent}40%{background:color-mix(in srgb,var(--acc) 22%,#fff)}}
+.a2hs .replay{position:absolute;inset:0;z-index:10;display:none;place-items:center;align-content:end;padding-bottom:80px;gap:10px;background:linear-gradient(to bottom,rgba(0,0,0,0) 45%,rgba(0,0,0,.45));border:none;border-radius:23px;color:#fff;font:inherit;font-size:14px;font-weight:600;cursor:pointer;width:100%;height:100%}
+.a2hs .replay i{width:58px;height:58px;border-radius:50%;background:var(--acc);display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.a2hs .replay i::before{content:"";margin-left:5px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #fff}
+.a2hs.ended .replay{display:grid}
+.a2hs .cap{display:grid;gap:8px;min-width:0;max-width:340px}
+.a2hs .cap ol{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.a2hs .cap li{display:flex;gap:8px;align-items:baseline;padding:6px 10px;border-radius:8px;color:var(--muted);font-size:14.5px;line-height:1.5;cursor:pointer;transition:background .25s,color .25s}
+.a2hs .cap li b{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;border:1px solid currentColor}
+.a2hs .cap li.on{background:color-mix(in srgb,var(--acc) 12%,transparent);color:var(--ink);font-weight:600}
+.a2hs .cap li.on b{background:var(--acc);border-color:var(--acc);color:var(--onacc,#fff)}
+.a2hs .ctl{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--muted);line-height:1.5}
+.a2hs .ctl button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+.a2hs .tip{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+@media (prefers-reduced-motion:reduce){.a2hs .ly,.a2hs .finger,.a2hs .list,.a2hs .me{transition:none!important}.a2hs .finger.tap,.a2hs .hl{animation:none}}
