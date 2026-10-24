@@ -412,6 +412,8 @@ function show(v,no){
   el.classList.remove('view'); void el.offsetWidth; el.classList.add('view');
   bind();
 }
+/* 目錄和搜尋結果的點擊統一在這裡處理（搜尋結果是打字時才產生的，逐一綁定會漏掉） */
+document.getElementById('view').addEventListener('click',e=>{ const b=e.target.closest('[data-no]'); if(b) open(+b.dataset.no); });
 const rerender=()=>show(view, view==='today'?(cur||todayNo()):undefined);
 function open(no){ cur=no; show('today',no); window.scrollTo({top:0}); try{history.replaceState(null,'','#a'+no)}catch(e){} }
 function setRead(n,on){ if(on) state.read[n]=true; else delete state.read[n]; lsSet('sl-progress',state);
@@ -428,7 +430,6 @@ function bind(){
   initA2HS(document.getElementById('view'),A2PLAYED);
   on('prev',()=>open((cur||todayNo())-1)); on('next',()=>open((cur||todayNo())+1));
   on('mark',()=>{const n=cur||todayNo(), was=!!state.read[n]; setRead(n,!was); show('today',n); if(!was) afterMark(n);});
-  document.querySelectorAll('[data-no]').forEach(b=>b.onclick=()=>open(+b.dataset.no));
   const f=$('#sform'); if(f){ f.onsubmit=e=>{e.preventDefault(); query=$('#q').value; doSearch()}; $('#q').oninput=e=>{query=e.target.value; doSearch()}; }
   on('savestart',()=>{const v=$('#startd').value; if(v){state.start=v; cur=null; lsSet('sl-progress',state); cloudWrite({start:v}); show('set')}});
   document.querySelectorAll('[data-pal]').forEach(b=>b.onclick=()=>{prefs.palette=b.dataset.pal; applyPrefs(true); show('set')});
