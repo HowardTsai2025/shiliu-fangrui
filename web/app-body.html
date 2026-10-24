@@ -1,0 +1,425 @@
+<title>石榴放蕊</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap">
+<style>
+/* Layout: one calm reading column; sticky top bar (brand, save status, tabs); three palettes × light/dark. Default palette 石榴紅. */
+:root{
+  --bg:#f5f7fb; --card:#ffffff; --ink:#1c2533; --muted:#6b778a; --line:#e1e7f0;
+  --acc:#3b6ea8; --onacc:#ffffff; --soft:#e8eff9; --verse:#eef3fa; --bar:#8fb0d8; --ok:#3a8a63; --warn:#b86e1f;
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --latin:Georgia,"Times New Roman",serif;
+  --fs:18px;
+}
+:root[data-palette="a"]{--bg:#f4f8f7;--card:#ffffff;--ink:#1e2b29;--muted:#667a76;--line:#dfe9e6;--acc:#2f7f73;--onacc:#ffffff;--soft:#e7f2ef;--verse:#edf5f3;--bar:#7fb3a8;--ok:#2f7f73;--warn:#b86e1f}
+:root[data-palette="r"]{--bg:#ffffff;--card:#ffffff;--ink:#222222;--muted:#76696a;--line:#ece4e4;--acc:#7a1f2b;--onacc:#ffffff;--soft:#f6eeee;--verse:#f7f3ea;--bar:#b08a4a;--ok:#3a8a63;--warn:#b86e1f}
+:root[data-palette="c"]{--bg:#f7f6fb;--card:#ffffff;--ink:#24223a;--muted:#73708b;--line:#e7e5f2;--acc:#5f5aa2;--onacc:#ffffff;--soft:#efeef9;--verse:#f1f0f9;--bar:#a9a5d6;--ok:#3a8a63;--warn:#b86e1f}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0f141c;--card:#161d28;--ink:#e3e9f2;--muted:#95a1b3;--line:#243042;--acc:#90b8ea;--onacc:#0f141c;--soft:#1b2636;--verse:#18212f;--bar:#5b7fae;--ok:#7cc7a0;--warn:#e0a865;color-scheme:dark}
+  :root[data-palette="a"]:not([data-theme="light"]){--bg:#111917;--card:#18221f;--ink:#e2ece9;--muted:#93a6a1;--line:#26332f;--acc:#86cdbd;--onacc:#111917;--soft:#1d2c28;--verse:#1a2925;--bar:#4f8f82;--ok:#86cdbd;--warn:#e0a865}
+  :root[data-palette="r"]:not([data-theme="light"]){--bg:#171112;--card:#201819;--ink:#ece6e3;--muted:#a89c9a;--line:#352a2b;--acc:#d6b06e;--onacc:#171112;--soft:#2a2020;--verse:#241c1c;--bar:#9a7536;--ok:#7cc7a0;--warn:#e0a865}
+  :root[data-palette="c"]:not([data-theme="light"]){--bg:#14131c;--card:#1c1b27;--ink:#e8e6f3;--muted:#a19eb8;--line:#2c2a3c;--acc:#b7b2ec;--onacc:#14131c;--soft:#232136;--verse:#211f30;--bar:#6f6aae;--ok:#7cc7a0;--warn:#e0a865}
+}
+:root[data-theme="dark"]{--bg:#0f141c;--card:#161d28;--ink:#e3e9f2;--muted:#95a1b3;--line:#243042;--acc:#90b8ea;--onacc:#0f141c;--soft:#1b2636;--verse:#18212f;--bar:#5b7fae;--ok:#7cc7a0;--warn:#e0a865;color-scheme:dark}
+:root[data-theme="dark"][data-palette="a"]{--bg:#111917;--card:#18221f;--ink:#e2ece9;--muted:#93a6a1;--line:#26332f;--acc:#86cdbd;--onacc:#111917;--soft:#1d2c28;--verse:#1a2925;--bar:#4f8f82;--ok:#86cdbd;--warn:#e0a865}
+:root[data-theme="dark"][data-palette="r"]{--bg:#171112;--card:#201819;--ink:#ece6e3;--muted:#a89c9a;--line:#352a2b;--acc:#d6b06e;--onacc:#171112;--soft:#2a2020;--verse:#241c1c;--bar:#9a7536;--ok:#7cc7a0;--warn:#e0a865}
+:root[data-theme="dark"][data-palette="c"]{--bg:#14131c;--card:#1c1b27;--ink:#e8e6f3;--muted:#a19eb8;--line:#2c2a3c;--acc:#b7b2ec;--onacc:#14131c;--soft:#232136;--verse:#211f30;--bar:#6f6aae;--ok:#7cc7a0;--warn:#e0a865}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:disabled{opacity:.4;cursor:default}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:10px;padding-block:10px}
+.brand{font-family:var(--serif);font-weight:700;font-size:19px;color:var(--acc);letter-spacing:.14em;white-space:nowrap}
+.chip{border:1px solid currentColor;background:transparent;border-radius:999px;padding:1px 9px;font-size:12px;white-space:nowrap}
+.chip.warn{color:var(--warn)} .chip.ok{color:var(--ok)}
+.tabs{margin-left:auto;display:flex;gap:2px}
+.tabs button{border:none;background:none;padding:6px 10px;border-radius:999px;font-size:14px;color:var(--muted)}
+.tabs button[aria-pressed="true"]{background:var(--acc);color:var(--onacc)}
+.pop{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0 0;font-size:14px;display:grid;gap:8px}
+main{padding-block:18px 90px}
+.card{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:20px;display:grid;gap:10px}
+.card h2{margin:0;font-size:17px}
+.card p{margin:0}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1px solid var(--acc);background:var(--acc);color:var(--onacc);padding:8px 14px;border-radius:8px;font-size:14px}
+.btn.ghost{background:transparent;color:var(--acc)}
+.btn.small{padding:5px 10px;font-size:13px}
+.btn.plain{border-color:var(--line);background:var(--card);color:var(--ink)}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px}
+.num{background:var(--acc);color:var(--onacc);border-radius:4px;padding:1px 9px;font-weight:700;letter-spacing:.05em;font-variant-numeric:tabular-nums}
+.tagline{color:var(--muted)}
+.art{border-top:2px solid var(--acc);padding-top:10px}
+.art h1{font-weight:700;font-size:calc(var(--fs) + 9px);line-height:1.35;margin:8px 0 14px;text-wrap:balance}
+.reading{font-family:var(--serif);font-size:var(--fs);line-height:1.95}
+.reading p{margin:0 0 .9em;text-indent:2em;text-align:justify}
+.verse{background:var(--verse);border-left:3px solid var(--bar);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.verse .zh{font-weight:600}
+.verse .en{font-family:var(--latin);font-style:italic;font-size:calc(var(--fs) - 3px);color:var(--muted);line-height:1.55;margin-top:4px}
+.hymn{border:1px dashed var(--bar);border-radius:8px;padding:10px 14px;margin:18px 0;font-size:calc(var(--fs) - 2px);line-height:1.8}
+.hymn .ht{font-family:var(--sans);font-weight:700;font-size:14px;color:var(--acc);margin-bottom:4px}
+.lyric{display:flex;flex-wrap:wrap;column-gap:1.6em}
+.lyric span:empty{display:none}
+.lyric span.n{color:var(--acc);min-width:1.4em}
+.done-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
+.check{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px;font-size:15px}
+.check[aria-pressed="true"]{border-color:var(--ok);color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--card))}
+.nav{display:flex;gap:8px}
+.backtoday{margin-bottom:14px}
+.opener{text-align:center;padding:20px 8px 24px;margin-bottom:18px;border-bottom:1px solid var(--line)}
+.opener .k{color:var(--acc);letter-spacing:.3em;font-size:13px}
+.opener .t{font-family:var(--serif);font-weight:700;font-size:30px;color:var(--acc);letter-spacing:.2em;margin:4px 0}
+.opener .verse{border:none;text-align:center;border-radius:8px;max-width:520px;margin:12px auto 0;font-family:var(--serif)}
+.opener .ref{font-size:13px;color:var(--acc);margin-top:4px}
+.opener .eref{font-size:12px;color:var(--muted);font-family:var(--latin);font-style:italic}
+.note{font-size:12.5px;color:var(--muted)}
+.theme-block{margin-bottom:22px}
+.theme-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--acc);padding-bottom:4px;margin-bottom:6px}
+.theme-head h2{font-family:var(--serif);font-size:20px;color:var(--acc);margin:0}
+.theme-head .c{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.prog{flex:1 1 80px;height:5px;background:var(--line);border-radius:3px;overflow:hidden;min-width:60px;align-self:center}
+.prog i{display:block;height:100%;background:var(--ok)}
+.list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));column-gap:16px}
+.list button{width:100%;text-align:left;background:none;border:none;padding:6px 4px;display:flex;gap:8px;align-items:baseline;border-bottom:1px dotted var(--line);font-size:14.5px;min-width:0}
+.list button:hover{background:var(--soft)}
+.list .n{font-variant-numeric:tabular-nums;color:var(--acc);font-size:12.5px;flex:none}
+.list .tt{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.list .d{flex:none;color:var(--ok);font-size:12px}
+.list .today .tt{color:var(--acc);font-weight:700}
+.sbox{display:flex;gap:8px;margin-bottom:14px}
+.inp{flex:1;min-width:0;font:inherit;font-size:16px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.hit{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.hit .h{font-weight:700}
+.hit .s{font-family:var(--serif);font-size:14px;color:var(--muted);margin-top:2px}
+mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;border-radius:2px}
+.empty{color:var(--muted);text-align:center;padding:30px 0}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:grid;gap:12px}
+.panel h3{margin:0;font-size:15px}
+.panel .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.panel label.l{font-size:14px;color:var(--muted);min-width:5.5em}
+.panel input[type=date]{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:none;background:none;padding:6px 12px;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--acc);color:var(--onacc)}
+.sw{display:flex;gap:10px;flex-wrap:wrap}
+.sw button{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:6px 12px 6px 6px;font-size:14px}
+.sw button[aria-pressed="true"]{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+.sw i{display:inline-flex;width:30px;height:30px;border-radius:7px;overflow:hidden}
+.sw i b{flex:1}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(560px,calc(100% - 32px));background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 6px 24px color-mix(in srgb,var(--ink) 15%,transparent);display:grid;gap:8px;z-index:20;font-size:14px}
+.confirm{display:inline-flex;gap:6px;align-items:center;font-size:13px;flex-wrap:wrap}
+.steps{margin:0;padding-left:1.3em;display:grid;gap:4px}
+@media (max-width:520px){ .tabs button{padding:6px 7px} .art h1{font-size:calc(var(--fs) + 6px)} .brand{font-size:17px;letter-spacing:.08em} }
+@media (prefers-reduced-motion:no-preference){ .view{animation:fade .2s ease} @keyframes fade{from{opacity:.5}to{opacity:1}} }
+</style>
+<script>try{var p=JSON.parse(localStorage.getItem("sl-prefs")||"{}");document.documentElement.setAttribute("data-palette",p.palette||"r");if(p.theme&&p.theme!=="system")document.documentElement.setAttribute("data-theme",p.theme)}catch(e){document.documentElement.setAttribute("data-palette","r")}</script>
+
+<header class="bar"><div class="wrap">
+  <div class="brand">石榴放蕊</div>
+  <button class="chip warn" id="savechip" aria-expanded="false">⚠ 未保存</button>
+  <nav class="tabs" aria-label="切換頁面">
+    <button id="t-today" aria-pressed="true">今日</button>
+    <button id="t-toc" aria-pressed="false">目錄</button>
+    <button id="t-search" aria-pressed="false">搜尋</button>
+    <button id="t-set" aria-pressed="false">設定</button>
+  </nav>
+</div><div class="wrap" id="popwrap" hidden></div></header>
+
+<main class="wrap"><div id="view" class="view"></div></main>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+const THEMES=JSON.parse(document.getElementById('data').textContent);
+const NUMS='一二三四五六七八九', TOTAL=365;
+const ARTS=[]; THEMES.forEach(th=>th.a.forEach(a=>{a.th=th; ARTS[a.no]=a;}));
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad=n=>String(n).padStart(3,'0');
+const PALETTES=[['r','石榴紅',['#ffffff','#7a1f2b','#b08a4a']],['b','晴空淡藍',['#f5f7fb','#3b6ea8','#90b8ea']],['a','晨霧青綠',['#f4f8f7','#2f7f73','#86cdbd']],['c','薰衣草灰紫',['#f7f6fb','#5f5aa2','#b7b2ec']]];
+
+/* ---------- storage ---------- */
+function lsGet(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+let state=Object.assign({start:null,read:{}}, lsGet('sl-progress')||{});
+let prefs=Object.assign({fs:18,theme:'system',palette:'r'}, lsGet('sl-prefs')||{});
+let ui=Object.assign({welcomed:false,firstToast:false,snoozeUntil:0,milestones:{},iosHint:0}, lsGet('sl-ui')||{});
+const saveUI=()=>lsSet('sl-ui',ui);
+
+/* ---------- cloud (Firebase, optional) ---------- */
+const cloud={ready:false,user:null,fs:null,auth:null,ref:null};
+const CLOUD_ON=!!(window.FIREBASE_CONFIG&&window.FIREBASE_CONFIG.apiKey);
+function loadScript(src){return new Promise((ok,no)=>{const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
+async function initCloud(){
+  if(!CLOUD_ON) return;
+  const V='10.12.2', base='https://www.gstatic.com/firebasejs/'+V+'/';
+  try{
+    await loadScript(base+'firebase-app-compat.js');
+    await Promise.all([loadScript(base+'firebase-auth-compat.js'),loadScript(base+'firebase-firestore-compat.js')]);
+    firebase.initializeApp(window.FIREBASE_CONFIG);
+    cloud.auth=firebase.auth(); cloud.fs=firebase.firestore();
+    try{await cloud.auth.getRedirectResult()}catch(e){}
+    cloud.ready=true; refreshChrome();
+    cloud.auth.onAuthStateChanged(async u=>{
+      cloud.user=u||null; cloud.ref=u?cloud.fs.collection('users').doc(u.uid):null;
+      if(u) await pullAndMerge();
+      refreshChrome(); rerender();
+    });
+  }catch(e){ cloud.ready=false; }
+}
+async function pullAndMerge(){
+  try{
+    const snap=await cloud.ref.get(); const d=snap.exists?snap.data():{};
+    const read=Object.assign({}, d.read||{}, state.read);
+    Object.keys(read).forEach(k=>{if(!read[k]) delete read[k]});
+    state.read=read; state.start=d.start||state.start;
+    if(d.palette) prefs.palette=d.palette; if(d.theme) prefs.theme=d.theme;
+    lsSet('sl-progress',state); applyPrefs(false);
+    await cloud.ref.set({start:state.start||null, read:state.read, palette:prefs.palette, theme:prefs.theme, updatedAt:Date.now()},{merge:true});
+  }catch(e){}
+}
+function cloudWrite(patch){ if(cloud.ref) cloud.ref.set(Object.assign({updatedAt:Date.now()},patch),{merge:true}).catch(()=>{}); }
+function cloudUnread(n){ if(cloud.ref) cloud.ref.update({['read.'+n]:firebase.firestore.FieldValue.delete(),updatedAt:Date.now()}).catch(()=>{}); }
+async function signIn(){
+  if(!cloud.ready) return;
+  const p=new firebase.auth.GoogleAuthProvider();
+  try{ await cloud.auth.signInWithPopup(p); }
+  catch(e){ if(e&&e.code&&/popup|operation-not-supported/.test(e.code)){ try{await cloud.auth.signInWithRedirect(p)}catch(_){} } }
+}
+function signOut(){ if(cloud.auth) cloud.auth.signOut(); }
+const saved=()=>!!cloud.user;
+
+/* ---------- day logic ---------- */
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function dayIndex(){ if(!state.start) return null;
+  const [y,m,d]=state.start.split('-').map(Number), [y2,m2,d2]=todayStr().split('-').map(Number);
+  return Math.floor((Date.UTC(y2,m2-1,d2)-Date.UTC(y,m-1,d))/86400000)+1; }
+function todayNo(){const d=dayIndex(); if(d==null||d<1) return 1; return ((d-1)%TOTAL)+1;}
+const readCount=()=>Object.keys(state.read).filter(k=>state.read[k]).length;
+
+/* ---------- prefs ---------- */
+function applyPrefs(write){
+  const r=document.documentElement;
+  r.style.setProperty('--fs',prefs.fs+'px');
+  if(prefs.theme==='system') r.removeAttribute('data-theme'); else r.setAttribute('data-theme',prefs.theme);
+  r.setAttribute('data-palette',prefs.palette);
+  const m=document.querySelector('meta[name=theme-color]'); if(m) m.content=getComputedStyle(r).getPropertyValue('--bg').trim();
+  lsSet('sl-prefs',prefs);
+  if(write) cloudWrite({palette:prefs.palette,theme:prefs.theme});
+}
+
+/* ---------- reminders ---------- */
+function canRemind(){ return !saved() && Date.now()>ui.snoozeUntil; }
+function saveWay(){ return cloud.ready ? '登入 Google 帳號就能永久保存，換手機或清除資料也不會不見。' : '到「設定」按「產生進度碼」，把那串碼存到 LINE 或備忘錄，就不怕不見。'; }
+function toast(html){ const t=$('#toast'); t.innerHTML=html; t.hidden=false; bindToast(); }
+function hideToast(){ $('#toast').hidden=true; }
+function bindToast(){
+  const l=$('#t-login'); if(l) l.onclick=()=>{hideToast(); signIn();};
+  const g=$('#t-goset'); if(g) g.onclick=()=>{hideToast(); show('set');};
+  const s=$('#t-later'); if(s) s.onclick=()=>{ui.snoozeUntil=Date.now()+7*86400000; saveUI(); hideToast();};
+  const x=$('#t-ok'); if(x) x.onclick=hideToast;
+}
+function saveButtons(){ return cloud.ready ? '<button class="btn small" id="t-login">用 Google 登入保存</button>' : '<button class="btn small" id="t-goset">去產生進度碼</button>'; }
+function afterMark(no){
+  if(saved()) return;
+  const n=readCount();
+  if(!ui.firstToast){ ui.firstToast=true; saveUI();
+    toast(`<div>已記錄第 ${pad(no)} 篇！這筆紀錄目前只存在這支手機裡。${saveWay()}</div><div class="btns">${saveButtons()}<button class="btn ghost small" id="t-later">以後再說</button></div>`); return; }
+  if(!canRemind()) return;
+  const th=ARTS[no].th, themeDone=th.a.every(a=>state.read[a.no]);
+  let key=null, msg='';
+  if(themeDone && !ui.milestones['t'+th.i]){ key='t'+th.i; msg=`你讀完了「${th.n}」整個主題！`; }
+  else if([7,30,100,200,300].includes(n) && !ui.milestones['n'+n]){ key='n'+n; msg=`你已經讀了 ${n} 篇，別讓紀錄不見了！`; }
+  if(key){ ui.milestones[key]=true; saveUI();
+    toast(`<div>${msg}${saveWay()}</div><div class="btns">${saveButtons()}<button class="btn ghost small" id="t-later">以後再說</button></div>`); }
+}
+function isIOSBrowser(){ const ua=navigator.userAgent||''; const ios=/iphone|ipad|ipod/i.test(ua)||(/macintosh/i.test(ua)&&navigator.maxTouchPoints>1);
+  const standalone=navigator.standalone||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches); return ios&&!standalone; }
+
+/* ---------- chrome ---------- */
+function refreshChrome(){
+  const c=$('#savechip');
+  if(saved()){ c.className='chip ok'; c.textContent='✓ 已保存'; }
+  else { c.className='chip warn'; c.textContent='⚠ 未保存'; }
+  if(!$('#popwrap').hidden) renderPop();
+}
+function renderPop(){
+  const p=$('#popwrap');
+  p.innerHTML = saved()
+    ? `<div class="pop"><div>✓ 你的進度已存到 Google 帳號（${esc(cloud.user.email||'')}）。換手機只要用同一個帳號登入，進度就會回來。</div></div>`
+    : `<div class="pop"><div>⚠ 你的閱讀進度目前只存在這支手機的瀏覽器裡。清除瀏覽器資料或換手機，紀錄會不見。</div><div>${saveWay()}</div><div class="btns">${cloud.ready?'<button class="btn small" id="p-login">用 Google 登入保存</button>':''}<button class="btn ghost small" id="p-set">${cloud.ready?'不登入，改用進度碼':'去產生進度碼'}</button></div></div>`;
+  const l=$('#p-login'); if(l) l.onclick=()=>{p.hidden=true; signIn();};
+  const s=$('#p-set'); if(s) s.onclick=()=>{p.hidden=true; $('#savechip').setAttribute('aria-expanded','false'); show('set');};
+}
+$('#savechip').onclick=()=>{const p=$('#popwrap'); p.hidden=!p.hidden; $('#savechip').setAttribute('aria-expanded',String(!p.hidden)); if(!p.hidden) renderPop();};
+
+/* ---------- content rendering ---------- */
+function splitRef(v){const m=String(v).match(/[（(]([^（）()]+)[）)]\s*$/); return m?[v.slice(0,m.index).trim(),m[1].trim()]:[v,''];}
+function body(items, opener){
+  let h='';
+  for(let i=0;i<items.length;i++){
+    const [k,v]=items[i];
+    if(k==='V'){
+      let en=''; if(items[i+1]&&items[i+1][0]==='E'){en=items[i+1][1]; i++;}
+      if(opener){const [zt,zr]=splitRef(v),[et,er]=splitRef(en);
+        h+=`<div class="verse"><div class="zh">${esc(zt)}</div><div class="ref">${esc(zr)}</div>${en?`<div class="en">${esc(et)}</div><div class="eref">${esc(er)}</div>`:''}</div>`;}
+      else h+=`<div class="verse"><div class="zh">${esc(v)}</div>${en?`<div class="en">${esc(en)}</div>`:''}</div>`;
+    } else if(k==='E'){ h+=`<div class="verse"><div class="en">${esc(v)}</div></div>`; }
+    else if(k==='P'){ h+=`<p>${esc(v)}</p>`; }
+    else if(k==='H'||k==='L'){
+      let x='<div class="hymn">'; if(k==='H'){x+=`<div class="ht">詩歌　${esc(v)}</div>`; i++;}
+      while(i<items.length&&items[i][0]==='L'){ const parts=items[i][1].split('|');
+        x+='<div class="lyric">'+parts.map((p,j)=>`<span${parts.length===3&&j===0?' class="n"':''}>${esc(p)}</span>`).join('')+'</div>'; i++; }
+      h+=x+'</div>'; i--;
+    }
+  }
+  return h;
+}
+const themeLabel=th=>`（${NUMS[th.i]}）${th.n}`;
+
+function welcomeCard(){
+  return `<div class="card"><h2>歡迎使用《石榴放蕊》每日讀</h2>
+  <p>一天一篇，共 365 篇。按「從今天開始讀」，今天就是第 1 天，之後每天打開會自動顯示當天的那一篇。</p>
+  <p class="note">📌 你的閱讀進度目前只存在這支手機。${saveWay()}</p>
+  <div class="btns"><button class="btn" id="startnow">從今天開始讀</button>${cloud.ready?'<button class="btn ghost" id="w-login">用 Google 登入保存</button>':''}</div></div>`;
+}
+function iosCard(){
+  return `<div class="card"><h2>把它加到手機主畫面</h2>
+  <ol class="steps"><li>點 Safari 下方的「分享」按鈕（方框加向上箭頭）。</li><li>往下滑，點「加入主畫面」。</li><li>點右上角「新增」。</li></ol>
+  <p class="note">以後從主畫面的圖示打開，像 App 一樣方便，iPhone 也不會自動清掉你的閱讀紀錄。</p>
+  <div class="btns"><button class="btn ghost small" id="ios-ok">知道了</button></div></div>`;
+}
+function renderArticle(no){
+  const a=ARTS[no], th=a.th, tn=todayNo(), isToday=!!state.start&&no===tn;
+  let h='';
+  if(!state.start) h+=welcomeCard();
+  else if(!isToday) h+=`<div class="backtoday"><button class="btn ghost small" id="gotoday">回到今天（第 ${pad(tn)} 篇）</button></div>`;
+  if(state.start && isIOSBrowser() && Date.now()>ui.iosHint) h+=iosCard();
+  if(th.a[0].no===no) h+=`<section class="opener"><div class="k">第${NUMS[th.i]}主題</div><div class="t">${esc(th.n)}</div><div class="note">第 ${pad(th.a[0].no)} 篇 – 第 ${pad(th.a[th.a.length-1].no)} 篇　共 ${th.a.length} 篇</div>${body(th.intro,true)}</section>`;
+  h+=`<article class="art"><div class="meta"><span class="num">第 ${pad(no)} 篇</span><span class="tagline">${themeLabel(th)}${isToday?'・今天':''}</span></div>
+  <h1>${esc(a.t)}</h1><div class="reading">${body(a.b,false)}</div>
+  <div class="done-row"><button class="check" id="mark" aria-pressed="${!!state.read[no]}">${state.read[no]?'✓ 已讀完':'○ 標記為已讀'}</button>
+  <div class="nav"><button class="btn plain small" id="prev" ${no<=1?'disabled':''}>‹ 上一篇</button><button class="btn plain small" id="next" ${no>=TOTAL?'disabled':''}>下一篇 ›</button></div></div></article>`;
+  return h;
+}
+function renderTOC(){
+  const tn=todayNo();
+  let h=`<p class="note" style="margin:0 0 14px">已讀 ${readCount()} / ${TOTAL} 篇。點任何一篇就能打開。</p>`;
+  THEMES.forEach(th=>{ const done=th.a.filter(a=>state.read[a.no]).length;
+    h+=`<section class="theme-block"><div class="theme-head"><h2>${themeLabel(th)}</h2><span class="c">第 ${pad(th.a[0].no)}–${pad(th.a[th.a.length-1].no)} 篇・已讀 ${done}/${th.a.length}</span><span class="prog" aria-hidden="true"><i style="width:${done/th.a.length*100}%"></i></span></div><ul class="list">`;
+    th.a.forEach(a=>{h+=`<li><button data-no="${a.no}" class="${state.start&&a.no===tn?'today':''}"><span class="n">${pad(a.no)}</span><span class="tt">${esc(a.t)}</span>${state.read[a.no]?'<span class="d">✓</span>':''}</button></li>`});
+    h+='</ul></section>'; });
+  return h;
+}
+const plainText=a=>a.b.map(x=>String(x[1]).replace(/\|/g,' ')).join(' ');
+let query='';
+function renderSearch(){ return `<form class="sbox" id="sform"><input class="inp" id="q" type="search" placeholder="輸入關鍵字，例如：慕勒、禱告、詩篇" value="${esc(query)}" autocomplete="off"><button class="btn" type="submit">搜尋</button></form><div id="hits"></div>`; }
+function doSearch(){
+  const q=query.trim(), box=$('#hits'); if(!box) return;
+  if(!q){box.innerHTML='<p class="empty">可以搜尋篇名、內文、經文或詩歌。</p>';return}
+  const res=[]; for(let n=1;n<=TOTAL;n++){const a=ARTS[n],t=plainText(a),idx=t.indexOf(q); if(a.t.includes(q)||idx>=0) res.push({a,idx,t});}
+  if(!res.length){box.innerHTML=`<p class="empty">找不到「${esc(q)}」。試試較短的關鍵字。</p>`;return}
+  const hl=s=>esc(s).split(esc(q)).join(`<mark>${esc(q)}</mark>`);
+  box.innerHTML=`<p class="note">找到 ${res.length} 篇</p>`+res.slice(0,200).map(r=>{
+    const s=r.idx>=0?(r.idx>20?'…':'')+r.t.slice(Math.max(0,r.idx-20),r.idx+q.length+40)+'…':'';
+    return `<button class="hit" data-no="${r.a.no}"><div class="h"><span class="num" style="font-size:12px">${pad(r.a.no)}</span>　${hl(r.a.t)}</div>${s?`<div class="s">${hl(s)}</div>`:''}</button>`}).join('');
+}
+
+/* backup code */
+function b64u(bytes){let b='';bytes.forEach(x=>b+=String.fromCharCode(x));return btoa(b).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function unb64u(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0))}
+function makeCode(){ const bytes=new Uint8Array(46); let last=-1;
+  for(let n=1;n<=TOTAL;n++) if(state.read[n]){bytes[(n-1)>>3]|=1<<((n-1)&7); last=(n-1)>>3;}
+  return 'SL1-'+(state.start?state.start.replace(/-/g,''):'00000000')+'-'+(last<0?'0':b64u(bytes.slice(0,last+1))); }
+function readCode(raw){ const m=String(raw||'').replace(/\s+/g,'').match(/^SL1-(\d{8})-([A-Za-z0-9_-]+)$/i); if(!m) return null;
+  let start=null; if(m[1]!=='00000000'){const y=m[1].slice(0,4),mo=m[1].slice(4,6),d=m[1].slice(6,8),t=new Date(+y,+mo-1,+d); if(t.getMonth()!==+mo-1) return null; start=`${y}-${mo}-${d}`;}
+  const read={}; if(m[2]!=='0'){let bytes; try{bytes=unb64u(m[2])}catch(e){return null}
+    for(let n=1;n<=TOTAL;n++){const i=(n-1)>>3; if(i<bytes.length&&bytes[i]&(1<<((n-1)&7))) read[n]=true;}}
+  return {start,read}; }
+
+function renderSettings(){
+  const d=dayIndex();
+  const acct = !cloud.ready ? '' : saved()
+    ? `<div class="panel"><h3>帳號</h3><div>✓ 已用 Google 帳號登入：${esc(cloud.user.email||'')}</div><div class="note">你的開始日期、已讀紀錄和配色選擇都存在這個帳號，換手機用同一個帳號登入就會回來。</div><div class="btns"><button class="btn ghost small" id="signout">登出</button></div></div>`
+    : `<div class="panel"><h3>帳號</h3><div>⚠ 尚未登入，進度只存在這支手機。</div><div class="note">登入 Google 帳號是為了保存你的閱讀進度，換手機或清除瀏覽器資料也不會不見。不登入也可以照常閱讀。</div><div class="btns"><button class="btn small" id="signin">用 Google 登入保存</button></div></div>`;
+  return acct + `<div class="panel"><h3>閱讀</h3>
+   <div class="row"><label class="l" for="startd">開始日期</label><input type="date" id="startd" value="${state.start||''}"><button class="btn small" id="savestart">儲存</button></div>
+   <div class="note">${state.start?`今天是第 ${d} 天，對應第 ${pad(todayNo())} 篇。讀完 365 天後會從第 001 篇重新開始。`:'還沒設定。開始那天讀第 001 篇，之後每天往下一篇。'}</div>
+   <div class="row"><label class="l">已讀紀錄</label><span class="note">已讀 ${readCount()} 篇</span><span id="resetwrap"><button class="btn ghost small" id="reset">清除已讀紀錄</button></span></div></div>
+  <div class="panel"><h3>外觀</h3>
+   <div class="row"><label class="l">配色</label><div class="sw">${PALETTES.map(([k,n,c])=>`<button data-pal="${k}" aria-pressed="${prefs.palette===k}"><i>${c.map(x=>`<b style="background:${x}"></b>`).join('')}</i>${n}</button>`).join('')}</div></div>
+   <div class="row"><label class="l">深淺</label><div class="seg">${[['system','跟隨手機'],['light','淺色'],['dark','深色']].map(([k,n])=>`<button data-th="${k}" aria-pressed="${prefs.theme===k}">${n}</button>`).join('')}</div></div>
+   <div class="row"><label class="l">字體大小</label><div class="seg">${[16,18,20,22].map((s,i)=>`<button data-fs="${s}" aria-pressed="${prefs.fs===s}">${['小','中','大','特大'][i]}</button>`).join('')}</div></div></div>
+  <div class="panel"><h3>進度碼（不登入也能備份）</h3>
+   <div class="note">換手機或清除瀏覽器資料前，先按「產生進度碼」，把那串碼存到 LINE 或手機備忘錄。之後貼回下面就能還原開始日期和已讀紀錄。</div>
+   <div class="row"><button class="btn small" id="mkcode">產生進度碼</button></div>
+   <div class="row" id="coderow" hidden><input class="inp" id="codeout" readonly style="font-family:monospace;font-size:14px"><button class="btn ghost small" id="copycode">複製</button></div>
+   <div class="row"><input class="inp" id="codein" placeholder="貼上進度碼，例如 SL1-20261024-…" style="font-size:14px"><button class="btn small" id="usecode">還原</button></div>
+   <div class="note" id="restoremsg" role="status"></div></div>
+`;
+}
+
+/* ---------- views ---------- */
+let view='today', cur=null;
+function show(v,no){
+  view=v; if(no) cur=no;
+  ['today','toc','search','set'].forEach(k=>$('#t-'+k).setAttribute('aria-pressed',String(k===v)));
+  const el=$('#view');
+  if(v==='today') el.innerHTML=renderArticle(cur||todayNo());
+  else if(v==='toc') el.innerHTML=renderTOC();
+  else if(v==='search'){el.innerHTML=renderSearch(); doSearch();}
+  else el.innerHTML=renderSettings();
+  el.classList.remove('view'); void el.offsetWidth; el.classList.add('view');
+  bind();
+}
+const rerender=()=>show(view, view==='today'?(cur||todayNo()):undefined);
+function open(no){ cur=no; show('today',no); window.scrollTo({top:0}); try{history.replaceState(null,'','#a'+no)}catch(e){} }
+function setRead(n,on){ if(on) state.read[n]=true; else delete state.read[n]; lsSet('sl-progress',state);
+  if(on) cloudWrite({read:{[n]:true}}); else cloudUnread(n); }
+
+function bind(){
+  const on=(id,f)=>{const e=document.getElementById(id); if(e) e.onclick=f;};
+  on('startnow',()=>{state.start=todayStr(); lsSet('sl-progress',state); cloudWrite({start:state.start}); cur=todayNo(); show('today',cur)});
+  on('w-login',signIn); on('signin',signIn); on('signout',signOut);
+  on('ios-ok',()=>{ui.iosHint=Date.now()+30*86400000; saveUI(); rerender();});
+  on('gotoday',()=>open(todayNo()));
+  on('prev',()=>open((cur||todayNo())-1)); on('next',()=>open((cur||todayNo())+1));
+  on('mark',()=>{const n=cur||todayNo(), was=!!state.read[n]; setRead(n,!was); show('today',n); if(!was) afterMark(n);});
+  document.querySelectorAll('[data-no]').forEach(b=>b.onclick=()=>open(+b.dataset.no));
+  const f=$('#sform'); if(f){ f.onsubmit=e=>{e.preventDefault(); query=$('#q').value; doSearch()}; $('#q').oninput=e=>{query=e.target.value; doSearch()}; }
+  on('savestart',()=>{const v=$('#startd').value; if(v){state.start=v; cur=null; lsSet('sl-progress',state); cloudWrite({start:v}); show('set')}});
+  document.querySelectorAll('[data-pal]').forEach(b=>b.onclick=()=>{prefs.palette=b.dataset.pal; applyPrefs(true); show('set')});
+  document.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>{prefs.theme=b.dataset.th; applyPrefs(true); show('set')});
+  document.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{prefs.fs=+b.dataset.fs; applyPrefs(false); show('set')});
+  on('reset',()=>{$('#resetwrap').innerHTML='<span class="confirm">確定清除全部已讀紀錄？<button class="btn small" id="resetyes">清除</button><button class="btn ghost small" id="resetno">取消</button></span>'; bind();});
+  on('resetyes',()=>{state.read={}; lsSet('sl-progress',state); if(cloud.ref) cloud.ref.update({read:{},updatedAt:Date.now()}).catch(()=>{}); show('set')});
+  on('resetno',()=>show('set'));
+  on('mkcode',()=>{$('#coderow').hidden=false; $('#codeout').value=makeCode(); $('#codeout').select();});
+  on('copycode',()=>{const el=$('#codeout'); const fail=()=>{el.select(); $('#restoremsg').textContent='請長按上面那串碼，選「複製」。'};
+    try{navigator.clipboard.writeText(el.value).then(()=>{$('#copycode').textContent='已複製'}).catch(fail)}catch(e){fail()}});
+  on('usecode',()=>{const r=readCode($('#codein').value);
+    if(!r){$('#restoremsg').textContent='這串碼看起來不完整。請確認是從「產生進度碼」複製的整串文字，開頭是 SL1-。';return}
+    state.start=r.start; state.read=r.read; cur=null; lsSet('sl-progress',state);
+    if(cloud.ref) cloud.ref.set({start:r.start,read:r.read,updatedAt:Date.now()},{merge:false}).then(()=>cloudWrite({palette:prefs.palette,theme:prefs.theme})).catch(()=>{});
+    show('set'); $('#restoremsg').textContent=`已還原：${r.start?'開始日期 '+r.start+'，':''}已讀 ${Object.keys(r.read).length} 篇。`;});
+}
+$('#t-today').onclick=()=>{cur=todayNo(); show('today')};
+$('#t-toc').onclick=()=>show('toc');
+$('#t-search').onclick=()=>{show('search'); const q=$('#q'); if(q) q.focus()};
+$('#t-set').onclick=()=>show('set');
+
+applyPrefs(false);
+const hm=(location.hash||'').match(/^#a(\d{1,3})$/);
+if(hm&&+hm[1]>=1&&+hm[1]<=TOTAL) cur=+hm[1];
+show('today',cur||todayNo()); refreshChrome();
+initCloud();
+})();
+</script>
