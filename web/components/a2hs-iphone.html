@@ -1,0 +1,150 @@
+<!-- ===== iPhone「加入主畫面」教學動畫（元件） =====
+     放進網站時：把 <style> 併入主樣式、把 .a2hs 區塊放進加入主畫面卡片、最後的 <script> 放到頁面底部。
+     顏色全部用網站的配色變數（--acc --card --ink --muted --line --bg），會跟著配色與深淺模式變。 -->
+<style>
+.a2hs{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+@media (max-width:520px){.a2hs{grid-template-columns:1fr;justify-items:center}}
+.a2hs .phone{position:relative;width:200px;height:400px;border-radius:30px;background:#111;padding:8px;box-shadow:0 8px 24px color-mix(in srgb,var(--ink) 18%,transparent)}
+.a2hs .scr{position:relative;width:100%;height:100%;border-radius:23px;overflow:hidden;background:#f2f2f7;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif;color:#111}
+.a2hs .notch{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:56px;height:16px;border-radius:9px;background:#111;z-index:9}
+/* layers */
+.a2hs .ly{position:absolute;inset:0;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1)}
+.a2hs .web{background:#fff}
+.a2hs .web .hd{height:44px;margin-top:26px;display:flex;align-items:center;padding:0 12px;border-bottom:1px solid #eee}
+.a2hs .web .hd b{color:var(--acc);font-family:"Noto Serif TC",serif;letter-spacing:.12em;font-size:13px}
+.a2hs .web .ln{height:7px;border-radius:4px;background:#e6e6ea;margin:10px 12px 0}
+.a2hs .web .ln.s{width:55%} .a2hs .web .ln.t{height:12px;width:45%;background:#d6d6dc;margin-top:16px}
+.a2hs .web .vb{margin:12px 12px 0;height:46px;border-radius:6px;background:color-mix(in srgb,var(--acc) 10%,#fff);border-left:3px solid var(--acc)}
+.a2hs .bar{position:absolute;left:10px;right:10px;bottom:12px;height:38px;border-radius:19px;background:rgba(255,255,255,.92);box-shadow:0 2px 10px rgba(0,0,0,.15);display:flex;align-items:center;gap:8px;padding:0 10px;font-size:10px;color:#666}
+.a2hs .bar .url{flex:1;text-align:center;white-space:nowrap;overflow:hidden}
+.a2hs .bar .ic{width:24px;height:24px;border-radius:12px;display:grid;place-items:center;font-size:14px;color:#111;font-weight:700}
+/* menu (⋯) */
+.a2hs .menu{left:auto;right:10px;top:auto;bottom:58px;inset:auto 10px 58px auto;width:150px;height:auto;background:rgba(250,250,252,.98);border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.2);font-size:11.5px;overflow:hidden;opacity:0;transform:scale(.85) translateY(10px);transform-origin:bottom right}
+.a2hs .menu div{padding:8px 12px;border-bottom:1px solid #e9e9ee;display:flex;justify-content:space-between}
+.a2hs .menu div:last-child{border:none}
+/* share sheet */
+.a2hs .sheet{top:auto;height:300px;bottom:0;background:#f2f2f7;border-radius:16px 16px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,.18);transform:translateY(105%);overflow:hidden}
+.a2hs .sheet .top{display:flex;gap:8px;align-items:center;padding:12px 12px 8px;font-size:11px}
+.a2hs .sheet .top i{width:30px;height:30px;border-radius:7px;background:var(--acc);color:#fff;font-style:normal;display:grid;place-items:center;font-family:"Noto Serif TC",serif;font-size:15px}
+.a2hs .sheet .apps{display:flex;gap:10px;padding:4px 12px 10px}
+.a2hs .sheet .apps span{width:34px;height:34px;border-radius:9px;background:#d9d9e0}
+.a2hs .sheet .list{margin:0 10px;background:#fff;border-radius:10px;font-size:11.5px;transition:transform .9s cubic-bezier(.3,.7,.2,1)}
+.a2hs .sheet .list div{padding:9px 12px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}
+.a2hs .sheet .list div:last-child{border:none}
+.a2hs .sheet .list .tg{font-weight:600}
+.a2hs .sq{display:inline-grid;place-items:center;width:15px;height:15px;border:1.5px solid #333;border-radius:4px;font-size:11px;line-height:1}
+/* add screen */
+.a2hs .add{background:#f2f2f7;transform:translateY(105%)}
+.a2hs .add .nav{margin-top:28px;display:flex;justify-content:space-between;padding:8px 12px;font-size:11.5px}
+.a2hs .add .nav .c{color:#0a7aff} .a2hs .add .nav .n{color:#0a7aff;font-weight:700;padding:2px 6px;border-radius:6px}
+.a2hs .add .box{margin:8px 10px;background:#fff;border-radius:10px;padding:10px;display:flex;gap:10px;align-items:center;font-size:12px}
+.a2hs .add .box i{width:40px;height:40px;border-radius:10px;background:var(--acc);color:#fff;font-style:normal;display:grid;place-items:center;font-family:"Noto Serif TC",serif;font-size:20px;flex:none}
+.a2hs .add .tog{margin:0 10px;background:#fff;border-radius:10px;padding:9px 10px;display:flex;justify-content:space-between;align-items:center;font-size:11px}
+.a2hs .add .tog b{width:30px;height:18px;border-radius:9px;background:#34c759;position:relative}
+.a2hs .add .tog b::after{content:"";position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+/* home screen */
+.a2hs .home{background:linear-gradient(160deg,#c9d6e8,#e9d9dc);opacity:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px 0;padding:44px 12px 0;align-content:start;justify-items:center}
+.a2hs .home span{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.55)}
+.a2hs .home .me{display:grid;justify-items:center;gap:3px;font-size:8.5px;color:#222;transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1) .2s}
+.a2hs .home .me i{width:36px;height:36px;border-radius:10px;background:var(--acc);color:#fff;font-style:normal;display:grid;place-items:center;font-family:"Noto Serif TC",serif;font-size:18px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+/* finger */
+.a2hs .finger{position:absolute;width:26px;height:26px;border-radius:50%;background:rgba(40,40,40,.28);border:2px solid rgba(255,255,255,.9);z-index:8;transition:left .6s ease,top .6s ease,opacity .3s;left:150px;top:300px;opacity:0;pointer-events:none}
+.a2hs .finger.tap{animation:a2tap .5s ease}
+@keyframes a2tap{40%{transform:scale(.7);background:rgba(40,40,40,.5)}100%{transform:scale(1)}}
+.a2hs .hl{animation:a2hl 1s ease}
+@keyframes a2hl{0%,100%{background:transparent}40%{background:color-mix(in srgb,var(--acc) 22%,#fff)}}
+/* states */
+.a2hs[data-s="2"] .menu,.a2hs[data-s="3"] .menu{opacity:1;transform:none}
+.a2hs[data-s="3"] .menu{opacity:0}
+.a2hs[data-s="3"] .sheet,.a2hs[data-s="4"] .sheet{transform:none}
+.a2hs[data-s="4"] .sheet .list{transform:translateY(-118px)}
+.a2hs[data-s="5"] .add{transform:none}
+.a2hs[data-s="6"] .home{opacity:1}
+.a2hs[data-s="6"] .home .me{transform:scale(1)}
+.a2hs .replay{position:absolute;inset:0;z-index:10;display:none;place-items:center;align-content:end;padding-bottom:80px;gap:10px;background:linear-gradient(to bottom,rgba(0,0,0,0) 45%,rgba(0,0,0,.45));border:none;border-radius:23px;color:#fff;font:inherit;font-size:14px;font-weight:600;cursor:pointer;width:100%;height:100%}
+.a2hs .replay i{width:58px;height:58px;border-radius:50%;background:var(--acc);display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.a2hs .replay i::before{content:"";margin-left:5px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #fff}
+.a2hs.ended .replay{display:grid}
+/* captions */
+.a2hs .cap{display:grid;gap:8px;min-width:0;max-width:340px}
+.a2hs .cap ol{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.a2hs .cap li{display:flex;gap:8px;align-items:baseline;padding:6px 10px;border-radius:8px;color:var(--muted);font-size:14.5px;line-height:1.5;cursor:pointer;transition:background .25s,color .25s}
+.a2hs .cap li b{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;border:1px solid currentColor}
+.a2hs .cap li.on{background:color-mix(in srgb,var(--acc) 12%,transparent);color:var(--ink);font-weight:600}
+.a2hs .cap li.on b{background:var(--acc);border-color:var(--acc);color:var(--onacc,#fff)}
+.a2hs .ctl{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted)}
+.a2hs .ctl button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.a2hs .ly,.a2hs .finger,.a2hs .sheet .list,.a2hs .home .me{transition:none}.a2hs .finger.tap,.a2hs .hl{animation:none}}
+</style>
+
+<div class="a2hs" data-s="1" aria-label="iPhone 加入主畫面步驟示範">
+  <div class="phone"><div class="scr" aria-hidden="true">
+    <div class="notch"></div>
+    <div class="ly web">
+      <div class="hd"><b>石榴放蕊</b></div>
+      <div class="ln t"></div><div class="vb"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div><div class="ln s"></div>
+      <div class="bar"><span class="ic">‹</span><span class="url">石榴放蕊</span><span class="ic" data-k="more">⋯</span></div>
+    </div>
+    <div class="ly menu"><div>重新載入<span>↻</span></div><div>加入書籤<span>☆</span></div><div data-k="share">分享<span class="sq">↑</span></div></div>
+    <div class="ly sheet">
+      <div class="top"><i>榴</i><div>石榴放蕊 每日讀<br><span style="color:#888">github.io</span></div></div>
+      <div class="apps"><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="list"><div>拷貝<span>⧉</span></div><div>加入閱讀列表<span>◎</span></div><div>加入書籤<span>☆</span></div><div>加入喜好項目<span>★</span></div><div>在頁面上尋找<span>⌕</span></div><div class="tg" data-k="a2h">加入主畫面<span class="sq">+</span></div><div>標示<span>✎</span></div></div>
+    </div>
+    <div class="ly add">
+      <div class="nav"><span class="c">取消</span><b style="font-size:12px">加入主畫面</b><span class="n" data-k="addbtn">新增</span></div>
+      <div class="box"><i>榴</i><div>石榴放蕊<br><span style="color:#999;font-size:10px">github.io</span></div></div>
+      <div class="tog"><span>以網頁 App 打開</span><b></b></div>
+    </div>
+    <div class="ly home"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><div class="me"><i>榴</i>石榴放蕊</div></div>
+    <div class="finger"></div>
+  </div><button type="button" class="replay" data-a2="replay" aria-label="重新播放示範"><i></i>重新播放</button></div>
+  <div class="cap">
+    <ol>
+      <li data-go="1"><b>1</b><span>用 Safari 打開網站，點網址列右邊的「⋯」</span></li>
+      <li data-go="2"><b>2</b><span>點「分享」</span></li>
+      <li data-go="3"><b>3</b><span>往下滑，點「加入主畫面」</span></li>
+      <li data-go="5"><b>4</b><span>「以網頁 App 打開」保持開啟，點右上角「新增」</span></li>
+      <li data-go="6"><b>5</b><span>完成！以後從主畫面的「榴」圖示打開</span></li>
+    </ol>
+    <div class="ctl"><button type="button" data-a2="toggle">暫停</button><span>舊款 iPhone：直接點畫面下方的「分享」按鈕，再從第 3 步開始。</span></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('.a2hs').forEach(function(root){
+    if(root.dataset.ready) return; root.dataset.ready='1';
+    var f=root.querySelector('.finger'), scr=root.querySelector('.scr');
+    // 每一步：手指要點的元素、停留時間
+    var plan={1:{k:'more',t:2200},2:{k:'share',t:2000},3:{k:null,t:1300},4:{k:'a2h',t:2000},5:{k:'addbtn',t:2200},6:{k:null,t:2800}};
+    var capOf={1:0,2:1,3:2,4:2,5:3,6:4};
+    var s=1, timer=null, playing=true;
+    var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function pointAt(k){
+      var el=k&&root.querySelector('[data-k="'+k+'"]');
+      if(!el){f.style.opacity=0;return}
+      var a=el.getBoundingClientRect(), b=scr.getBoundingClientRect();
+      f.style.left=(a.left-b.left+a.width/2-13)+'px'; f.style.top=(a.top-b.top+a.height/2-13)+'px'; f.style.opacity=1;
+      setTimeout(function(){f.classList.remove('tap');void f.offsetWidth;f.classList.add('tap');el.classList.remove('hl');void el.offsetWidth;el.classList.add('hl')},650);
+    }
+    function setBtn(){btn.textContent=root.classList.contains('ended')?'▶ 重新播放':(playing?'暫停':'▶ 繼續播放')}
+    function go(n){
+      s=n; root.setAttribute('data-s',n);
+      root.querySelectorAll('.cap li').forEach(function(li,i){li.classList.toggle('on',i===capOf[n])});
+      var p=plan[n]; setTimeout(function(){pointAt(p.k)}, n===4?1150:(n===5?750:450));
+      clearTimeout(timer);
+      if(playing) timer=setTimeout(function(){ if(n>=6){ playing=false; root.classList.add('ended'); f.style.opacity=0; setBtn(); } else go(n+1); }, p.t+(n===4?1100:(n===5?300:0)));
+    }
+    function restart(){ root.classList.remove('ended'); playing=true; setBtn(); go(1); }
+    var btn=root.querySelector('[data-a2="toggle"]');
+    root.querySelector('[data-a2="replay"]').addEventListener('click',restart);
+    root.querySelectorAll('.cap li').forEach(function(li){li.addEventListener('click',function(){ root.classList.remove('ended'); playing=false; setBtn(); go(+li.dataset.go); })});
+    btn.addEventListener('click',function(){
+      if(root.classList.contains('ended')) return restart();
+      playing=!playing; setBtn(); if(playing) go(s===6?1:s+ (s<6?0:0)); else clearTimeout(timer);
+    });
+    if(reduce){ playing=false; setBtn(); go(1); } else { setBtn(); go(1); }
+  });
+})();
+</script>
