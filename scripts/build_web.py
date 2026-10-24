@@ -2,6 +2,15 @@
 import json,re,os,shutil
 data=open('build/data.json').read().replace('</','<\\/')
 body=open('web/app-body.html').read().replace('__DATA__',data)
+# 加到主畫面動畫：從 scripts/components_src/ 組進來
+C='scripts/components_src/'; rd=lambda x: open(C+x,encoding='utf-8').read()
+_lg=open('web/logo.svg').read(); _vb=re.search(r'viewBox="([^"]+)"',_lg).group(1); _d=re.search(r' d="([^"]+)"',_lg).group(1)
+SYM=f'<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="sl-logo" viewBox="{_vb}"><path fill="currentColor" fill-rule="evenodd" d="{_d}"/></symbol></svg>'
+USE='<svg aria-hidden="true"><use href="#sl-logo"/></svg>'
+oneline=lambda x: re.sub(r'\s*\n\s*',' ',rd(x).replace('LOGO',USE)).replace('`','\\`')
+body=(body.replace('/*__A2HS_CSS__*/',rd('common.css')+rd('ios.css')+rd('and.css'))
+          .replace('__A2HS_SYMBOL__',SYM).replace('/*__A2HS_ENGINE__*/',rd('engine.js'))
+          .replace('__A2HS_IOS__',oneline('ios.html')).replace('__A2HS_AND__',oneline('and.html')))
 os.makedirs('docs',exist_ok=True)
 # artifact preview (body only)
 open('build/preview-artifact.html','w').write(body)  # 給 Claude 網頁預覽用（只有內文）

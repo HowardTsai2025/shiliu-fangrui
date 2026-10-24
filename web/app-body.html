@@ -42,7 +42,7 @@ header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background
 .chip{border:1px solid currentColor;background:transparent;border-radius:999px;padding:1px 9px;font-size:12px;white-space:nowrap}
 .chip.warn{color:var(--warn)} .chip.ok{color:var(--ok)}
 .tabs{margin-left:auto;display:flex;gap:2px}
-.tabs button{border:none;background:none;padding:6px 10px;border-radius:999px;font-size:14px;color:var(--muted)}
+.tabs button{white-space:nowrap;border:none;background:none;padding:6px 10px;border-radius:999px;font-size:14px;color:var(--muted)}
 .tabs button[aria-pressed="true"]{background:var(--acc);color:var(--onacc)}
 .pop{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0 0;font-size:14px;display:grid;gap:8px}
 main{padding-block:18px 90px}
@@ -118,7 +118,14 @@ mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;bord
 .confirm{display:inline-flex;gap:6px;align-items:center;font-size:13px;flex-wrap:wrap}
 .steps{margin:0;padding-left:1.3em;display:grid;gap:4px}
 @media (max-width:520px){ .tabs button{padding:6px 7px} .art h1{font-size:calc(var(--fs) + 6px)} .brand{font-size:17px;letter-spacing:.08em} .brand .logo{width:24px;height:24px} }
+@media (max-width:430px){ .bar .wrap{gap:6px} .brand{font-size:16px;letter-spacing:.04em;gap:5px} .brand .logo{width:22px;height:22px} .tabs{gap:0} .tabs button{padding:6px 6px;font-size:13.5px} .chip{padding:1px 7px} }
+@media (max-width:374px){ .brand span{display:none} .brand .logo{width:28px;height:28px} }
 @media (prefers-reduced-motion:no-preference){ .view{animation:fade .2s ease} @keyframes fade{from{opacity:.5}to{opacity:1}} }
+.a2box{display:grid;gap:12px;margin-top:10px}
+.a2box .one{font-size:16px;padding:10px 18px;text-decoration:none;display:inline-block}
+.a2box details summary{cursor:pointer;color:var(--muted);font-size:13.5px}
+.a2box details[open] summary{margin-bottom:12px}
+/*__A2HS_CSS__*/
 </style>
 <script>try{var p=JSON.parse(localStorage.getItem("sl-prefs")||"{}");document.documentElement.setAttribute("data-palette",p.palette||"r");if(p.theme&&p.theme!=="system")document.documentElement.setAttribute("data-theme",p.theme)}catch(e){document.documentElement.setAttribute("data-palette","r")}</script>
 
@@ -133,6 +140,7 @@ mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;bord
   </nav>
 </div><div class="wrap" id="popwrap" hidden></div></header>
 
+__A2HS_SYMBOL__
 <main class="wrap"><div id="view" class="view"></div></main>
 <div class="toast" id="toast" role="status" hidden></div>
 
@@ -242,9 +250,31 @@ function afterMark(no){
   if(key){ ui.milestones[key]=true; saveUI();
     toast(`<div>${msg}${saveWay()}</div><div class="btns">${saveButtons()}<button class="btn ghost small" id="t-later">以後再說</button></div>`); }
 }
-function isIOSBrowser(){ const ua=navigator.userAgent||''; const ios=/iphone|ipad|ipod/i.test(ua)||(/macintosh/i.test(ua)&&navigator.maxTouchPoints>1);
-  const standalone=navigator.standalone||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches); return ios&&!standalone; }
-
+/* ---------- 加到主畫面 ---------- */
+/*__A2HS_ENGINE__*/
+const A2_IOS=`__A2HS_IOS__`, A2_AND=`__A2HS_AND__`;
+const UA=navigator.userAgent||'';
+const STANDALONE=!!(navigator.standalone||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches));
+const IS_IOS=/iphone|ipad|ipod/i.test(UA)||(/macintosh/i.test(UA)&&navigator.maxTouchPoints>1);
+const IS_AND=/android/i.test(UA);
+const IS_LINE=/\bLine\//i.test(UA);
+const IN_APP=IS_LINE||/FBAN|FBAV|FB_IAB|Instagram|MicroMessenger/i.test(UA);
+const A2PLAYED={};
+let installPrompt=null;
+function a2Kind(){ if(STANDALONE) return null; return IS_IOS?'ios':(IS_AND?'and':null); }
+addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); installPrompt=e; if(view==='today'||view==='set') rerender(); });
+addEventListener('appinstalled',()=>{ installPrompt=null; ui.iosHint=Date.now()+3650*86400000; saveUI(); rerender();
+  toast('<div>✓ 已加到主畫面！以後從主畫面的石榴圖示打開就可以了。</div><div class="btns"><button class="btn ghost small" id="t-ok">好</button></div>'); });
+function externalUrl(){ try{ const u=new URL(location.href); u.searchParams.set('openExternalBrowser','1'); return u.toString(); }catch(e){ return location.href; } }
+function a2Body(kind){
+  const browser=kind==='ios'?'Safari':'Chrome';
+  if(IN_APP) return `<div class="a2box"><p style="margin:0">你現在是在 ${IS_LINE?'LINE':'App'} 裡面打開這個網頁，這裡沒辦法加到主畫面。請先改用 ${browser} 打開：</p>
+    ${IS_LINE?`<div class="btns"><a class="btn one" href="${esc(externalUrl())}">用 ${browser} 打開</a></div>`:`<p class="note" style="margin:0">點右上角的選單（⋯ 或 ⋮），選「用瀏覽器開啟」。</p>`}</div>`;
+  if(kind==='and' && installPrompt) return `<div class="a2box"><div class="btns"><button class="btn one" id="a2-install">📲 一鍵加到主畫面</button></div>
+    <p class="note" style="margin:0">按下去會跳出視窗，再點「安裝」就完成了。</p>
+    <details id="a2-more"><summary>按了沒反應？看圖解步驟</summary>${A2_AND}</details></div>`;
+  return `<div class="a2box">${kind==='ios'?A2_IOS:A2_AND}</div>`;
+}
 /* ---------- chrome ---------- */
 function refreshChrome(){
   const c=$('#savechip');
@@ -292,18 +322,18 @@ function welcomeCard(){
   <p class="note">📌 你的閱讀進度目前只存在這支手機。${saveWay()}</p>
   <div class="btns"><button class="btn" id="startnow">從今天開始讀</button>${cloud.ready?'<button class="btn ghost" id="w-login">用 Google 登入保存</button>':''}</div></div>`;
 }
-function iosCard(){
+function a2Card(kind){
   return `<div class="card"><h2>把它加到手機主畫面</h2>
-  <ol class="steps"><li>點 Safari 下方的「分享」按鈕（方框加向上箭頭）。</li><li>往下滑，點「加入主畫面」。</li><li>點右上角「新增」。</li></ol>
-  <p class="note">以後從主畫面的圖示打開，像 App 一樣方便，iPhone 也不會自動清掉你的閱讀紀錄。</p>
-  <div class="btns"><button class="btn ghost small" id="ios-ok">知道了</button></div></div>`;
+  <p class="note" style="margin:6px 0 0">以後從主畫面的石榴圖示打開，像 App 一樣方便${kind==='ios'?'，iPhone 也不會自動清掉你的閱讀紀錄':''}。</p>
+  ${a2Body(kind)}
+  <div class="btns"><button class="btn ghost small" id="ios-ok">知道了，先不用</button></div></div>`;
 }
 function renderArticle(no){
   const a=ARTS[no], th=a.th, tn=todayNo(), isToday=!!state.start&&no===tn;
   let h='';
   if(!state.start) h+=welcomeCard();
   else if(!isToday) h+=`<div class="backtoday"><button class="btn ghost small" id="gotoday">回到今天（第 ${pad(tn)} 篇）</button></div>`;
-  if(state.start && isIOSBrowser() && Date.now()>ui.iosHint) h+=iosCard();
+  if(state.start && a2Kind() && Date.now()>ui.iosHint) h+=a2Card(a2Kind());
   if(th.a[0].no===no) h+=`<section class="opener"><div class="k">第${NUMS[th.i]}主題</div><div class="t">${esc(th.n)}</div><div class="note">第 ${pad(th.a[0].no)} 篇 – 第 ${pad(th.a[th.a.length-1].no)} 篇　共 ${th.a.length} 篇</div>${body(th.intro,true)}</section>`;
   h+=`<article class="art"><div class="meta"><span class="num">第 ${pad(no)} 篇</span><span class="tagline">${themeLabel(th)}${isToday?'・今天':''}</span></div>
   <h1>${esc(a.t)}</h1><div class="reading">${body(a.b,false)}</div>
@@ -355,6 +385,7 @@ function renderSettings(){
    <div class="row"><label class="l" for="startd">開始日期</label><input type="date" id="startd" value="${state.start||''}"><button class="btn small" id="savestart">儲存</button></div>
    <div class="note">${state.start?`今天是第 ${d} 天，對應第 ${pad(todayNo())} 篇。讀完 365 天後會從第 001 篇重新開始。`:'還沒設定。開始那天讀第 001 篇，之後每天往下一篇。'}</div>
    <div class="row"><label class="l">已讀紀錄</label><span class="note">已讀 ${readCount()} 篇</span><span id="resetwrap"><button class="btn ghost small" id="reset">清除已讀紀錄</button></span></div></div>
+  ${a2Kind()?`<div class="panel"><h3>加到手機主畫面</h3><div class="note">以後從主畫面的石榴圖示打開，像 App 一樣方便。</div>${a2Body(a2Kind())}</div>`:''}
   <div class="panel"><h3>外觀</h3>
    <div class="row"><label class="l">配色</label><div class="sw">${PALETTES.map(([k,n,c])=>`<button data-pal="${k}" aria-pressed="${prefs.palette===k}"><i>${c.map(x=>`<b style="background:${x}"></b>`).join('')}</i>${n}</button>`).join('')}</div></div>
    <div class="row"><label class="l">深淺</label><div class="seg">${[['system','跟隨手機'],['light','淺色'],['dark','深色']].map(([k,n])=>`<button data-th="${k}" aria-pressed="${prefs.theme===k}">${n}</button>`).join('')}</div></div>
@@ -392,6 +423,9 @@ function bind(){
   on('w-login',signIn); on('signin',signIn); on('signout',signOut);
   on('ios-ok',()=>{ui.iosHint=Date.now()+30*86400000; saveUI(); rerender();});
   on('gotoday',()=>open(todayNo()));
+  on('a2-install',async()=>{ const p=installPrompt; if(!p) return; installPrompt=null; p.prompt(); try{ await p.userChoice; }catch(e){} rerender(); });
+  const more=document.getElementById('a2-more'); if(more) more.addEventListener('toggle',()=>{ if(more.open) initA2HS(more,A2PLAYED); });
+  initA2HS(document.getElementById('view'),A2PLAYED);
   on('prev',()=>open((cur||todayNo())-1)); on('next',()=>open((cur||todayNo())+1));
   on('mark',()=>{const n=cur||todayNo(), was=!!state.read[n]; setRead(n,!was); show('today',n); if(!was) afterMark(n);});
   document.querySelectorAll('[data-no]').forEach(b=>b.onclick=()=>open(+b.dataset.no));

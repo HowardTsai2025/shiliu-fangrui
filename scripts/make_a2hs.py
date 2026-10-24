@@ -7,8 +7,8 @@ common,ios,andc,js=[open('scripts/components_src/'+x).read() for x in ['common.c
 ih=open('scripts/components_src/ios.html').read().replace('LOGO',USE); ah=open('scripts/components_src/and.html').read().replace('LOGO',USE)
 hdr='<!-- 加入主畫面教學動畫元件（由 scripts/make_a2hs.py 產生，請改 scripts/components_src/ 再重跑）。顏色用網站的配色變數，會跟著配色與深淺模式變。\n     放進網站：<style> 併入主樣式；SYMBOL（Logo 圖形定義）放一次；動畫區塊放進加入主畫面卡片；<script> 放頁面底部。 -->\n'
 R='web/components/'
-open(R+'a2hs-iphone.html','w').write(hdr+f'<style>\n{common}{ios}</style>\n{SYM}\n{ih}\n<script>\n{js}</script>\n')
-open(R+'a2hs-android.html','w').write(hdr+f'<style>\n{common}{andc}</style>\n{SYM}\n{ah}\n<script>\n{js}</script>\n')
+open(R+'a2hs-iphone.html','w').write(hdr+f'<style>\n{common}{ios}</style>\n{SYM}\n{ih}\n<script>\n{js}initA2HS();\n</script>\n')
+open(R+'a2hs-android.html','w').write(hdr+f'<style>\n{common}{andc}</style>\n{SYM}\n{ah}\n<script>\n{js}initA2HS();\n</script>\n')
 # preview page
 P=[('r','石榴紅','#ffffff','#ffffff','#222222','#76696a','#ece4e4','#7a1f2b','#171112','#201819','#ece6e3','#a89c9a','#352a2b','#d6b06e'),
    ('b','晴空淡藍','#f5f7fb','#ffffff','#1c2533','#6b778a','#e1e7f0','#3b6ea8','#0f141c','#161d28','#e3e9f2','#95a1b3','#243042','#90b8ea'),
@@ -32,7 +32,7 @@ body{{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",
 {SYM}
 <div class="card"><h2>iPhone（Safari）</h2>{ih}</div>
 <div class="card"><h2>Android（Chrome）</h2>{ah}</div>
-</div><script>{js}
+</div><script>{js}initA2HS();
 var H=document.documentElement;function mark(){{document.querySelectorAll('[data-pp]').forEach(b=>b.classList.toggle('on',b.dataset.pp===H.dataset.p));document.querySelectorAll('[data-tt]').forEach(b=>b.classList.toggle('on',b.dataset.tt===H.dataset.t))}}
 document.querySelectorAll('[data-pp]').forEach(b=>b.onclick=()=>{{H.dataset.p=b.dataset.pp;mark()}});document.querySelectorAll('[data-tt]').forEach(b=>b.onclick=()=>{{H.dataset.t=b.dataset.tt;mark()}});mark();</script></body></html>'''
 open('build/a2hs-preview.html','w').write(page)
