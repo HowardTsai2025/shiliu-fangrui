@@ -1,5 +1,5 @@
 // 離線快取：網頁先試著連網取得最新版，沒網路時用手機裡存的版本
-const CACHE='shiliu-v1';
+const CACHE='shiliu-v2';
 const CORE=['./','index.html','manifest.webmanifest','firebase-config.js','icon-192.png','icon-512.png','apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});

@@ -1,2 +1,3 @@
 opencc-python-reimplemented
 weasyprint
+playwright

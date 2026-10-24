@@ -11,7 +11,8 @@ head_extra='''<meta charset="utf-8">
 <meta name="theme-color" content="#ffffff">
 <meta name="description" content="《石榴放蕊》繁體中文每日靈修，一天一篇，共 365 篇。">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="石榴放蕊">
@@ -23,13 +24,13 @@ headpart,rest=m.group(1),m.group(2)
 headpart=headpart.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')
 doc=f'<!doctype html>\n<html lang="zh-Hant-TW">\n<head>\n{head_extra}\n{headpart}\n</head>\n<body>{rest}\n</body>\n</html>\n'
 open('docs/index.html','w').write(doc)
-for f in ['icon-192.png','icon-512.png','icon-maskable.png','apple-touch-icon.png']: shutil.copy('web/icons/'+f,'docs/'+f)
+for f in ['icon-192.png','icon-512.png','icon-maskable.png','apple-touch-icon.png','favicon.svg']: shutil.copy('web/icons/'+f,'docs/'+f)
 json.dump({"name":"石榴放蕊 每日讀","short_name":"石榴放蕊","lang":"zh-Hant-TW","start_url":"./","scope":"./","display":"standalone",
  "background_color":"#ffffff","theme_color":"#ffffff",
  "icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"},
           {"src":"icon-maskable.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]},open('docs/manifest.webmanifest','w'),ensure_ascii=False,indent=1)
 open('docs/sw.js','w').write('''// 離線快取：網頁先試著連網取得最新版，沒網路時用手機裡存的版本
-const CACHE='shiliu-v1';
+const CACHE='shiliu-v2';
 const CORE=['./','index.html','manifest.webmanifest','firebase-config.js','icon-192.png','icon-512.png','apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});

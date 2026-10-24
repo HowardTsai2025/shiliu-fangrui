@@ -92,6 +92,7 @@ for ti, th in enumerate(themes):
 </article>''')
 
 total = sum(len(t['arts']) for t in themes)
+cover_logo = 'cover-logo.png'  # 由 scripts/make_icons.py 產生（build/ 內）
 doc = f'''<!doctype html><html lang="zh-Hant-TW"><head><meta charset="utf-8"><title>石榴放蕊</title>
 <style>
 @page {{ size: A4; margin: 22mm 20mm 22mm 20mm;
@@ -106,6 +107,7 @@ body {{ font-family: "Noto Serif CJK TC", serif; font-size: 11.5pt; line-height:
   justify-content:center; align-items:center; text-align:center; break-after: page; }}
 .cover h1 {{ font-size: 54pt; letter-spacing: .3em; margin:0 0 6mm 0.3em; font-weight:700; }}
 .cover .sub {{ font: 14pt "Noto Sans CJK TC"; letter-spacing:.2em; opacity:.85; }}
+.cover .logo {{ width: 34mm; height: 34mm; display:block; margin: 0 auto 12mm; }}
 .cover .line {{ width: 40mm; border-top:1px solid rgba(255,255,255,.6); margin: 10mm auto; }}
 .toc {{ page: front; break-after: page; }}
 .toc h1 {{ font: 700 20pt "Noto Sans CJK TC"; color:#7a1f2b; border-bottom:2px solid #7a1f2b; padding-bottom:2mm; }}
@@ -140,7 +142,7 @@ p {{ text-indent: 2em; margin: 0 0 2.2mm; text-align: justify; }}
 .lyric span {{ display:inline-block; min-width: 46mm; margin-right: 4mm; }}
 .lyric span:empty {{ min-width: 6mm; }}
 </style></head><body>
-<div class="cover"><div><h1>石榴放蕊</h1><div class="line"></div>
+<div class="cover"><div><img class="logo" src="{cover_logo}" alt=""><h1>石榴放蕊</h1><div class="line"></div>
 <div class="sub">繁體中文版</div><div class="sub" style="margin-top:4mm;font-size:11pt">九大主題・{total} 篇</div></div></div>
 <div class="toc"><h1>目錄</h1>{''.join(toc)}</div>
 {''.join(parts)}

@@ -2,7 +2,7 @@
 
 ## 專案是什麼
 把靈修書《石榴放蕊》（365 篇、九大主題）從簡體轉成**台灣繁體**，產出兩樣東西：
-1. **PDF**：`pdf/石榴放蕊_繁體中文版_全365篇.pdf`（石榴紅版面，已定稿，**不要更動配色或版面**，除非使用者明確要求）
+1. **PDF**：`pdf/石榴放蕊_繁體中文版_全365篇.pdf`（石榴紅版面，已定稿，**不要更動配色或版面**，除非使用者明確要求；封面標題上方有白色 Logo，經使用者同意加入）
 2. **每日閱讀網站**：`docs/`（GitHub Pages 從 `docs/` 發布）
 
 ## 使用者（Howard）
@@ -18,6 +18,8 @@
 - `scripts/export_data.py`：把同一份轉換結果輸出成 `build/data.json`。
 - `scripts/build_web.py`：把 `web/app-body.html` + data 組成 `docs/index.html`，另產 manifest、service worker、圖示。
 - `web/app-body.html`：網站全部的版面、樣式、程式（單一檔）。
+- `web/logo.svg`：Logo「晨光石榴」（使用者用 Nano Banana 產生的原圖描成向量，**照原圖，不要自行重新設計**）。顏色用 currentColor，網站標題列會跟配色變色。
+- `scripts/make_icons.py`：用 logo.svg 產生主畫面圖示（石榴紅底＋白果，使用者選定）、maskable、apple-touch、PDF 封面用白色 Logo（build/cover-logo.png）。需要 playwright。
 - `web/firebase-config.js`：Firebase 設定，目前是 `null`（尚未申請）。
 - `firestore.rules`：Firestore 安全規則（每人只能讀寫自己的 `users/{uid}`）。
 
