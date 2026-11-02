@@ -11,8 +11,8 @@
 .a2hs.and .tb .more{width:24px;height:28px;display:grid;place-items:center;font-size:16px;font-weight:900;color:#333;border-radius:12px;line-height:1}
 .a2hs.and .pg{position:absolute;top:64px;left:0;right:0}
 .a2hs.and .pg .hd{height:40px;display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid #eee}
-.a2hs.and .pg .hd svg{width:16px;height:16px;color:var(--acc)}
-.a2hs.and .pg .hd b{color:var(--acc);font-family:"Noto Serif TC","Noto Serif CJK TC",serif;letter-spacing:.12em;font-size:13px}
+.a2hs.and .pg .hd svg{width:16px;height:16px;color:var(--acct,var(--acc))}
+.a2hs.and .pg .hd b{color:var(--acct,var(--acc));font-family:"Noto Serif TC","Noto Serif CJK TC",serif;letter-spacing:.12em;font-size:13px}
 .a2hs.and .pg .ln{height:7px;border-radius:4px;background:#e6e6ea;margin:10px 12px 0}
 .a2hs.and .pg .ln.s{width:55%} .a2hs.and .pg .ln.t{height:12px;width:45%;background:#d6d6dc;margin-top:16px}
 .a2hs.and .pg .vb{margin:12px 12px 0;height:46px;border-radius:6px;background:color-mix(in srgb,var(--acc) 10%,#fff);border-left:3px solid var(--acc)}
