@@ -55,7 +55,7 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 ## 尚未完成（下一步）
 專案已推上 GitHub：`HowardTsai2025/shiliu-fangrui`（public，分支 `main`）。git 身分：`HowardTsai2025 <276nndy9st@privaterelay.appleid.com>`（使用者提供；舊提交作者已改寫成這個）。
 1. ~~設定 git 身分~~ ✅
-2. **GitHub Pages**：repo 已推送。若尚未開啟：Settings → Pages → Source: Deploy from a branch → Branch: `main`、資料夾 `/docs`（雲端環境的 proxy 不允許用 API 開，要使用者自己按）。網址：`https://howardtsai2025.github.io/shiliu-fangrui/`。
+2. ~~GitHub Pages~~ ✅ 已開啟（main /docs）：`https://howardtsai2025.github.io/shiliu-fangrui/`（雲端環境連不到這個網址，要請使用者用手機看）。
 3. **上線後手機實測**：iPhone Safari 加入主畫面、Android Chrome「📲 一鍵加到主畫面」按鈕是否出現（需要正式網址＋service worker）、
    從 LINE 打開時「用 Safari／Chrome 打開」按鈕（網址參數 `openExternalBrowser=1`）是否有效、離線閱讀、進度碼。
 4. **Firebase（Google 登入保存進度）**：建專案 → Authentication 啟用 Google → 建 Firestore（選離台灣近的區域，如 asia-east1）→ 貼上 `firestore.rules`
