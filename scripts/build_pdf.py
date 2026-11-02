@@ -92,7 +92,7 @@ for ti, th in enumerate(themes):
 </article>''')
 
 total = sum(len(t['arts']) for t in themes)
-cover_logo = 'cover-logo.png'  # 由 scripts/make_icons.py 產生（build/ 內）
+cover_logo = '../web/icons/cover-logo.png'  # 由 scripts/make_icons.py 產生
 doc = f'''<!doctype html><html lang="zh-Hant-TW"><head><meta charset="utf-8"><title>石榴放蕊</title>
 <style>
 @page {{ size: A4; margin: 22mm 20mm 22mm 20mm;

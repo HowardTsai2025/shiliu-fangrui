@@ -13,7 +13,7 @@ JOBS = [  # 檔名, 尺寸, 底色, 圖色, Logo 佔比, 圓角
     ('web/icons/icon-512.png', 512, RED, WHITE, .70, 512*.18),
     ('web/icons/apple-touch-icon.png', 180, RED, WHITE, .70, 0),   # iPhone 會自己切圓角
     ('web/icons/icon-maskable.png', 512, RED, WHITE, .56, 0),      # Android 會切成各種形狀，Logo 要留在安全區
-    ('build/cover-logo.png', 1200, 'transparent', WHITE, 1, 0),    # PDF 封面用（白色）
+    ('web/icons/cover-logo.png', 1200, 'transparent', WHITE, 1, 0),    # PDF 封面用（白色）
 ]
 async def main():
     import os; os.makedirs('build', exist_ok=True)

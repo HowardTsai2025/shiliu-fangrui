@@ -19,7 +19,7 @@
 - `scripts/build_web.py`：把 `web/app-body.html` + data 組成 `docs/index.html`，另產 manifest、service worker、圖示。
 - `web/app-body.html`：網站全部的版面、樣式、程式（單一檔）。
 - `web/logo.svg`：Logo「晨光石榴」（使用者用 Nano Banana 產生的原圖描成向量，**照原圖，不要自行重新設計**）。顏色用 currentColor，網站標題列會跟配色變色。
-- `scripts/make_icons.py`：用 logo.svg 產生主畫面圖示（石榴紅底＋白果，使用者選定）、maskable、apple-touch、PDF 封面用白色 Logo（build/cover-logo.png）。需要 playwright。
+- `scripts/make_icons.py`：用 logo.svg 產生主畫面圖示（石榴紅底＋白果，使用者選定）、maskable、apple-touch、PDF 封面用白色 Logo（web/icons/cover-logo.png）。需要 playwright，只有換 Logo 時才要跑（`python3 build_all.py icons`）；產出的圖示都已 commit。
 - `web/firebase-config.js`：Firebase 設定，目前是 `null`（尚未申請）。
 - `firestore.rules`：Firestore 安全規則（每人只能讀寫自己的 `users/{uid}`）。
 
@@ -28,6 +28,7 @@
 pip install -r requirements.txt
 python3 build_all.py        # PDF + 網站
 python3 build_all.py web    # 只重建網站（快）
+python3 build_all.py icons  # 換了 web/logo.svg 才需要（要 playwright + chromium）
 ```
 改內容 → 改 `content/*.txt`；改網站 → 改 `web/app-body.html`；改完都要重建並 commit `docs/`。
 
@@ -52,7 +53,16 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - PWA：manifest + sw.js（網頁先連網取最新，離線用快取）。改版時把 `sw.js` 的 `CACHE` 版本號加一。
 
 ## 尚未完成（下一步）
-1. 推到使用者的 GitHub，開啟 GitHub Pages（Branch: main，資料夾: /docs）。
-2. 帶使用者申請 Firebase：建專案 → 啟用 Authentication 的 Google 登入 → 建 Firestore → 貼上 `firestore.rules`
-   → 在 Authentication「授權網域」加入 `<帳號>.github.io` → 把網頁設定貼進 `web/firebase-config.js` → 重建、commit。
-3. 上線後用手機實測：登入、跨裝置同步、進度碼、加入主畫面、離線閱讀。
+專案是從 Claude（Cowork）移過來的，之前的提交作者是暫用的 `Howard <howard@example.invalid>`。
+1. **設定 git 身分**：請使用者確認 GitHub 帳號後，`git config user.name` / `user.email` 設成他的（可用 GitHub 提供的 noreply 信箱）。舊提交的作者要不要改寫，先問使用者。
+2. **推上 GitHub**：建立新的 repo（建議名稱 `shiliu-fangrui`）。GitHub Pages 免費方案需要 **public** repo，先跟使用者確認書的內容公開在 GitHub 上沒問題（網站本來就是公開的）。
+   推送後開啟 Pages：Settings → Pages → Source: Deploy from a branch → Branch: `main`、資料夾 `/docs`。網址會是 `https://<帳號>.github.io/shiliu-fangrui/`。
+   使用者沒有技術背景：用 `gh auth login` 時要一步一步帶，說明每個畫面要選什麼。
+3. **上線後手機實測**：iPhone Safari 加入主畫面、Android Chrome「📲 一鍵加到主畫面」按鈕是否出現（需要正式網址＋service worker）、
+   從 LINE 打開時「用 Safari／Chrome 打開」按鈕（網址參數 `openExternalBrowser=1`）是否有效、離線閱讀、進度碼。
+4. **Firebase（Google 登入保存進度）**：建專案 → Authentication 啟用 Google → 建 Firestore（選離台灣近的區域，如 asia-east1）→ 貼上 `firestore.rules`
+   → Authentication「授權網域」加入 `<帳號>.github.io` → 把網頁應用程式設定貼進 `web/firebase-config.js` → `sw.js` 的 CACHE 版本加一 → 重建、commit、push → 兩支手機實測同步。
+5. **之後可考慮**（使用者已知道，尚未決定）：Email 連結登入（免費方案每天只能寄 5 封，需綁卡升級 Blaze）、LINE 登入（需 Blaze + Identity Platform OIDC + LINE Developers）。Apple 登入不建議（年費）。
+
+## 每次改完網站
+改 `web/app-body.html` 或 `scripts/components_src/` → `python3 build_all.py web` → 用手機寬度檢查 → `sw.js` 的 CACHE 版本加一（已上線後）→ commit、push。
