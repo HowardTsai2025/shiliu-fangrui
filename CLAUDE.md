@@ -53,11 +53,9 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - PWA：manifest + sw.js（網頁先連網取最新，離線用快取）。改版時把 `sw.js` 的 `CACHE` 版本號加一。
 
 ## 尚未完成（下一步）
-專案是從 Claude（Cowork）移過來的，之前的提交作者是暫用的 `Howard <howard@example.invalid>`。
-1. **設定 git 身分**：請使用者確認 GitHub 帳號後，`git config user.name` / `user.email` 設成他的（可用 GitHub 提供的 noreply 信箱）。舊提交的作者要不要改寫，先問使用者。
-2. **推上 GitHub**：建立新的 repo（建議名稱 `shiliu-fangrui`）。GitHub Pages 免費方案需要 **public** repo，先跟使用者確認書的內容公開在 GitHub 上沒問題（網站本來就是公開的）。
-   推送後開啟 Pages：Settings → Pages → Source: Deploy from a branch → Branch: `main`、資料夾 `/docs`。網址會是 `https://<帳號>.github.io/shiliu-fangrui/`。
-   使用者沒有技術背景：用 `gh auth login` 時要一步一步帶，說明每個畫面要選什麼。
+專案已推上 GitHub：`HowardTsai2025/shiliu-fangrui`（public，分支 `main`）。git 身分：`HowardTsai2025 <276nndy9st@privaterelay.appleid.com>`（使用者提供；舊提交作者已改寫成這個）。
+1. ~~設定 git 身分~~ ✅
+2. **GitHub Pages**：repo 已推送。若尚未開啟：Settings → Pages → Source: Deploy from a branch → Branch: `main`、資料夾 `/docs`（雲端環境的 proxy 不允許用 API 開，要使用者自己按）。網址：`https://howardtsai2025.github.io/shiliu-fangrui/`。
 3. **上線後手機實測**：iPhone Safari 加入主畫面、Android Chrome「📲 一鍵加到主畫面」按鈕是否出現（需要正式網址＋service worker）、
    從 LINE 打開時「用 Safari／Chrome 打開」按鈕（網址參數 `openExternalBrowser=1`）是否有效、離線閱讀、進度碼。
 4. **Firebase（Google 登入保存進度）**：建專案 → Authentication 啟用 Google → 建 Firestore（選離台灣近的區域，如 asia-east1）→ 貼上 `firestore.rules`
