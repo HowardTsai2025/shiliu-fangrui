@@ -52,7 +52,8 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - 從搜尋或目錄點進文章，上方有「‹ 回到搜尋結果／回到目錄」，回去時保留捲動位置。
 - 輸入框字級一律 ≥16px（小於 16px 時 iPhone Safari 點輸入框會自動放大畫面、不縮回，畫面右邊被切掉）。不要用關閉縮放的方式解決（長輩需要能手動放大）。
   另外 `.panel` 是 grid，要保持 `grid-template-columns:minmax(0,1fr)`：iPhone 的輸入框預設很寬，少了這個會把卡片內容撐出螢幕右邊（Chromium 測不出來，測試時可把 input 的 size 設成 80 模擬）。
-- PWA：manifest + sw.js（網頁先連網取最新，離線用快取）。改版時把 `sw.js` 的 `CACHE` 版本號加一。
+- PWA：manifest + sw.js（網頁先連網取最新，fetch 用 `cache:'no-cache'` 避開 GitHub Pages 的 10 分鐘暫存；離線用快取）。
+- 版本號：`scripts/build_web.py` 的 `VERSION`，同時是 sw.js 快取名稱，也顯示在設定頁最下面「版本 vN」（請使用者看這個確認手機拿到的是不是新版）。
 
 ## 尚未完成（下一步）
 專案已推上 GitHub：`HowardTsai2025/shiliu-fangrui`（public，分支 `main`）。git 身分：`HowardTsai2025 <276nndy9st@privaterelay.appleid.com>`（使用者提供；舊提交作者已改寫成這個）。
@@ -61,8 +62,8 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 3. **上線後手機實測**：iPhone Safari 加入主畫面、Android Chrome「📲 一鍵加到主畫面」按鈕是否出現（需要正式網址＋service worker）、
    從 LINE 打開時「用 Safari／Chrome 打開」按鈕（網址參數 `openExternalBrowser=1`）是否有效、離線閱讀、進度碼。
 4. **Firebase（Google 登入保存進度）**：建專案 → Authentication 啟用 Google → 建 Firestore（選離台灣近的區域，如 asia-east1）→ 貼上 `firestore.rules`
-   → Authentication「授權網域」加入 `<帳號>.github.io` → 把網頁應用程式設定貼進 `web/firebase-config.js` → `sw.js` 的 CACHE 版本加一 → 重建、commit、push → 兩支手機實測同步。
+   → Authentication「授權網域」加入 `<帳號>.github.io` → 把網頁應用程式設定貼進 `web/firebase-config.js` → `build_web.py` 的 VERSION 加一 → 重建、commit、push → 兩支手機實測同步。
 5. **之後可考慮**（使用者已知道，尚未決定）：Email 連結登入（免費方案每天只能寄 5 封，需綁卡升級 Blaze）、LINE 登入（需 Blaze + Identity Platform OIDC + LINE Developers）。Apple 登入不建議（年費）。
 
 ## 每次改完網站
-改 `web/app-body.html` 或 `scripts/components_src/` → `python3 build_all.py web` → 用手機寬度檢查 → `sw.js` 的 CACHE 版本加一（已上線後）→ commit、push。
+改 `web/app-body.html` 或 `scripts/components_src/` → `python3 build_all.py web` → 用手機寬度檢查 → `scripts/build_web.py` 的 `VERSION` 加一 → commit、push → 請使用者看設定頁最下面的版本號確認。

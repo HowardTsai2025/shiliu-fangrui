@@ -1,7 +1,9 @@
 """產生 GitHub Pages 網站到 docs/。"""
 import json,re,os,shutil
 data=open('build/data.json').read().replace('</','<\\/')
-body=open('web/app-body.html').read().replace('__DATA__',data)
+# 網站版本號：每次改網站都加一（設定頁最下面會顯示，也是 sw.js 的快取名稱）
+VERSION=5
+body=open('web/app-body.html').read().replace('__DATA__',data).replace('__VERSION__',str(VERSION))
 # 加到主畫面動畫：從 scripts/components_src/ 組進來
 C='scripts/components_src/'; rd=lambda x: open(C+x,encoding='utf-8').read()
 _lg=open('web/logo.svg').read(); _vb=re.search(r'viewBox="([^"]+)"',_lg).group(1); _d=re.search(r' d="([^"]+)"',_lg).group(1)
@@ -38,8 +40,8 @@ json.dump({"name":"石榴放蕊 每日讀","short_name":"石榴放蕊","lang":"z
  "background_color":"#ffffff","theme_color":"#ffffff",
  "icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"},
           {"src":"icon-maskable.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]},open('docs/manifest.webmanifest','w'),ensure_ascii=False,indent=1)
-open('docs/sw.js','w').write('''// 離線快取：網頁先試著連網取得最新版，沒網路時用手機裡存的版本
-const CACHE='shiliu-v4';
+open('docs/sw.js','w').write('''// 離線快取：網頁先試著連網取得最新版（no-cache＝每次都向 GitHub 確認有沒有新版，不用手機裡暫存的舊檔），沒網路時用手機裡存的版本
+const CACHE='shiliu-v'''+str(VERSION)+'''';
 const CORE=['./','index.html','manifest.webmanifest','firebase-config.js','icon-192.png','icon-512.png','apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
@@ -47,7 +49,7 @@ self.addEventListener('fetch',e=>{
   const u=new URL(e.request.url);
   if(e.request.method!=='GET') return;
   if(u.origin===location.origin){
-    e.respondWith(fetch(e.request).then(r=>{const c=r.clone();caches.open(CACHE).then(x=>x.put(e.request,c));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('index.html'))));
+    e.respondWith(fetch(e.request,{cache:'no-cache'}).then(r=>{const c=r.clone();caches.open(CACHE).then(x=>x.put(e.request,c));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('index.html'))));
   } else if(/fonts\\.(googleapis|gstatic)\\.com/.test(u.host)){
     e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{const c=res.clone();caches.open(CACHE).then(x=>x.put(e.request,c));return res})));
   }
