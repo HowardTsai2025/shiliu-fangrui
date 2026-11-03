@@ -601,8 +601,7 @@ function welcomeCard(){
   <div class="btns"><button class="btn" id="startnow">從今天開始讀</button>${cloud.ready&&!saved()&&!A2_FIRST()?'<button class="btn ghost" id="w-login">用 Google 登入保存</button>':''}</div></div>`;
 }
 function a2Card(kind){
-  return `<div class="card"><h2>把它加到${DEV}主畫面</h2>
-  <p class="note" style="margin:6px 0 0">以後從主畫面的石榴圖示打開，像 App 一樣方便${kind==='ios'?'，iPhone 也不會自動清掉你的閱讀紀錄':(kind==='ipad'?'，iPad 也不會自動清掉你的閱讀紀錄':'')}。</p>
+  return `<div class="card"><h2>加入主畫面變成 App！</h2>
   ${a2Body(kind)}
   <div class="btns"><button class="btn ghost small" id="ios-ok">知道了，先不用</button></div></div>`;
 }
@@ -661,7 +660,7 @@ function renderSettings(){
   return acct + `<div class="panel"><h3>閱讀進度</h3>
    <div class="row"><label class="l" for="startd">開始日期</label><label class="datebox"><span id="startshow">${state.start?state.start.replace(/-/g,'/'):'尚未開始'}</span><input type="date" id="startd" value="${state.start||''}" aria-label="開始日期"></label><button class="btn small" id="savestart">儲存</button></div>
    <div class="row"><span class="note">已讀 ${readCount()} 篇</span><span id="resetwrap"><button class="btn ghost small" id="reset">清除已讀紀錄</button></span></div></div>
-  ${a2Kind()?`<div class="panel"><h3>加到${DEV}主畫面</h3><div class="note">以後從主畫面的石榴圖示打開，像 App 一樣方便。</div>${a2Body(a2Kind())}</div>`:''}
+  ${a2Kind()?`<div class="panel"><h3>加入主畫面變成 App！</h3>${a2Body(a2Kind())}</div>`:''}
   <div class="panel"><h3>外觀</h3>
    <div class="row"><label class="l">配色</label><div class="sw">${PALETTES.map(([k,n,c])=>`<button data-pal="${k}" aria-pressed="${prefs.palette===k}"><i>${c.map(x=>`<b style="background:${x}"></b>`).join('')}</i>${n}</button>`).join('')}</div></div>
    <div class="row"><label class="l">深淺</label><div class="seg">${[['system','跟隨系統'],['light','淺色'],['dark','深色']].map(([k,n])=>`<button data-th="${k}" aria-pressed="${prefs.theme===k}">${n}</button>`).join('')}</div></div>
@@ -674,7 +673,7 @@ function renderSettings(){
    <div class="row" id="coderow" hidden><input class="inp" id="codeout" readonly style="font-family:monospace"><button class="btn ghost small" id="copycode">複製</button></div>
    <div class="row"><input class="inp" id="codein" placeholder="貼上進度碼，例如 SL1-20261024-…"><button class="btn small" id="usecode">還原</button></div>
    <div class="note" id="restoremsg" role="status"></div></div>
-  <div class="note" style="text-align:center;opacity:.7">版本 v11</div>
+  <div class="note" style="text-align:center;opacity:.7">版本 v12</div>
 `;
 }
 
