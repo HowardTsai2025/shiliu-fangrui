@@ -2,7 +2,7 @@
 import json,re,os,shutil
 data=open('build/data.json').read().replace('</','<\\/')
 # 網站版本號：每次改網站都加一（設定頁最下面會顯示，也是 sw.js 的快取名稱）
-VERSION=6
+VERSION=7
 body=open('web/app-body.html').read().replace('__DATA__',data).replace('__VERSION__',str(VERSION))
 # 加到主畫面動畫：從 scripts/components_src/ 組進來
 C='scripts/components_src/'; rd=lambda x: open(C+x,encoding='utf-8').read()
@@ -10,9 +10,9 @@ _lg=open('web/logo.svg').read(); _vb=re.search(r'viewBox="([^"]+)"',_lg).group(1
 SYM=f'<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="sl-logo" viewBox="{_vb}"><path fill="currentColor" fill-rule="evenodd" d="{_d}"/></symbol></svg>'
 USE='<svg aria-hidden="true"><use href="#sl-logo"/></svg>'
 oneline=lambda x: re.sub(r'\s*\n\s*',' ',rd(x).replace('LOGO',USE)).replace('`','\\`')
-body=(body.replace('/*__A2HS_CSS__*/',rd('common.css')+rd('ios.css')+rd('and.css'))
+body=(body.replace('/*__A2HS_CSS__*/',rd('common.css')+rd('ios.css')+rd('and.css')+rd('ipad.css'))
           .replace('__A2HS_SYMBOL__',SYM).replace('/*__A2HS_ENGINE__*/',rd('engine.js'))
-          .replace('__A2HS_IOS__',oneline('ios.html')).replace('__A2HS_AND__',oneline('and.html')))
+          .replace('__A2HS_IOS__',oneline('ios.html')).replace('__A2HS_IPAD__',oneline('ipad.html')).replace('__A2HS_AND__',oneline('and.html')))
 os.makedirs('docs',exist_ok=True)
 # artifact preview (body only)
 open('build/preview-artifact.html','w').write(body)  # 給 Claude 網頁預覽用（只有內文）
@@ -20,7 +20,16 @@ title_and_rest=body
 head_extra='''<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<meta name="description" content="《石榴放蕊》繁體中文每日靈修，一天一篇，共 365 篇。">
+<meta name="description" content="「我們清晨起來往葡萄園去，看看葡萄發芽開花沒有，石榴放蕊沒有；我在那裏要將我的愛情給你。」（歌七12）">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="石榴放蕊">
+<meta property="og:title" content="石榴放蕊">
+<meta property="og:description" content="「我們清晨起來往葡萄園去，看看葡萄發芽開花沒有，石榴放蕊沒有；我在那裏要將我的愛情給你。」（歌七12）">
+<meta property="og:url" content="https://howardtsai2025.github.io/shiliu-fangrui/">
+<meta property="og:image" content="https://howardtsai2025.github.io/shiliu-fangrui/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" type="image/png">
@@ -35,7 +44,7 @@ headpart,rest=m.group(1),m.group(2)
 headpart=headpart.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','')
 doc=f'<!doctype html>\n<html lang="zh-Hant-TW">\n<head>\n{head_extra}\n{headpart}\n</head>\n<body>{rest}\n</body>\n</html>\n'
 open('docs/index.html','w').write(doc)
-for f in ['icon-192.png','icon-512.png','icon-maskable.png','apple-touch-icon.png','favicon.svg']: shutil.copy('web/icons/'+f,'docs/'+f)
+for f in ['icon-192.png','icon-512.png','icon-maskable.png','apple-touch-icon.png','favicon.svg','og-image.png']: shutil.copy('web/icons/'+f,'docs/'+f)
 json.dump({"name":"石榴放蕊 每日讀","short_name":"石榴放蕊","lang":"zh-Hant-TW","start_url":"./","scope":"./","display":"standalone",
  "background_color":"#ffffff","theme_color":"#ffffff",
  "icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"},

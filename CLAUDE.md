@@ -41,6 +41,10 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - 配色五組：**石榴紅（預設）**、晴空淡藍、晨霧青綠、薰衣草灰紫、向日葵黃（活潑款，白底＋亮黃按鈕配深色字；文字強調色用 `--acct` 較深的金色才看得清楚）；各有淺色／深色，可「跟隨手機」。
   深色模式不要用粉紅色字；淺色背景不要米色（石榴紅淺色是白底，與 PDF 一致）。
 - 不要字體大小提示；「隱私說明」區塊已移除，不要加回。
+- 字體大小（小／中／大／特大＝16/18/20/22）：**整個網站的字都跟著縮放**（CSS 變數 `--k`＝字體大小÷18，app-body 樣式裡所有 `font-size` 都寫成 `calc(Npx*var(--k))`；新增樣式也要這樣寫）。
+  **按鈕、分頁、選項的字絕對不能換行**（使用者要求；`white-space:nowrap`，放不下時整顆按鈕換行）。設定頁字體大小下方有預覽文字；按了畫面停在原處。
+  測試：iPhone／iPhone SE(320)／Android／iPad／Android 平板／電腦 × 4 種字級，檢查超出畫面與按鈕字換行（用 Range 算行數，別用高度判斷）。
+- 用詞依裝置自動判斷：`DEV`（手機／平板／電腦）、`THIS_DEV`（這支手機／這台平板／這台電腦）；固定文字用「換手機、平板或電腦」；深淺選項是「跟隨系統」。不要寫死「手機」。
 - 進度保存採「方案 ③」：不登入也能讀（存在本機 localStorage）；想永久保存可用 Google 登入（Firebase Auth + Firestore，文件 `users/{uid}`：start、read（篇號→true）、palette、theme）。
   另有「進度碼」（SL1-YYYYMMDD-base64url 位元表）可備份／還原。
 - 登入失敗會跳提示並顯示錯誤代碼（使用者自己關掉視窗則不提示）；請使用者截圖錯誤代碼來除錯。
@@ -48,11 +52,15 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - 「把它加到手機主畫面」卡片（今日頁上方＋設定頁）：自動判斷手機——iPhone 只顯示 iPhone 動畫；Android 若 Chrome 提供安裝事件（beforeinstallprompt）就顯示「📲 一鍵加到主畫面」按鈕，動畫收在「按了沒反應？看圖解步驟」裡，否則直接顯示 Android 動畫；在 LINE 等 App 內建瀏覽器開啟時，改提示用 Safari／Chrome 打開（LINE 用網址參數 openExternalBrowser=1）。已是主畫面 App 時不顯示。「知道了，先不用」隱藏 30 天。
   動畫原始檔在 `scripts/components_src/`（共用 common.css、engine.js），`build_web.py` 會組進網站；`scripts/make_a2hs.py` 另產獨立元件與預覽。
   動畫規則：播一次，播完顯示重新播放；同一次開啟網頁內播過就不再自動重播。
+  平板：iPad 有專用動畫 `ipad.html/ipad.css`（上方工具列右邊的分享鈕 → 分享選單 → 加入主畫面 → 新增；**依 iPadOS 介面推測畫的，尚未用真 iPad 對照**，有人回報再修）；Android 平板用同一套 Chrome 動畫加 `.tab`（平板外框）。
+  動畫元件的 class 不要和網站樣式撞名（曾撞到 `.pop`、`.dim`、`.list`）；`.a2hs` 有 `isolation:isolate`，標題列 z-index 20，避免動畫蓋到下方分頁列（Android 曾發生）。
 - 標題列：Logo＋「石榴放蕊」＋保存狀態。分頁（今日／目錄／搜尋／設定）有圖示＋字：手機（寬 ≤700）放在螢幕最下方像 App 的分頁列（使用者選定），電腦／平板放在標題列右側。
 - 字型：內文、主題標題、文章標題都用思源宋體（Noto Serif TC），標題用粗體；不提供字型切換（使用者決定）。
 - 從搜尋或目錄點進文章，上方有「‹ 回到搜尋結果／回到目錄」，回去時保留捲動位置。
 - 輸入框字級一律 ≥16px（小於 16px 時 iPhone Safari 點輸入框會自動放大畫面、不縮回，畫面右邊被切掉）。不要用關閉縮放的方式解決（長輩需要能手動放大）。
   另外 `.panel` 是 grid，要保持 `grid-template-columns:minmax(0,1fr)`：iPhone 的輸入框預設很寬，少了這個會把卡片內容撐出螢幕右邊（Chromium 測不出來，測試時可把 input 的 size 設成 80 模擬）。
+- 分享預覽（LINE 等）：`build_web.py` 的 description／og 標籤，文字是使用者指定的經文「我們清晨起來往葡萄園去，看看葡萄發芽開花沒有，石榴放蕊沒有；我在那裏要將我的愛情給你。」（歌七12），不要改；
+  預覽圖 `web/icons/og-image.png`（1200×630 石榴紅底白 Logo，`scripts/make_og.py` 產生，換 Logo 時重產）。LINE 會快取預覽，改了可能要過一陣子才更新。
 - PWA：manifest + sw.js（網頁先連網取最新，fetch 用 `cache:'no-cache'` 避開 GitHub Pages 的 10 分鐘暫存；離線用快取）。
 - 版本號：`scripts/build_web.py` 的 `VERSION`，同時是 sw.js 快取名稱，也顯示在設定頁最下面「版本 vN」（請使用者看這個確認手機拿到的是不是新版）。
 

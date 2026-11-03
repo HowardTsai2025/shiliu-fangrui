@@ -4,7 +4,7 @@ function initA2HS(scope, played){
   played=played||{};
   (scope||document).querySelectorAll('.a2hs').forEach(function(root){
     if(root.dataset.ready||(root.closest&&root.closest('details:not([open])'))) return; root.dataset.ready='1';
-    var kind=root.classList.contains('and')?'and':'ios';
+    var kind=root.classList.contains('and')?'and':(root.classList.contains('ipad')?'ipad':'ios');
     var f=root.querySelector('.finger'), scr=root.querySelector('.scr');
     var plan=JSON.parse(root.dataset.plan), last=Math.max.apply(null,Object.keys(plan).map(Number));
     var s=1, timer=null, ptimer=null, playing=true, btn=root.querySelector('[data-a2="toggle"]');

@@ -20,13 +20,13 @@
 .a2hs.ended .replay{display:grid}
 .a2hs .cap{display:grid;gap:8px;min-width:0;max-width:340px}
 .a2hs .cap ol{margin:0;padding:0;list-style:none;display:grid;gap:6px}
-.a2hs .cap li{display:flex;gap:8px;align-items:baseline;padding:6px 10px;border-radius:8px;color:var(--muted);font-size:14.5px;line-height:1.5;cursor:pointer;transition:background .25s,color .25s}
+.a2hs .cap li{display:flex;gap:8px;align-items:baseline;padding:6px 10px;border-radius:8px;color:var(--muted);font-size:calc(14.5px*var(--k,1));line-height:1.5;cursor:pointer;transition:background .25s,color .25s}
 .a2hs .cap li b{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;border:1px solid currentColor}
 .a2hs .cap li.on{background:color-mix(in srgb,var(--acc) 12%,transparent);color:var(--ink);font-weight:600}
 .a2hs .cap li.on b{background:var(--acc);border-color:var(--acc);color:var(--onacc,#fff)}
-.a2hs .ctl{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--muted);line-height:1.5}
-.a2hs .ctl button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
-.a2hs .tip{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.a2hs .ctl{display:flex;gap:8px;align-items:flex-start;font-size:calc(12.5px*var(--k,1));color:var(--muted);line-height:1.5}
+.a2hs .ctl button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:4px 10px;font:inherit;font-size:calc(13px*var(--k,1));cursor:pointer}
+.a2hs .tip{margin:0;font-size:calc(12.5px*var(--k,1));color:var(--muted);line-height:1.5}
 @media (prefers-reduced-motion:reduce){.a2hs .ly,.a2hs .finger,.a2hs .list,.a2hs .me{transition:none!important}.a2hs .finger.tap,.a2hs .hl{animation:none}}
 /* ===== Android Chrome ===== */
 .a2hs.and .phone{border-radius:26px}
@@ -120,7 +120,7 @@ function initA2HS(scope, played){
   played=played||{};
   (scope||document).querySelectorAll('.a2hs').forEach(function(root){
     if(root.dataset.ready||(root.closest&&root.closest('details:not([open])'))) return; root.dataset.ready='1';
-    var kind=root.classList.contains('and')?'and':'ios';
+    var kind=root.classList.contains('and')?'and':(root.classList.contains('ipad')?'ipad':'ios');
     var f=root.querySelector('.finger'), scr=root.querySelector('.scr');
     var plan=JSON.parse(root.dataset.plan), last=Math.max.apply(null,Object.keys(plan).map(Number));
     var s=1, timer=null, ptimer=null, playing=true, btn=root.querySelector('[data-a2="toggle"]');

@@ -4,7 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<meta name="description" content="《石榴放蕊》繁體中文每日靈修，一天一篇，共 365 篇。">
+<meta name="description" content="「我們清晨起來往葡萄園去，看看葡萄發芽開花沒有，石榴放蕊沒有；我在那裏要將我的愛情給你。」（歌七12）">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="石榴放蕊">
+<meta property="og:title" content="石榴放蕊">
+<meta property="og:description" content="「我們清晨起來往葡萄園去，看看葡萄發芽開花沒有，石榴放蕊沒有；我在那裏要將我的愛情給你。」（歌七12）">
+<meta property="og:url" content="https://howardtsai2025.github.io/shiliu-fangrui/">
+<meta property="og:image" content="https://howardtsai2025.github.io/shiliu-fangrui/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" type="image/png">
@@ -26,6 +35,7 @@
   --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
   --latin:Georgia,"Times New Roman",serif;
   --fs:18px;
+  --k:1; /* 字體大小倍率＝字體大小÷18（小 .89／中 1／大 1.11／特大 1.22），整個網站的字都跟著縮放 */
   --acct:var(--acc); /* 文字用的強調色；黃色配色另設較深的金色，讓字看得清楚 */
 }
 :root[data-palette="a"]{--bg:#f4f8f7;--card:#ffffff;--ink:#1e2b29;--muted:#667a76;--line:#dfe9e6;--acc:#2f7f73;--onacc:#ffffff;--soft:#e7f2ef;--verse:#edf5f3;--bar:#7fb3a8;--ok:#2f7f73;--warn:#b86e1f}
@@ -49,33 +59,33 @@
 html{-webkit-text-size-adjust:100%}
 /* iPhone：輸入框字小於 16px 時，點下去 Safari 會自動放大畫面且不縮回，所以所有輸入框至少 16px */
 input,select,textarea{font-size:max(16px,1em)}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:calc(15px*var(--k));line-height:1.6;margin:0}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 button{font:inherit;color:inherit;cursor:pointer}
 button:disabled{opacity:.4;cursor:default}
 button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .bar .wrap{display:flex;align-items:center;gap:10px;padding-block:10px}
-.brand{font-family:var(--serif);font-weight:700;font-size:19px;color:var(--acct);letter-spacing:.14em;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.brand{font-family:var(--serif);font-weight:700;font-size:calc(19px*var(--k));color:var(--acct);letter-spacing:.14em;white-space:nowrap;display:flex;align-items:center;gap:8px}
 .brand .logo{width:28px;height:28px;flex:none}
-.chip{border:1px solid currentColor;background:transparent;border-radius:999px;padding:1px 9px;font-size:12px;white-space:nowrap}
+.chip{border:1px solid currentColor;background:transparent;border-radius:999px;padding:1px 9px;font-size:calc(12px*var(--k));white-space:nowrap}
 .chip.warn{color:var(--warn)} .chip.ok{color:var(--ok)}
 .tabs{margin-left:auto;display:flex;gap:2px}
-.tabs button{white-space:nowrap;border:none;background:none;padding:6px 10px;border-radius:999px;font-size:14px;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
+.tabs button{white-space:nowrap;border:none;background:none;padding:6px 10px;border-radius:999px;font-size:calc(14px*var(--k));color:var(--muted);display:inline-flex;align-items:center;gap:4px}
 .tabs .ti{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .tabs button[aria-pressed="true"]{background:var(--acc);color:var(--onacc)}
-.pop{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0 0;font-size:14px;display:grid;gap:8px}
+.pop{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0 0;font-size:calc(14px*var(--k));display:grid;gap:8px}
 main{padding-block:18px 90px}
 .card{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:20px;display:grid;gap:10px}
-.card h2{margin:0;font-size:17px}
+.card h2{margin:0;font-size:calc(17px*var(--k))}
 .card p{margin:0}
 .btns{display:flex;flex-wrap:wrap;gap:8px}
-.btn{border:1px solid var(--acc);background:var(--acc);color:var(--onacc);padding:8px 14px;border-radius:8px;font-size:14px}
+.btn{border:1px solid var(--acc);background:var(--acc);color:var(--onacc);padding:8px 14px;border-radius:8px;font-size:calc(14px*var(--k))}
 .btn.ghost{background:transparent;color:var(--acct)}
-.btn.small{padding:5px 10px;font-size:13px}
+.btn.small{padding:5px 10px;font-size:calc(13px*var(--k))}
 .btn.plain{border-color:var(--line);background:var(--card);color:var(--ink)}
-.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:calc(13px*var(--k))}
 .num{background:var(--acc);color:var(--onacc);border-radius:4px;padding:1px 9px;font-weight:700;letter-spacing:.05em;font-variant-numeric:tabular-nums}
 .tagline{color:var(--muted)}
 .art{border-top:2px solid var(--acc);padding-top:10px}
@@ -86,65 +96,65 @@ main{padding-block:18px 90px}
 .verse .zh{font-weight:600}
 .verse .en{font-family:var(--latin);font-style:italic;font-size:calc(var(--fs) - 3px);color:var(--muted);line-height:1.55;margin-top:4px}
 .hymn{border:1px dashed var(--bar);border-radius:8px;padding:10px 14px;margin:18px 0;font-size:calc(var(--fs) - 2px);line-height:1.8}
-.hymn .ht{font-family:var(--sans);font-weight:700;font-size:14px;color:var(--acct);margin-bottom:4px}
+.hymn .ht{font-family:var(--sans);font-weight:700;font-size:calc(14px*var(--k));color:var(--acct);margin-bottom:4px}
 .lyric{display:flex;flex-wrap:wrap;column-gap:1.6em}
 .lyric span:empty{display:none}
 .lyric span.n{color:var(--acct);min-width:1.4em}
 .done-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
-.check{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px;font-size:15px}
+.check{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px;font-size:calc(15px*var(--k))}
 .check[aria-pressed="true"]{border-color:var(--ok);color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--card))}
 .nav{display:flex;gap:8px}
 .backtoday{margin-bottom:14px;display:flex;flex-wrap:wrap;gap:8px}
 .opener{text-align:center;padding:20px 8px 24px;margin-bottom:18px;border-bottom:1px solid var(--line)}
-.opener .k{color:var(--acct);letter-spacing:.3em;font-size:13px}
-.opener .t{font-family:var(--serif);font-weight:700;font-size:30px;color:var(--acct);letter-spacing:.2em;margin:4px 0}
+.opener .k{color:var(--acct);letter-spacing:.3em;font-size:calc(13px*var(--k))}
+.opener .t{font-family:var(--serif);font-weight:700;font-size:calc(30px*var(--k));color:var(--acct);letter-spacing:.2em;margin:4px 0}
 .opener .verse{border:none;text-align:center;border-radius:8px;max-width:520px;margin:12px auto 0;font-family:var(--serif)}
-.opener .ref{font-size:13px;color:var(--acct);margin-top:4px}
-.opener .eref{font-size:12px;color:var(--muted);font-family:var(--latin);font-style:italic}
-.note{font-size:12.5px;color:var(--muted)}
+.opener .ref{font-size:calc(13px*var(--k));color:var(--acct);margin-top:4px}
+.opener .eref{font-size:calc(12px*var(--k));color:var(--muted);font-family:var(--latin);font-style:italic}
+.note{font-size:calc(12.5px*var(--k));color:var(--muted)}
 .theme-block{margin-bottom:22px}
 .theme-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--acc);padding-bottom:4px;margin-bottom:6px}
-.theme-head h2{font-family:var(--serif);font-size:20px;color:var(--acct);margin:0}
-.theme-head .c{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.theme-head h2{font-family:var(--serif);font-size:calc(20px*var(--k));color:var(--acct);margin:0}
+.theme-head .c{font-size:calc(12.5px*var(--k));color:var(--muted);font-variant-numeric:tabular-nums}
 .prog{flex:1 1 80px;height:5px;background:var(--line);border-radius:3px;overflow:hidden;min-width:60px;align-self:center}
 .prog i{display:block;height:100%;background:var(--ok)}
 .list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));column-gap:16px}
-.list button{width:100%;text-align:left;background:none;border:none;padding:6px 4px;display:flex;gap:8px;align-items:baseline;border-bottom:1px dotted var(--line);font-size:14.5px;min-width:0}
+.list button{width:100%;text-align:left;background:none;border:none;padding:6px 4px;display:flex;gap:8px;align-items:baseline;border-bottom:1px dotted var(--line);font-size:calc(14.5px*var(--k));min-width:0}
 .list button:hover{background:var(--soft)}
-.list .n{font-variant-numeric:tabular-nums;color:var(--acct);font-size:12.5px;flex:none}
+.list .n{font-variant-numeric:tabular-nums;color:var(--acct);font-size:calc(12.5px*var(--k));flex:none}
 .list .tt{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
-.list .d{flex:none;color:var(--ok);font-size:12px}
+.list .d{flex:none;color:var(--ok);font-size:calc(12px*var(--k))}
 .list .today .tt{color:var(--acct);font-weight:700}
 .sbox{display:flex;gap:8px;margin-bottom:14px}
-.inp{flex:1 1 8em;min-width:0;width:0;font:inherit;font-size:16px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.inp{flex:1 1 8em;min-width:0;width:0;font:inherit;font-size:max(16px,calc(16px*var(--k)));padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
 .hit{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
 .hit .h{font-weight:700}
-.hit .s{font-family:var(--serif);font-size:14px;color:var(--muted);margin-top:2px}
+.hit .s{font-family:var(--serif);font-size:calc(14px*var(--k));color:var(--muted);margin-top:2px}
 mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;border-radius:2px}
 .empty{color:var(--muted);text-align:center;padding:30px 0}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 /* 上面 minmax(0,1fr)：卡片內容一律不能比卡片寬（iPhone 的輸入框預設很寬，曾把整張卡片撐出螢幕） */
-.panel h3{margin:0;font-size:15px}
+.panel h3{margin:0;font-size:calc(15px*var(--k))}
 .panel .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
-.panel label.l{font-size:14px;color:var(--muted);min-width:5.5em}
-.panel input[type=date]{font:inherit;font-size:16px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.panel label.l{font-size:calc(14px*var(--k));color:var(--muted);min-width:5.5em}
+.panel input[type=date]{font:inherit;font-size:max(16px,calc(16px*var(--k)));padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.seg button{border:none;background:none;padding:6px 12px;font-size:14px}
+.seg button{border:none;background:none;padding:6px 12px;font-size:calc(14px*var(--k))}
 .seg button[aria-pressed="true"]{background:var(--acc);color:var(--onacc)}
 .sw{display:flex;gap:10px;flex-wrap:wrap}
-.sw button{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:6px 12px 6px 6px;font-size:14px}
+.sw button{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:6px 12px 6px 6px;font-size:calc(14px*var(--k))}
 .sw button[aria-pressed="true"]{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
 .sw i{display:inline-flex;width:30px;height:30px;border-radius:7px;overflow:hidden}
 .sw i b{flex:1}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(560px,calc(100% - 32px));background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 6px 24px color-mix(in srgb,var(--ink) 15%,transparent);display:grid;gap:8px;z-index:20;font-size:14px}
-.confirm{display:inline-flex;gap:6px;align-items:center;font-size:13px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(560px,calc(100% - 32px));background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 6px 24px color-mix(in srgb,var(--ink) 15%,transparent);display:grid;gap:8px;z-index:30;font-size:calc(14px*var(--k))}
+.confirm{display:inline-flex;gap:6px;align-items:center;font-size:calc(13px*var(--k));flex-wrap:wrap}
 .steps{margin:0;padding-left:1.3em;display:grid;gap:4px}
-@media (max-width:520px){ .art h1{font-size:calc(var(--fs) + 6px)} .brand{font-size:17px;letter-spacing:.08em} .brand .logo{width:24px;height:24px} }
-/* 手機：分頁列移到螢幕下方（像一般 App），圖示＋字 */
+@media (max-width:520px){ .art h1{font-size:calc(var(--fs) + 6px)} .brand{font-size:calc(17px*var(--k));letter-spacing:.08em} .brand .logo{width:24px;height:24px} }
+/* 窄螢幕（手機）：分頁列移到螢幕下方（像一般 App），圖示＋字 */
 @media (max-width:700px){
   header.bar{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}
   .tabs{position:fixed;left:0;right:0;bottom:0;z-index:15;margin:0;gap:0;justify-content:space-around;background:var(--bg);box-shadow:0 -2px 10px color-mix(in srgb,var(--ink) 6%,transparent);border-top:1px solid var(--line);padding:5px 6px calc(5px + env(safe-area-inset-bottom,0px))}
-  .tabs button{flex:1;max-width:96px;flex-direction:column;gap:2px;padding:5px 0 4px;border-radius:12px;font-size:12px}
+  .tabs button{flex:1;max-width:96px;flex-direction:column;gap:2px;padding:5px 0 4px;border-radius:12px;font-size:calc(12px*var(--k))}
   .tabs .ti{width:24px;height:24px}
   .tabs button[aria-pressed="true"]{background:var(--soft);color:var(--acct);font-weight:700}
   main{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
@@ -152,8 +162,14 @@ mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;bord
 }
 @media (prefers-reduced-motion:no-preference){ .view{animation:fade .2s ease} @keyframes fade{from{opacity:.5}to{opacity:1}} }
 .a2box{display:grid;gap:12px;margin-top:10px}
-.a2box .one{font-size:16px;padding:10px 18px;text-decoration:none;display:inline-block}
-.a2box details summary{cursor:pointer;color:var(--muted);font-size:13.5px}
+/* 動畫裡的「重新播放」層級是 10，用 isolation 把它關在動畫裡，不會蓋到下方分頁列（Android 曾發生） */
+.a2hs{isolation:isolate;position:relative;z-index:0}
+.a2box .one{font-size:calc(16px*var(--k));padding:10px 18px;text-decoration:none;display:inline-block}
+.a2box details summary{cursor:pointer;color:var(--muted);font-size:calc(13.5px*var(--k))}
+/* 按鈕、分頁、選項的字一律不換行（字體特大時也一樣；放不下時整顆按鈕換到下一行，不是字斷開） */
+.btn,.seg button,.sw button,.check,.chip,.tabs button,.a2hs .ctl button{white-space:nowrap}
+.seg{max-width:100%}
+.fsprev{font-family:var(--serif);font-size:var(--fs);line-height:1.8;background:var(--verse);border-left:3px solid var(--bar);border-radius:0 8px 8px 0;padding:8px 12px}
 .a2box details[open] summary{margin-bottom:12px}
 /* ===== 共用：手機外框、手指、重新播放、步驟說明 ===== */
 .a2hs{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
@@ -174,13 +190,13 @@ mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;bord
 .a2hs.ended .replay{display:grid}
 .a2hs .cap{display:grid;gap:8px;min-width:0;max-width:340px}
 .a2hs .cap ol{margin:0;padding:0;list-style:none;display:grid;gap:6px}
-.a2hs .cap li{display:flex;gap:8px;align-items:baseline;padding:6px 10px;border-radius:8px;color:var(--muted);font-size:14.5px;line-height:1.5;cursor:pointer;transition:background .25s,color .25s}
+.a2hs .cap li{display:flex;gap:8px;align-items:baseline;padding:6px 10px;border-radius:8px;color:var(--muted);font-size:calc(14.5px*var(--k,1));line-height:1.5;cursor:pointer;transition:background .25s,color .25s}
 .a2hs .cap li b{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;border:1px solid currentColor}
 .a2hs .cap li.on{background:color-mix(in srgb,var(--acc) 12%,transparent);color:var(--ink);font-weight:600}
 .a2hs .cap li.on b{background:var(--acc);border-color:var(--acc);color:var(--onacc,#fff)}
-.a2hs .ctl{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--muted);line-height:1.5}
-.a2hs .ctl button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
-.a2hs .tip{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.a2hs .ctl{display:flex;gap:8px;align-items:flex-start;font-size:calc(12.5px*var(--k,1));color:var(--muted);line-height:1.5}
+.a2hs .ctl button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:4px 10px;font:inherit;font-size:calc(13px*var(--k,1));cursor:pointer}
+.a2hs .tip{margin:0;font-size:calc(12.5px*var(--k,1));color:var(--muted);line-height:1.5}
 @media (prefers-reduced-motion:reduce){.a2hs .ly,.a2hs .finger,.a2hs .list,.a2hs .me{transition:none!important}.a2hs .finger.tap,.a2hs .hl{animation:none}}
 /* ===== iPhone Safari ===== */
 .a2hs.ios .notch{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:56px;height:16px;border-radius:9px;background:#111;z-index:9}
@@ -270,6 +286,58 @@ mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;bord
 .a2hs.and[data-s="3"] .dlg{opacity:1;transform:translateY(-50%)}
 .a2hs.and[data-s="4"] .home{opacity:1}
 .a2hs.and[data-s="4"] .me{transform:scale(1)}
+/* ===== iPad Safari（平板外框：比手機寬、沒有瀏海；分享按鈕在上方工具列右邊，分享選單從右上角跳出） ===== */
+.a2hs.ipad .phone{width:270px;height:360px;border-radius:22px;padding:10px}
+.a2hs.ipad .scr{border-radius:12px;background:#fff}
+.a2hs.ipad .replay{border-radius:12px}
+.a2hs.ipad .web{background:#fff}
+.a2hs.ipad .tb{position:absolute;top:0;left:0;right:0;height:34px;display:flex;align-items:center;gap:3px;padding:0 6px;background:#f6f6f8;border-bottom:1px solid #e6e6ea;font-size:12px;color:#0a7aff}
+.a2hs.ipad .tb .ic{width:22px;height:24px;display:grid;place-items:center;border-radius:6px;flex:none}
+.a2hs.ipad .tb .ic.off{color:#bbb}
+.a2hs.ipad .tb .url{flex:1;height:22px;border-radius:7px;background:#e9e9ee;display:grid;place-items:center;font-size:9.5px;color:#333;margin:0 4px}
+.a2hs.ipad .sq{display:inline-grid;place-items:center;width:13px;height:13px;border:1.5px solid currentColor;border-radius:3px;font-size:9px;line-height:1}
+.a2hs.ipad .list .sq{color:#333}
+.a2hs.ipad .pg{position:absolute;top:34px;left:0;right:0}
+.a2hs.ipad .pg .hd{height:40px;display:flex;align-items:center;gap:6px;padding:0 16px;border-bottom:1px solid #eee}
+.a2hs.ipad .pg .hd svg{width:16px;height:16px;color:var(--acct,var(--acc))}
+.a2hs.ipad .pg .hd b{color:var(--acct,var(--acc));font-family:"Noto Serif TC","Noto Serif CJK TC",serif;letter-spacing:.12em;font-size:13px}
+.a2hs.ipad .pg .ln{height:7px;border-radius:4px;background:#e6e6ea;margin:10px 16px 0}
+.a2hs.ipad .pg .ln.s{width:55%} .a2hs.ipad .pg .ln.t{height:12px;width:40%;background:#d6d6dc;margin-top:16px}
+.a2hs.ipad .pg .vb{margin:12px 16px 0;height:46px;border-radius:6px;background:color-mix(in srgb,var(--acc) 10%,#fff);border-left:3px solid var(--acc)}
+.a2hs.ipad .shr{inset:38px 8px auto auto;width:168px;height:236px;background:#f2f2f7;border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,.25);opacity:0;transform:scale(.85);transform-origin:top right;overflow:hidden;z-index:4}
+.a2hs.ipad .shr .top{display:flex;gap:7px;align-items:center;padding:10px 10px 6px;font-size:10px}
+.a2hs.ipad .shr .top i.lg{width:26px;height:26px;border-radius:6px}
+.a2hs.ipad .shr .apps{display:flex;gap:8px;padding:2px 10px 8px}
+.a2hs.ipad .shr .apps span{width:28px;height:28px;border-radius:8px;background:#d9d9e0}
+.a2hs.ipad .shr .vp{position:absolute;left:0;right:0;top:86px;bottom:0;overflow:hidden}
+.a2hs.ipad .list{display:block;padding:0;margin:0 8px;background:#fff;border-radius:9px;font-size:10.5px;transition:transform .9s cubic-bezier(.3,.7,.2,1)}
+.a2hs.ipad .list div{padding:8px 10px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}
+.a2hs.ipad .list div:last-child{border:none}
+.a2hs.ipad .list .tg{font-weight:600}
+.a2hs.ipad .dim{background:rgba(0,0,0,.35);opacity:0;z-index:5;transition:opacity .35s}
+.a2hs.ipad .add{inset:50% auto auto 50%;width:200px;height:auto;background:#f2f2f7;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.3);opacity:0;transform:translate(-50%,-40%) scale(.92);z-index:6;padding-bottom:10px}
+.a2hs.ipad .add .nav{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;font-size:10.5px}
+.a2hs.ipad .add .nav b{font-size:11px}
+.a2hs.ipad .add .nav .c{color:#0a7aff} .a2hs.ipad .add .nav .n{color:#0a7aff;font-weight:700;padding:2px 6px;border-radius:6px}
+.a2hs.ipad .add .box{margin:2px 8px 8px;background:#fff;border-radius:9px;padding:9px;display:flex;gap:9px;align-items:center;font-size:11px}
+.a2hs.ipad .add .box i.lg{width:36px;height:36px;border-radius:9px}
+.a2hs.ipad .add .tog{margin:0 8px;background:#fff;border-radius:9px;padding:8px 9px;display:flex;justify-content:space-between;align-items:center;font-size:10px}
+.a2hs.ipad .add .tog b{width:28px;height:17px;border-radius:9px;background:#34c759;position:relative}
+.a2hs.ipad .add .tog b::after{content:"";position:absolute;right:2px;top:2px;width:13px;height:13px;border-radius:50%;background:#fff}
+.a2hs.ipad .home{z-index:7;background:linear-gradient(160deg,#c9d6e8,#e9d9dc);opacity:0;display:grid;grid-template-columns:repeat(5,1fr);gap:16px 0;padding:34px 10px 0;align-content:start;justify-items:center}
+.a2hs.ipad .home span{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.55)}
+.a2hs.ipad .me{display:grid;justify-items:center;gap:3px;font-size:8.5px;color:#222;transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1) .2s}
+.a2hs.ipad .me i.lg{width:34px;height:34px;border-radius:9px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.a2hs.ipad[data-s="2"] .shr,.a2hs.ipad[data-s="3"] .shr{opacity:1;transform:none}
+.a2hs.ipad[data-s="3"] .list{transform:translateY(-80px)}
+.a2hs.ipad[data-s="4"] .dim{opacity:1}
+.a2hs.ipad[data-s="4"] .add{opacity:1;transform:translate(-50%,-50%)}
+.a2hs.ipad[data-s="5"] .home{opacity:1}
+.a2hs.ipad[data-s="5"] .me{transform:scale(1)}
+/* ===== Android 平板：同一套 Chrome 動畫，外框換成平板 ===== */
+.a2hs.and.tab .phone{width:270px;height:360px;border-radius:22px;padding:10px}
+.a2hs.and.tab .scr,.a2hs.and.tab .replay{border-radius:12px}
+.a2hs.and.tab .cam{display:none}
 
 </style>
 <script>try{var p=JSON.parse(localStorage.getItem("sl-prefs")||"{}");document.documentElement.setAttribute("data-palette",p.palette||"r");if(p.theme&&p.theme!=="system")document.documentElement.setAttribute("data-theme",p.theme)}catch(e){document.documentElement.setAttribute("data-palette","r")}</script>
@@ -347,7 +415,7 @@ function cloudUnread(n){ if(cloud.ref) cloud.ref.update({['read.'+n]:firebase.fi
 async function signIn(){
   if(!cloud.ready) return;
   const p=new firebase.auth.GoogleAuthProvider();
-  const okMsg=()=>toast('<div>✓ 已登入！你的閱讀進度會自動保存在 Google 帳號裡，換手機用同一個帳號登入就會回來。</div><div class="btns"><button class="btn ghost small" id="t-ok">好</button></div>');
+  const okMsg=()=>toast('<div>✓ 已登入！你的閱讀進度會自動保存在 Google 帳號裡，換手機、平板或電腦，用同一個帳號登入就會回來。</div><div class="btns"><button class="btn ghost small" id="t-ok">好</button></div>');
   const failMsg=e=>{ const c=(e&&e.code)||'unknown';
     if(/popup-closed-by-user|cancelled-popup-request|user-cancelled/.test(c)) return;   // 使用者自己關掉，不用提示
     const why=/network-request-failed/.test(c)?'好像沒有連上網路，請確認網路後再試一次。'
@@ -373,7 +441,7 @@ const readCount=()=>Object.keys(state.read).filter(k=>state.read[k]).length;
 /* ---------- prefs ---------- */
 function applyPrefs(write){
   const r=document.documentElement;
-  r.style.setProperty('--fs',prefs.fs+'px');
+  r.style.setProperty('--fs',prefs.fs+'px'); r.style.setProperty('--k',String(prefs.fs/18));
   if(prefs.theme==='system') r.removeAttribute('data-theme'); else r.setAttribute('data-theme',prefs.theme);
   r.setAttribute('data-palette',prefs.palette);
   const m=document.querySelector('meta[name=theme-color]'); if(m) m.content=getComputedStyle(r).getPropertyValue('--bg').trim();
@@ -383,7 +451,7 @@ function applyPrefs(write){
 
 /* ---------- reminders ---------- */
 function canRemind(){ return !saved() && Date.now()>ui.snoozeUntil; }
-function saveWay(){ return cloud.ready ? '登入 Google 帳號就能永久保存，換手機或清除資料也不會不見。' : '到「設定」按「產生進度碼」，把那串碼存到 LINE 或備忘錄，就不怕不見。'; }
+function saveWay(){ return cloud.ready ? `登入 Google 帳號就能永久保存，換${DEV}或清除資料也不會不見。` : '到「設定」按「產生進度碼」，把那串碼存到 LINE 或備忘錄，就不怕不見。'; }
 function toast(html){ const t=$('#toast'); t.innerHTML=html; t.hidden=false; bindToast(); }
 function hideToast(){ $('#toast').hidden=true; }
 function bindToast(){
@@ -397,7 +465,7 @@ function afterMark(no){
   if(saved()) return;
   const n=readCount();
   if(!ui.firstToast){ ui.firstToast=true; saveUI();
-    toast(`<div>已記錄第 ${pad(no)} 篇！這筆紀錄目前只存在這支手機裡。${saveWay()}</div><div class="btns">${saveButtons()}<button class="btn ghost small" id="t-later">以後再說</button></div>`); return; }
+    toast(`<div>已記錄第 ${pad(no)} 篇！這筆紀錄目前只存在${THIS_DEV}裡。${saveWay()}</div><div class="btns">${saveButtons()}<button class="btn ghost small" id="t-later">以後再說</button></div>`); return; }
   if(!canRemind()) return;
   const th=ARTS[no].th, themeDone=th.a.every(a=>state.read[a.no]);
   let key=null, msg='';
@@ -413,7 +481,7 @@ function initA2HS(scope, played){
   played=played||{};
   (scope||document).querySelectorAll('.a2hs').forEach(function(root){
     if(root.dataset.ready||(root.closest&&root.closest('details:not([open])'))) return; root.dataset.ready='1';
-    var kind=root.classList.contains('and')?'and':'ios';
+    var kind=root.classList.contains('and')?'and':(root.classList.contains('ipad')?'ipad':'ios');
     var f=root.querySelector('.finger'), scr=root.querySelector('.scr');
     var plan=JSON.parse(root.dataset.plan), last=Math.max.apply(null,Object.keys(plan).map(Number));
     var s=1, timer=null, ptimer=null, playing=true, btn=root.querySelector('[data-a2="toggle"]');
@@ -449,28 +517,34 @@ function initA2HS(scope, played){
   });
 }
 
-const A2_IOS=`<div class="a2hs ios" data-s="1" aria-label="iPhone 加入主畫面步驟示範" data-plan='{"1":{"k":"more","t":2200,"d":450,"c":0},"2":{"k":"share","t":2000,"d":450,"c":1},"3":{"t":1300,"d":450,"c":2},"4":{"k":"a2h","t":3100,"d":1150,"c":2},"5":{"k":"addbtn","t":2500,"d":750,"c":3},"6":{"t":2800,"d":450,"c":4}}'> <div class="phone"><div class="scr" aria-hidden="true"> <div class="notch"></div> <div class="ly web"> <div class="hd"><svg aria-hidden="true"><use href="#sl-logo"/></svg><b>石榴放蕊</b></div> <div class="ln t"></div><div class="vb"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div><div class="ln s"></div> <div class="bar"><span class="ic">‹</span><span class="url">石榴放蕊</span><span class="ic" data-k="more">⋯</span></div> </div> <div class="ly menu"><div>重新載入<span>↻</span></div><div>加入書籤<span>☆</span></div><div data-k="share">分享<span class="sq">↑</span></div></div> <div class="ly sheet"> <div class="top"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i><div>石榴放蕊 每日讀<br><span style="color:#888">github.io</span></div></div> <div class="apps"><span></span><span></span><span></span><span></span><span></span></div> <div class="list"><div>拷貝<span>⧉</span></div><div>加入閱讀列表<span>◎</span></div><div>加入書籤<span>☆</span></div><div>加入喜好項目<span>★</span></div><div>在頁面上尋找<span>⌕</span></div><div class="tg" data-k="a2h">加入主畫面<span class="sq">+</span></div><div>標示<span>✎</span></div></div> </div> <div class="ly add"> <div class="nav"><span class="c">取消</span><b style="font-size:12px">加入主畫面</b><span class="n" data-k="addbtn">新增</span></div> <div class="box"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i><div>石榴放蕊<br><span style="color:#999;font-size:10px">github.io</span></div></div> <div class="tog"><span>以網頁 App 打開</span><b></b></div> </div> <div class="ly home"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><div class="me"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i>石榴放蕊</div></div> <div class="finger"></div> </div><button type="button" class="replay" data-a2="replay" aria-label="重新播放示範"><i></i>重新播放</button></div> <div class="cap"> <ol> <li data-go="1"><b>1</b><span>用 Safari 打開網站，點網址列右邊的「⋯」</span></li> <li data-go="2"><b>2</b><span>點「分享」</span></li> <li data-go="3"><b>3</b><span>往下滑，點「加入主畫面」</span></li> <li data-go="5"><b>4</b><span>「以網頁 App 打開」保持開啟，點右上角「新增」</span></li> <li data-go="6"><b>5</b><span>完成！以後從主畫面的石榴圖示打開</span></li> </ol> <div class="ctl"><button type="button" data-a2="toggle">暫停</button><span>舊款 iPhone：直接點畫面下方的「分享」按鈕，再從第 3 步開始。</span></div> <p class="tip">💡 如果是在 LINE 裡點開連結，請先改用 Safari 打開，才看得到這些選項。</p> </div> </div> `, A2_AND=`<div class="a2hs and" data-s="1" aria-label="Android 加入主畫面步驟示範" data-plan='{"1":{"k":"more","t":2200,"d":450,"c":0},"2":{"k":"inst","t":2300,"d":500,"c":1},"3":{"k":"ok","t":2300,"d":550,"c":2},"4":{"t":2800,"d":450,"c":3}}'> <div class="phone"><div class="scr" aria-hidden="true"> <div class="cam"></div> <div class="sb"><span>9:41</span><span>▾ ▴ ▮</span></div> <div class="ly web"> <div class="tb"><span class="home-ic">⌂</span><span class="url">🔒 github.io</span><span class="tabs">1</span><span class="more" data-k="more">⋮</span></div> <div class="pg"><div class="hd"><svg aria-hidden="true"><use href="#sl-logo"/></svg><b>石榴放蕊</b></div> <div class="ln t"></div><div class="vb"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div></div> </div> <div class="ly menu"> <div class="row"><span>→</span><span>☆</span><span>⤓</span><span>ⓘ</span><span>↻</span></div> <div class="it"><span>＋</span>新增分頁</div><div class="it"><span>◷</span>歷史記錄</div><div class="it"><span>⤓</span>下載內容</div><div class="it"><span>★</span>書籤</div><div class="it"><span>⇪</span>分享…</div> <div class="it tg" data-k="inst"><span>⊕</span>安裝應用程式</div><div class="it"><span>⚙</span>設定</div> </div> <div class="ly dim"></div> <div class="ly dlg"> <h4>安裝應用程式</h4> <div class="ap"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i><div><b>石榴放蕊</b><br><span style="color:#777;font-size:10px">github.io</span></div></div> <div class="bt"><span>取消</span><span data-k="ok">安裝</span></div> </div> <div class="ly home"><div class="gd"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><div class="me"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i>石榴放蕊</div></div> <div class="dock"><div class="r"><span></span><span></span><span></span><span></span></div><div class="q"></div></div></div> <div class="nav3"></div> <div class="finger"></div> </div><button type="button" class="replay" data-a2="replay" aria-label="重新播放示範"><i></i>重新播放</button></div> <div class="cap"> <ol> <li data-go="1"><b>1</b><span>用 Chrome 打開網站，點右上角的「⋮」</span></li> <li data-go="2"><b>2</b><span>點「安裝應用程式」（有些手機寫「加到主畫面」）</span></li> <li data-go="3"><b>3</b><span>跳出視窗後，點「安裝」</span></li> <li data-go="4"><b>4</b><span>完成！以後從主畫面的石榴圖示打開</span></li> </ol> <div class="ctl"><button type="button" data-a2="toggle">暫停</button><span>如果出現「加到主畫面」視窗，就點「新增」，再點「自動新增」。</span></div> <p class="tip">💡 如果是在 LINE 裡點開連結，請先改用 Chrome 打開，才看得到這些選項。</p> </div> </div> `;
+const A2_IOS=`<div class="a2hs ios" data-s="1" aria-label="iPhone 加入主畫面步驟示範" data-plan='{"1":{"k":"more","t":2200,"d":450,"c":0},"2":{"k":"share","t":2000,"d":450,"c":1},"3":{"t":1300,"d":450,"c":2},"4":{"k":"a2h","t":3100,"d":1150,"c":2},"5":{"k":"addbtn","t":2500,"d":750,"c":3},"6":{"t":2800,"d":450,"c":4}}'> <div class="phone"><div class="scr" aria-hidden="true"> <div class="notch"></div> <div class="ly web"> <div class="hd"><svg aria-hidden="true"><use href="#sl-logo"/></svg><b>石榴放蕊</b></div> <div class="ln t"></div><div class="vb"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div><div class="ln s"></div> <div class="bar"><span class="ic">‹</span><span class="url">石榴放蕊</span><span class="ic" data-k="more">⋯</span></div> </div> <div class="ly menu"><div>重新載入<span>↻</span></div><div>加入書籤<span>☆</span></div><div data-k="share">分享<span class="sq">↑</span></div></div> <div class="ly sheet"> <div class="top"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i><div>石榴放蕊 每日讀<br><span style="color:#888">github.io</span></div></div> <div class="apps"><span></span><span></span><span></span><span></span><span></span></div> <div class="list"><div>拷貝<span>⧉</span></div><div>加入閱讀列表<span>◎</span></div><div>加入書籤<span>☆</span></div><div>加入喜好項目<span>★</span></div><div>在頁面上尋找<span>⌕</span></div><div class="tg" data-k="a2h">加入主畫面<span class="sq">+</span></div><div>標示<span>✎</span></div></div> </div> <div class="ly add"> <div class="nav"><span class="c">取消</span><b style="font-size:12px">加入主畫面</b><span class="n" data-k="addbtn">新增</span></div> <div class="box"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i><div>石榴放蕊<br><span style="color:#999;font-size:10px">github.io</span></div></div> <div class="tog"><span>以網頁 App 打開</span><b></b></div> </div> <div class="ly home"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><div class="me"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i>石榴放蕊</div></div> <div class="finger"></div> </div><button type="button" class="replay" data-a2="replay" aria-label="重新播放示範"><i></i>重新播放</button></div> <div class="cap"> <ol> <li data-go="1"><b>1</b><span>用 Safari 打開網站，點網址列右邊的「⋯」</span></li> <li data-go="2"><b>2</b><span>點「分享」</span></li> <li data-go="3"><b>3</b><span>往下滑，點「加入主畫面」</span></li> <li data-go="5"><b>4</b><span>「以網頁 App 打開」保持開啟，點右上角「新增」</span></li> <li data-go="6"><b>5</b><span>完成！以後從主畫面的石榴圖示打開</span></li> </ol> <div class="ctl"><button type="button" data-a2="toggle">暫停</button><span>舊款 iPhone：直接點畫面下方的「分享」按鈕，再從第 3 步開始。</span></div> <p class="tip">💡 如果是在 LINE 裡點開連結，請先改用 Safari 打開，才看得到這些選項。</p> </div> </div> `, A2_IPAD=`<div class="a2hs ipad" data-s="1" aria-label="iPad 加入主畫面步驟示範" data-plan='{"1":{"k":"share","t":2200,"d":450,"c":0},"2":{"t":1300,"d":450,"c":1},"3":{"k":"a2h","t":3100,"d":1150,"c":1},"4":{"k":"addbtn","t":2500,"d":750,"c":2},"5":{"t":2800,"d":450,"c":3}}'> <div class="phone"><div class="scr" aria-hidden="true"> <div class="ly web"> <div class="tb"><span class="ic">◧</span><span class="ic">‹</span><span class="ic off">›</span><span class="url">github.io</span><span class="ic" data-k="share"><span class="sq">↑</span></span><span class="ic">＋</span><span class="ic">⧉</span></div> <div class="pg"><div class="hd"><svg aria-hidden="true"><use href="#sl-logo"/></svg><b>石榴放蕊</b></div> <div class="ln t"></div><div class="vb"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div> </div> <div class="ly shr"> <div class="top"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i><div>石榴放蕊 每日讀<br><span style="color:#888">github.io</span></div></div> <div class="apps"><span></span><span></span><span></span><span></span></div> <div class="vp"><div class="list"><div>拷貝<span>⧉</span></div><div>加入閱讀列表<span>◎</span></div><div>加入書籤<span>☆</span></div><div>加入喜好項目<span>★</span></div><div>在頁面上尋找<span>⌕</span></div><div class="tg" data-k="a2h">加入主畫面<span class="sq">+</span></div><div>標示<span>✎</span></div></div></div> </div> <div class="ly dim"></div> <div class="ly add"> <div class="nav"><span class="c">取消</span><b>加入主畫面</b><span class="n" data-k="addbtn">新增</span></div> <div class="box"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i><div>石榴放蕊<br><span style="color:#999;font-size:9px">github.io</span></div></div> <div class="tog"><span>以網頁 App 打開</span><b></b></div> </div> <div class="ly home"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><div class="me"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i>石榴放蕊</div></div> <div class="finger"></div> </div><button type="button" class="replay" data-a2="replay" aria-label="重新播放示範"><i></i>重新播放</button></div> <div class="cap"> <ol> <li data-go="1"><b>1</b><span>用 Safari 打開網站，點畫面右上方的「分享」按鈕（方框加向上箭頭）</span></li> <li data-go="3"><b>2</b><span>往下滑，點「加入主畫面」</span></li> <li data-go="4"><b>3</b><span>「以網頁 App 打開」保持開啟，點「新增」</span></li> <li data-go="5"><b>4</b><span>完成！以後從主畫面的石榴圖示打開</span></li> </ol> <div class="ctl"><button type="button" data-a2="toggle">暫停</button><span>上方找不到「分享」按鈕：點網址列裡的「⋯」，再點「分享」。</span></div> <p class="tip">💡 如果是在 LINE 裡點開連結，請先改用 Safari 打開，才看得到這些選項。</p> </div> </div> `, A2_AND0=`<div class="a2hs and" data-s="1" aria-label="Android 加入主畫面步驟示範" data-plan='{"1":{"k":"more","t":2200,"d":450,"c":0},"2":{"k":"inst","t":2300,"d":500,"c":1},"3":{"k":"ok","t":2300,"d":550,"c":2},"4":{"t":2800,"d":450,"c":3}}'> <div class="phone"><div class="scr" aria-hidden="true"> <div class="cam"></div> <div class="sb"><span>9:41</span><span>▾ ▴ ▮</span></div> <div class="ly web"> <div class="tb"><span class="home-ic">⌂</span><span class="url">🔒 github.io</span><span class="tabs">1</span><span class="more" data-k="more">⋮</span></div> <div class="pg"><div class="hd"><svg aria-hidden="true"><use href="#sl-logo"/></svg><b>石榴放蕊</b></div> <div class="ln t"></div><div class="vb"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div></div> </div> <div class="ly menu"> <div class="row"><span>→</span><span>☆</span><span>⤓</span><span>ⓘ</span><span>↻</span></div> <div class="it"><span>＋</span>新增分頁</div><div class="it"><span>◷</span>歷史記錄</div><div class="it"><span>⤓</span>下載內容</div><div class="it"><span>★</span>書籤</div><div class="it"><span>⇪</span>分享…</div> <div class="it tg" data-k="inst"><span>⊕</span>安裝應用程式</div><div class="it"><span>⚙</span>設定</div> </div> <div class="ly dim"></div> <div class="ly dlg"> <h4>安裝應用程式</h4> <div class="ap"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i><div><b>石榴放蕊</b><br><span style="color:#777;font-size:10px">github.io</span></div></div> <div class="bt"><span>取消</span><span data-k="ok">安裝</span></div> </div> <div class="ly home"><div class="gd"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><div class="me"><i class="lg"><svg aria-hidden="true"><use href="#sl-logo"/></svg></i>石榴放蕊</div></div> <div class="dock"><div class="r"><span></span><span></span><span></span><span></span></div><div class="q"></div></div></div> <div class="nav3"></div> <div class="finger"></div> </div><button type="button" class="replay" data-a2="replay" aria-label="重新播放示範"><i></i>重新播放</button></div> <div class="cap"> <ol> <li data-go="1"><b>1</b><span>用 Chrome 打開網站，點右上角的「⋮」</span></li> <li data-go="2"><b>2</b><span>點「安裝應用程式」（有些手機寫「加到主畫面」）</span></li> <li data-go="3"><b>3</b><span>跳出視窗後，點「安裝」</span></li> <li data-go="4"><b>4</b><span>完成！以後從主畫面的石榴圖示打開</span></li> </ol> <div class="ctl"><button type="button" data-a2="toggle">暫停</button><span>如果出現「加到主畫面」視窗，就點「新增」，再點「自動新增」。</span></div> <p class="tip">💡 如果是在 LINE 裡點開連結，請先改用 Chrome 打開，才看得到這些選項。</p> </div> </div> `;
 const UA=navigator.userAgent||'';
 const STANDALONE=!!(navigator.standalone||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches));
 const IS_IOS=/iphone|ipad|ipod/i.test(UA)||(/macintosh/i.test(UA)&&navigator.maxTouchPoints>1);
 const IS_AND=/android/i.test(UA);
 const IS_LINE=/\bLine\//i.test(UA);
 const IN_APP=IS_LINE||/FBAN|FBAV|FB_IAB|Instagram|MicroMessenger/i.test(UA);
+/* 用詞跟著裝置走：手機／平板／電腦（iPad 新版會假裝成 Mac，要用觸控點數判斷；Android 平板的 UA 沒有 Mobile） */
+const IS_IPAD=/ipad/i.test(UA)||(/macintosh/i.test(UA)&&navigator.maxTouchPoints>1);
+const IS_TABLET=IS_IPAD||(IS_AND&&!/mobile/i.test(UA));
+const DEV=IS_TABLET?'平板':((IS_IOS||IS_AND||/mobi/i.test(UA))?'手機':'電腦');
+const THIS_DEV='這'+(DEV==='手機'?'支':'台')+DEV;
 const A2PLAYED={};
+const A2_AND=IS_TABLET?A2_AND0.replace('class="a2hs and"','class="a2hs and tab"').replace('aria-label="Android 加入主畫面','aria-label="Android 平板加入主畫面'):A2_AND0;
 let installPrompt=null;
-function a2Kind(){ if(STANDALONE) return null; return IS_IOS?'ios':(IS_AND?'and':null); }
+function a2Kind(){ if(STANDALONE) return null; return IS_IPAD?'ipad':(IS_IOS?'ios':(IS_AND?'and':null)); }
 addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); installPrompt=e; if(view==='today'||view==='set') rerender(); });
 addEventListener('appinstalled',()=>{ installPrompt=null; ui.iosHint=Date.now()+3650*86400000; saveUI(); rerender();
   toast('<div>✓ 已加到主畫面！以後從主畫面的石榴圖示打開就可以了。</div><div class="btns"><button class="btn ghost small" id="t-ok">好</button></div>'); });
 function externalUrl(){ try{ const u=new URL(location.href); u.searchParams.set('openExternalBrowser','1'); return u.toString(); }catch(e){ return location.href; } }
 function a2Body(kind){
-  const browser=kind==='ios'?'Safari':'Chrome';
+  const browser=kind==='and'?'Chrome':'Safari';
   if(IN_APP) return `<div class="a2box"><p style="margin:0">你現在是在 ${IS_LINE?'LINE':'App'} 裡面打開這個網頁，這裡沒辦法加到主畫面。請先改用 ${browser} 打開：</p>
     ${IS_LINE?`<div class="btns"><a class="btn one" href="${esc(externalUrl())}">用 ${browser} 打開</a></div>`:`<p class="note" style="margin:0">點右上角的選單（⋯ 或 ⋮），選「用瀏覽器開啟」。</p>`}</div>`;
   if(kind==='and' && installPrompt) return `<div class="a2box"><div class="btns"><button class="btn one" id="a2-install">📲 一鍵加到主畫面</button></div>
     <p class="note" style="margin:0">按下去會跳出視窗，再點「安裝」就完成了。</p>
     <details id="a2-more"><summary>按了沒反應？看圖解步驟</summary>${A2_AND}</details></div>`;
-  return `<div class="a2box">${kind==='ios'?A2_IOS:A2_AND}</div>`;
+  return `<div class="a2box">${kind==='ios'?A2_IOS:(kind==='ipad'?A2_IPAD:A2_AND)}</div>`;
 }
 /* ---------- chrome ---------- */
 function refreshChrome(){
@@ -482,8 +556,8 @@ function refreshChrome(){
 function renderPop(){
   const p=$('#popwrap');
   p.innerHTML = saved()
-    ? `<div class="pop"><div>✓ 你的進度已存到 Google 帳號（${esc(cloud.user.email||'')}）。換手機只要用同一個帳號登入，進度就會回來。</div></div>`
-    : `<div class="pop"><div>⚠ 你的閱讀進度目前只存在這支手機的瀏覽器裡。清除瀏覽器資料或換手機，紀錄會不見。</div><div>${saveWay()}</div><div class="btns">${cloud.ready?'<button class="btn small" id="p-login">用 Google 登入保存</button>':''}<button class="btn ghost small" id="p-set">${cloud.ready?'不登入，改用進度碼':'去產生進度碼'}</button></div></div>`;
+    ? `<div class="pop"><div>✓ 你的進度已存到 Google 帳號（${esc(cloud.user.email||'')}）。換手機、平板或電腦，只要用同一個帳號登入，進度就會回來。</div></div>`
+    : `<div class="pop"><div>⚠ 你的閱讀進度目前只存在${THIS_DEV}的瀏覽器裡。清除瀏覽器資料或換${DEV}，紀錄會不見。</div><div>${saveWay()}</div><div class="btns">${cloud.ready?'<button class="btn small" id="p-login">用 Google 登入保存</button>':''}<button class="btn ghost small" id="p-set">${cloud.ready?'不登入，改用進度碼':'去產生進度碼'}</button></div></div>`;
   const l=$('#p-login'); if(l) l.onclick=()=>{p.hidden=true; signIn();};
   const s=$('#p-set'); if(s) s.onclick=()=>{p.hidden=true; $('#savechip').setAttribute('aria-expanded','false'); show('set');};
 }
@@ -516,12 +590,12 @@ const themeLabel=th=>`（${NUMS[th.i]}）${th.n}`;
 function welcomeCard(){
   return `<div class="card"><h2>歡迎使用《石榴放蕊》每日讀</h2>
   <p>一天一篇，共 365 篇。按「從今天開始讀」，今天就是第 1 天，之後每天打開會自動顯示當天的那一篇。</p>
-  <p class="note">📌 你的閱讀進度目前只存在這支手機。${saveWay()}</p>
+  <p class="note">📌 你的閱讀進度目前只存在${THIS_DEV}。${saveWay()}</p>
   <div class="btns"><button class="btn" id="startnow">從今天開始讀</button>${cloud.ready?'<button class="btn ghost" id="w-login">用 Google 登入保存</button>':''}</div></div>`;
 }
 function a2Card(kind){
-  return `<div class="card"><h2>把它加到手機主畫面</h2>
-  <p class="note" style="margin:6px 0 0">以後從主畫面的石榴圖示打開，像 App 一樣方便${kind==='ios'?'，iPhone 也不會自動清掉你的閱讀紀錄':''}。</p>
+  return `<div class="card"><h2>把它加到${DEV}主畫面</h2>
+  <p class="note" style="margin:6px 0 0">以後從主畫面的石榴圖示打開，像 App 一樣方便${kind==='ios'?'，iPhone 也不會自動清掉你的閱讀紀錄':(kind==='ipad'?'，iPad 也不會自動清掉你的閱讀紀錄':'')}。</p>
   ${a2Body(kind)}
   <div class="btns"><button class="btn ghost small" id="ios-ok">知道了，先不用</button></div></div>`;
 }
@@ -558,7 +632,7 @@ function doSearch(){
   const hl=s=>esc(s).split(esc(q)).join(`<mark>${esc(q)}</mark>`);
   box.innerHTML=`<p class="note">找到 ${res.length} 篇</p>`+res.slice(0,200).map(r=>{
     const s=r.idx>=0?(r.idx>20?'…':'')+r.t.slice(Math.max(0,r.idx-20),r.idx+q.length+40)+'…':'';
-    return `<button class="hit" data-no="${r.a.no}"><div class="h"><span class="num" style="font-size:12px">${pad(r.a.no)}</span>　${hl(r.a.t)}</div>${s?`<div class="s">${hl(s)}</div>`:''}</button>`}).join('');
+    return `<button class="hit" data-no="${r.a.no}"><div class="h"><span class="num" style="font-size:calc(12px*var(--k))">${pad(r.a.no)}</span>　${hl(r.a.t)}</div>${s?`<div class="s">${hl(s)}</div>`:''}</button>`}).join('');
 }
 
 /* backup code */
@@ -576,24 +650,26 @@ function readCode(raw){ const m=String(raw||'').replace(/\s+/g,'').match(/^SL1-(
 function renderSettings(){
   const d=dayIndex();
   const acct = !cloud.ready ? '' : saved()
-    ? `<div class="panel"><h3>帳號</h3><div>✓ 已用 Google 帳號登入：${esc(cloud.user.email||'')}</div><div class="note">你的開始日期、已讀紀錄和配色選擇都存在這個帳號，換手機用同一個帳號登入就會回來。</div><div class="btns"><button class="btn ghost small" id="signout">登出</button></div></div>`
-    : `<div class="panel"><h3>帳號</h3><div>⚠ 尚未登入，進度只存在這支手機。</div><div class="note">登入 Google 帳號是為了保存你的閱讀進度，換手機或清除瀏覽器資料也不會不見。不登入也可以照常閱讀。</div><div class="btns"><button class="btn small" id="signin">用 Google 登入保存</button></div></div>`;
+    ? `<div class="panel"><h3>帳號</h3><div>✓ 已用 Google 帳號登入：${esc(cloud.user.email||'')}</div><div class="note">你的開始日期、已讀紀錄和配色選擇都存在這個帳號，換手機、平板或電腦，用同一個帳號登入就會回來。</div><div class="btns"><button class="btn ghost small" id="signout">登出</button></div></div>`
+    : `<div class="panel"><h3>帳號</h3><div>⚠ 尚未登入，進度只存在${THIS_DEV}。</div><div class="note">登入 Google 帳號是為了保存你的閱讀進度，換${DEV}或清除瀏覽器資料也不會不見。不登入也可以照常閱讀。</div><div class="btns"><button class="btn small" id="signin">用 Google 登入保存</button></div></div>`;
   return acct + `<div class="panel"><h3>閱讀</h3>
    <div class="row"><label class="l" for="startd">開始日期</label><input type="date" id="startd" value="${state.start||''}"><button class="btn small" id="savestart">儲存</button></div>
    <div class="note">${state.start?`今天是第 ${d} 天，對應第 ${pad(todayNo())} 篇。讀完 365 天後會從第 001 篇重新開始。`:'還沒設定。開始那天讀第 001 篇，之後每天往下一篇。'}</div>
    <div class="row"><label class="l">已讀紀錄</label><span class="note">已讀 ${readCount()} 篇</span><span id="resetwrap"><button class="btn ghost small" id="reset">清除已讀紀錄</button></span></div></div>
-  ${a2Kind()?`<div class="panel"><h3>加到手機主畫面</h3><div class="note">以後從主畫面的石榴圖示打開，像 App 一樣方便。</div>${a2Body(a2Kind())}</div>`:''}
+  ${a2Kind()?`<div class="panel"><h3>加到${DEV}主畫面</h3><div class="note">以後從主畫面的石榴圖示打開，像 App 一樣方便。</div>${a2Body(a2Kind())}</div>`:''}
   <div class="panel"><h3>外觀</h3>
    <div class="row"><label class="l">配色</label><div class="sw">${PALETTES.map(([k,n,c])=>`<button data-pal="${k}" aria-pressed="${prefs.palette===k}"><i>${c.map(x=>`<b style="background:${x}"></b>`).join('')}</i>${n}</button>`).join('')}</div></div>
-   <div class="row"><label class="l">深淺</label><div class="seg">${[['system','跟隨手機'],['light','淺色'],['dark','深色']].map(([k,n])=>`<button data-th="${k}" aria-pressed="${prefs.theme===k}">${n}</button>`).join('')}</div></div>
-   <div class="row"><label class="l">字體大小</label><div class="seg">${[16,18,20,22].map((s,i)=>`<button data-fs="${s}" aria-pressed="${prefs.fs===s}">${['小','中','大','特大'][i]}</button>`).join('')}</div></div></div>
+   <div class="row"><label class="l">深淺</label><div class="seg">${[['system','跟隨系統'],['light','淺色'],['dark','深色']].map(([k,n])=>`<button data-th="${k}" aria-pressed="${prefs.theme===k}">${n}</button>`).join('')}</div></div>
+   <div class="row"><label class="l">字體大小</label><div class="seg">${[16,18,20,22].map((s,i)=>`<button data-fs="${s}" aria-pressed="${prefs.fs===s}">${['小','中','大','特大'][i]}</button>`).join('')}</div></div>
+   <div class="note">預覽（文章的字會是這個大小）：</div>
+   <div class="fsprev">耶和華阿，早晨你必聽我的聲音；早晨我必向你陳明我的心意，並要守望。</div></div>
   <div class="panel"><h3>進度碼（不登入也能備份）</h3>
-   <div class="note">換手機或清除瀏覽器資料前，先按「產生進度碼」，把那串碼存到 LINE 或手機備忘錄。之後貼回下面就能還原開始日期和已讀紀錄。</div>
+   <div class="note">換${DEV}或清除瀏覽器資料前，先按「產生進度碼」，把那串碼存到 LINE 或備忘錄。之後貼回下面就能還原開始日期和已讀紀錄。</div>
    <div class="row"><button class="btn small" id="mkcode">產生進度碼</button></div>
    <div class="row" id="coderow" hidden><input class="inp" id="codeout" readonly style="font-family:monospace"><button class="btn ghost small" id="copycode">複製</button></div>
    <div class="row"><input class="inp" id="codein" placeholder="貼上進度碼，例如 SL1-20261024-…"><button class="btn small" id="usecode">還原</button></div>
    <div class="note" id="restoremsg" role="status"></div></div>
-  <div class="note" style="text-align:center;opacity:.7">版本 v6</div>
+  <div class="note" style="text-align:center;opacity:.7">版本 v7</div>
 `;
 }
 
@@ -635,7 +711,8 @@ function bind(){
   on('savestart',()=>{const v=$('#startd').value; if(v){state.start=v; cur=null; lsSet('sl-progress',state); cloudWrite({start:v}); show('set')}});
   document.querySelectorAll('[data-pal]').forEach(b=>b.onclick=()=>{prefs.palette=b.dataset.pal; applyPrefs(true); show('set')});
   document.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>{prefs.theme=b.dataset.th; applyPrefs(true); show('set')});
-  document.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{prefs.fs=+b.dataset.fs; applyPrefs(false); show('set')});
+  document.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{const y0=b.getBoundingClientRect().top; prefs.fs=+b.dataset.fs; applyPrefs(false); show('set');
+    const nb=document.querySelector('[data-fs="'+prefs.fs+'"]'); if(nb) window.scrollBy(0,nb.getBoundingClientRect().top-y0); });
   on('reset',()=>{$('#resetwrap').innerHTML='<span class="confirm">確定清除全部已讀紀錄？<button class="btn small" id="resetyes">清除</button><button class="btn ghost small" id="resetno">取消</button></span>'; bind();});
   on('resetyes',()=>{state.read={}; lsSet('sl-progress',state); if(cloud.ref) cloud.ref.update({read:{},updatedAt:Date.now()}).catch(()=>{}); show('set')});
   on('resetno',()=>show('set'));

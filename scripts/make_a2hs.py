@@ -3,11 +3,13 @@ lg=open('web/logo.svg').read()
 vb=re.search(r'viewBox="([^"]+)"',lg).group(1); d=re.search(r' d="([^"]+)"',lg).group(1)
 SYM=f'<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="sl-logo" viewBox="{vb}"><path fill="currentColor" fill-rule="evenodd" d="{d}"/></symbol></svg>'
 USE='<svg aria-hidden="true"><use href="#sl-logo"/></svg>'
-common,ios,andc,js=[open('scripts/components_src/'+x).read() for x in ['common.css','ios.css','and.css','engine.js']]
+common,ios,andc,ipadc,js=[open('scripts/components_src/'+x).read() for x in ['common.css','ios.css','and.css','ipad.css','engine.js']]
 ih=open('scripts/components_src/ios.html').read().replace('LOGO',USE); ah=open('scripts/components_src/and.html').read().replace('LOGO',USE)
 hdr='<!-- 加入主畫面教學動畫元件（由 scripts/make_a2hs.py 產生，請改 scripts/components_src/ 再重跑）。顏色用網站的配色變數，會跟著配色與深淺模式變。\n     放進網站：<style> 併入主樣式；SYMBOL（Logo 圖形定義）放一次；動畫區塊放進加入主畫面卡片；<script> 放頁面底部。 -->\n'
 R='web/components/'
 open(R+'a2hs-iphone.html','w').write(hdr+f'<style>\n{common}{ios}</style>\n{SYM}\n{ih}\n<script>\n{js}initA2HS();\n</script>\n')
+pd=open('scripts/components_src/ipad.html').read().replace('LOGO',USE)
+open(R+'a2hs-ipad.html','w').write(hdr+f'<style>\n{common}{ipadc}</style>\n{SYM}\n{pd}\n<script>\n{js}initA2HS();\n</script>\n')
 open(R+'a2hs-android.html','w').write(hdr+f'<style>\n{common}{andc}</style>\n{SYM}\n{ah}\n<script>\n{js}initA2HS();\n</script>\n')
 # preview page
 P=[('r','石榴紅','#ffffff','#ffffff','#222222','#76696a','#ece4e4','#7a1f2b','#171112','#201819','#ece6e3','#a89c9a','#352a2b','#d6b06e'),
