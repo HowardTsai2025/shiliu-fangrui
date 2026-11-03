@@ -114,7 +114,10 @@ mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;bord
 .panel h3{margin:0;font-size:calc(15px*var(--k))}
 .panel .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 .panel label.l{font-size:calc(14px*var(--k));color:var(--muted);min-width:5.5em}
-.panel input[type=date]{font:inherit;font-size:max(16px,calc(16px*var(--k)));padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.datebox{position:relative;display:inline-flex;align-items:center;font-size:max(16px,calc(16px*var(--k)));padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;cursor:pointer}
+/* 日期顯示成 yyyy/MM/dd：系統的日期欄位格式跟著手機設定改不了，所以自己顯示文字，透明的日期欄位蓋在上面，點了照樣跳出系統的日期選擇器 */
+.datebox input{position:absolute;inset:0;width:100%;height:100%;opacity:0;border:0;padding:0;margin:0;font-size:16px;cursor:pointer}
+.datebox:focus-within{outline:2px solid var(--acc);outline-offset:2px}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .seg button{border:none;background:none;padding:6px 12px;font-size:calc(14px*var(--k))}
 .seg button[aria-pressed="true"]{background:var(--acc);color:var(--onacc)}
@@ -355,8 +358,8 @@ function body(items, opener){
 const themeLabel=th=>`（${NUMS[th.i]}）${th.n}`;
 
 function welcomeCard(){
-  return `<div class="card"><h2>歡迎使用《石榴放蕊》每日讀</h2>
-  <p>一天一篇，共 365 篇。按「從今天開始讀」，今天就是第 1 天，之後每天打開會自動顯示當天的那一篇。</p>
+  return `<div class="card"><h2>歡迎使用《石榴放蕊》</h2>
+  <p>一天一篇，共 365 篇。</p>
   ${saved()?`<p class="note">✓ 已用 Google 帳號登入（${esc(cloud.user.email||'')}），你的閱讀進度會自動保存。</p>`:`<p class="note">📌 你的閱讀進度目前只存在${THIS_DEV}。${saveWay()}</p>`}
   <div class="btns"><button class="btn" id="startnow">從今天開始讀</button>${cloud.ready&&!saved()?'<button class="btn ghost" id="w-login">用 Google 登入保存</button>':''}</div></div>`;
 }
@@ -381,7 +384,7 @@ function renderArticle(no){
 }
 function renderTOC(){
   const tn=todayNo();
-  let h=`<p class="note" style="margin:0 0 14px">已讀 ${readCount()} / ${TOTAL} 篇。點任何一篇就能打開。</p>`;
+  let h=`<p class="note" style="margin:0 0 14px">已讀 ${readCount()} / ${TOTAL} 篇。</p>`;
   THEMES.forEach(th=>{ const done=th.a.filter(a=>state.read[a.no]).length;
     h+=`<section class="theme-block"><div class="theme-head"><h2>${themeLabel(th)}</h2><span class="c">第 ${pad(th.a[0].no)}–${pad(th.a[th.a.length-1].no)} 篇・已讀 ${done}/${th.a.length}</span><span class="prog" aria-hidden="true"><i style="width:${done/th.a.length*100}%"></i></span></div><ul class="list">`;
     th.a.forEach(a=>{h+=`<li><button data-no="${a.no}" class="${state.start&&a.no===tn?'today':''}"><span class="n">${pad(a.no)}</span><span class="tt">${esc(a.t)}</span>${state.read[a.no]?'<span class="d">✓</span>':''}</button></li>`});
@@ -415,14 +418,12 @@ function readCode(raw){ const m=String(raw||'').replace(/\s+/g,'').match(/^SL1-(
   return {start,read}; }
 
 function renderSettings(){
-  const d=dayIndex();
   const acct = !cloud.ready ? '' : saved()
     ? `<div class="panel"><h3>帳號</h3><div>✓ 已用 Google 帳號登入：${esc(cloud.user.email||'')}</div><div class="note">你的開始日期、已讀紀錄和配色選擇都存在這個帳號，換手機、平板或電腦，用同一個帳號登入就會回來。</div><div class="btns"><button class="btn ghost small" id="signout">登出</button></div></div>`
     : `<div class="panel"><h3>帳號</h3><div>⚠ 尚未登入，進度只存在${THIS_DEV}。</div><div class="note">登入 Google 帳號是為了保存你的閱讀進度，換${DEV}或清除瀏覽器資料也不會不見。不登入也可以照常閱讀。</div><div class="btns"><button class="btn small" id="signin">用 Google 登入保存</button></div></div>`;
-  return acct + `<div class="panel"><h3>閱讀</h3>
-   <div class="row"><label class="l" for="startd">開始日期</label><input type="date" id="startd" value="${state.start||''}"><button class="btn small" id="savestart">儲存</button></div>
-   <div class="note">${state.start?`今天是第 ${d} 天，對應第 ${pad(todayNo())} 篇。讀完 365 天後會從第 001 篇重新開始。`:'還沒設定。開始那天讀第 001 篇，之後每天往下一篇。'}</div>
-   <div class="row"><label class="l">已讀紀錄</label><span class="note">已讀 ${readCount()} 篇</span><span id="resetwrap"><button class="btn ghost small" id="reset">清除已讀紀錄</button></span></div></div>
+  return acct + `<div class="panel"><h3>閱讀進度</h3>
+   <div class="row"><label class="l" for="startd">開始日期</label><label class="datebox"><span id="startshow">${state.start?state.start.replace(/-/g,'/'):'尚未開始'}</span><input type="date" id="startd" value="${state.start||''}" aria-label="開始日期"></label><button class="btn small" id="savestart">儲存</button></div>
+   <div class="row"><span class="note">已讀 ${readCount()} 篇</span><span id="resetwrap"><button class="btn ghost small" id="reset">清除已讀紀錄</button></span></div></div>
   ${a2Kind()?`<div class="panel"><h3>加到${DEV}主畫面</h3><div class="note">以後從主畫面的石榴圖示打開，像 App 一樣方便。</div>${a2Body(a2Kind())}</div>`:''}
   <div class="panel"><h3>外觀</h3>
    <div class="row"><label class="l">配色</label><div class="sw">${PALETTES.map(([k,n,c])=>`<button data-pal="${k}" aria-pressed="${prefs.palette===k}"><i>${c.map(x=>`<b style="background:${x}"></b>`).join('')}</i>${n}</button>`).join('')}</div></div>
@@ -475,6 +476,8 @@ function bind(){
   on('prev',()=>open((cur||todayNo())-1)); on('next',()=>open((cur||todayNo())+1));
   on('mark',()=>{const n=cur||todayNo(), was=!!state.read[n]; setRead(n,!was); show('today',n); if(!was) afterMark(n);});
   const f=$('#sform'); if(f){ f.onsubmit=e=>{e.preventDefault(); query=$('#q').value; doSearch()}; $('#q').oninput=e=>{query=e.target.value; doSearch()}; }
+  const sd=$('#startd'); if(sd){ sd.addEventListener('input',()=>{$('#startshow').textContent=sd.value?sd.value.replace(/-/g,'/'):'尚未開始'});
+    sd.addEventListener('click',()=>{try{sd.showPicker&&sd.showPicker()}catch(e){}}); }
   on('savestart',()=>{const v=$('#startd').value; if(v){state.start=v; cur=null; lsSet('sl-progress',state); cloudWrite({start:v}); show('set')}});
   document.querySelectorAll('[data-pal]').forEach(b=>b.onclick=()=>{prefs.palette=b.dataset.pal; applyPrefs(true); show('set')});
   document.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>{prefs.theme=b.dataset.th; applyPrefs(true); show('set')});
