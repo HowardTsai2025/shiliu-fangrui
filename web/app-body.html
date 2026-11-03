@@ -102,13 +102,14 @@ main{padding-block:18px 90px}
 .list .d{flex:none;color:var(--ok);font-size:12px}
 .list .today .tt{color:var(--acct);font-weight:700}
 .sbox{display:flex;gap:8px;margin-bottom:14px}
-.inp{flex:1;min-width:0;font:inherit;font-size:16px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.inp{flex:1 1 8em;min-width:0;width:0;font:inherit;font-size:16px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
 .hit{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
 .hit .h{font-weight:700}
 .hit .s{font-family:var(--serif);font-size:14px;color:var(--muted);margin-top:2px}
 mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;border-radius:2px}
 .empty{color:var(--muted);text-align:center;padding:30px 0}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:grid;gap:12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+/* 上面 minmax(0,1fr)：卡片內容一律不能比卡片寬（iPhone 的輸入框預設很寬，曾把整張卡片撐出螢幕） */
 .panel h3{margin:0;font-size:15px}
 .panel .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 .panel label.l{font-size:14px;color:var(--muted);min-width:5.5em}
