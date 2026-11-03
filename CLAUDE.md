@@ -61,6 +61,7 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 2. ~~GitHub Pages~~ ✅ 已開啟（main /docs）：`https://howardtsai2025.github.io/shiliu-fangrui/`（雲端環境連不到這個網址，要請使用者用手機看）。
 3. **上線後手機實測**：iPhone Safari 加入主畫面、Android Chrome「📲 一鍵加到主畫面」按鈕是否出現（需要正式網址＋service worker）、
    從 LINE 打開時「用 Safari／Chrome 打開」按鈕（網址參數 `openExternalBrowser=1`）是否有效、離線閱讀、進度碼。
+   已測：✅ 進度碼產生／還原（iPhone）、✅ iPhone 設定頁輸入框不再放大／超出（v5 確認）。其餘待測。
 4. **Firebase（Google 登入保存進度）**：建專案 → Authentication 啟用 Google → 建 Firestore（選離台灣近的區域，如 asia-east1）→ 貼上 `firestore.rules`
    → Authentication「授權網域」加入 `<帳號>.github.io` → 把網頁應用程式設定貼進 `web/firebase-config.js` → `build_web.py` 的 VERSION 加一 → 重建、commit、push → 兩支手機實測同步。
 5. **之後可考慮**（使用者已知道，尚未決定）：Email 連結登入（免費方案每天只能寄 5 封，需綁卡升級 Blaze）、LINE 登入（需 Blaze + Identity Platform OIDC + LINE Developers）。Apple 登入不建議（年費）。
