@@ -47,6 +47,8 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
+/* iPhone：輸入框字小於 16px 時，點下去 Safari 會自動放大畫面且不縮回，所以所有輸入框至少 16px */
+input,select,textarea{font-size:max(16px,1em)}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;margin:0}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 button{font:inherit;color:inherit;cursor:pointer}
@@ -124,7 +126,7 @@ mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;bord
 .panel h3{margin:0;font-size:15px}
 .panel .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 .panel label.l{font-size:14px;color:var(--muted);min-width:5.5em}
-.panel input[type=date]{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.panel input[type=date]{font:inherit;font-size:16px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .seg button{border:none;background:none;padding:6px 12px;font-size:14px}
 .seg button[aria-pressed="true"]{background:var(--acc);color:var(--onacc)}
@@ -578,8 +580,8 @@ function renderSettings(){
   <div class="panel"><h3>進度碼（不登入也能備份）</h3>
    <div class="note">換手機或清除瀏覽器資料前，先按「產生進度碼」，把那串碼存到 LINE 或手機備忘錄。之後貼回下面就能還原開始日期和已讀紀錄。</div>
    <div class="row"><button class="btn small" id="mkcode">產生進度碼</button></div>
-   <div class="row" id="coderow" hidden><input class="inp" id="codeout" readonly style="font-family:monospace;font-size:14px"><button class="btn ghost small" id="copycode">複製</button></div>
-   <div class="row"><input class="inp" id="codein" placeholder="貼上進度碼，例如 SL1-20261024-…" style="font-size:14px"><button class="btn small" id="usecode">還原</button></div>
+   <div class="row" id="coderow" hidden><input class="inp" id="codeout" readonly style="font-family:monospace"><button class="btn ghost small" id="copycode">複製</button></div>
+   <div class="row"><input class="inp" id="codein" placeholder="貼上進度碼，例如 SL1-20261024-…"><button class="btn small" id="usecode">還原</button></div>
    <div class="note" id="restoremsg" role="status"></div></div>
 `;
 }
