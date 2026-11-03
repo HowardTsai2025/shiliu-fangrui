@@ -88,6 +88,12 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - **這段期間不要在 GitHub 網站上直接改檔案**，回來 deploy 時才能直接接上、不會衝突。
 - 回來 deploy 時：把整個資料夾（含 `.git`）打包上傳，Claude 會比對 GitHub `main` 的最新提交，確認聊天裡的紀錄是接在它後面，再推上 GitHub，請使用者看設定頁版本號確認。
 - 注意：`scripts/make_og.py`、`make_icons.py` 需要 Python 版 playwright（只有換 Logo 才要跑）。
+- **聊天裡完成 v14～v16（2026-11-03，接在 GitHub `main` 的 `e4b1c10` 後面，共 3＋1 筆提交，尚未 push）**：
+  v14 分頁列連按兩下回頁首、點標題／Logo 回今日進度、iPhone 收鍵盤後分頁列漂浮修正（settle）；
+  v15 iPhone／iPad 非 Safari 瀏覽器教學改寫實際名稱、LINE 內提示、Android 平板用詞；
+  v16 iPhone Chrome 專用動畫（components_src/ioscr.html）。
+  回到 Claude Code：確認 `origin/main` 仍是 `e4b1c10` → 直接 `git push` → 請使用者看設定頁版本號是否為 v16。
+  上線後待使用者實測：iPhone 搜尋頁收鍵盤後分頁列是否回到底部、iPhone Chrome 動畫、連按兩下回頁首、點標題回今日。
 
 ## 尚未完成（下一步）
 專案已推上 GitHub：`HowardTsai2025/shiliu-fangrui`（public，分支 `main`）。git 身分：`HowardTsai2025 <276nndy9st@privaterelay.appleid.com>`（使用者提供；舊提交作者已改寫成這個）。
