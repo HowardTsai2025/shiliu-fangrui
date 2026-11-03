@@ -288,7 +288,7 @@ function afterMark(no){
 }
 /* ---------- 加到主畫面 ---------- */
 /*__A2HS_ENGINE__*/
-const A2_IOS=`__A2HS_IOS__`, A2_IPAD=`__A2HS_IPAD__`, A2_AND0=`__A2HS_AND__`;
+const A2_IOS=`__A2HS_IOS__`, A2_IOSCR=`__A2HS_IOSCR__`, A2_IPAD=`__A2HS_IPAD__`, A2_AND0=`__A2HS_AND__`;
 const UA=navigator.userAgent||'';
 const STANDALONE=!!(navigator.standalone||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches));
 const IS_IOS=/iphone|ipad|ipod/i.test(UA)||(/macintosh/i.test(UA)&&navigator.maxTouchPoints>1);
@@ -321,7 +321,7 @@ function a2Body(kind){
   if(kind==='and' && installPrompt) return `<div class="a2box"><div class="btns"><button class="btn one" id="a2-install">📲 一鍵加到主畫面</button></div>
     <p class="note" style="margin:0">按下去會跳出視窗，再點「安裝」就完成了。</p>
     <details id="a2-more"><summary>按了沒反應？看圖解步驟</summary>${A2_AND}</details></div>`;
-  return `<div class="a2box">${kind==='ios'?brFix(A2_IOS):(kind==='ipad'?brFix(A2_IPAD):A2_AND)}</div>`;
+  return `<div class="a2box">${kind==='ios'?(IOS_BR==='Chrome'?A2_IOSCR:brFix(A2_IOS)):(kind==='ipad'?brFix(A2_IPAD):A2_AND)}</div>`;
 }
 /* ---------- chrome ---------- */
 function refreshChrome(){

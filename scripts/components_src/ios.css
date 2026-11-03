@@ -41,3 +41,12 @@
 .a2hs.ios[data-s="5"] .add{transform:none}
 .a2hs.ios[data-s="6"] .home{opacity:1}
 .a2hs.ios[data-s="6"] .me{transform:scale(1)}
+/* ===== iPhone Chrome：網址列（含分享鈕）在下方，下面一排按鈕；沒有「⋯」選單這一步 ===== */
+.a2hs.ios.cr .crbar{position:absolute;left:0;right:0;bottom:0;padding:6px 8px 10px;background:#3a3d42;display:grid;gap:6px}
+.a2hs.ios.cr .crbar .pill{height:30px;border-radius:15px;background:#5a5e64;display:flex;align-items:center;gap:6px;padding:0 6px 0 10px;font-size:10px;color:#eee}
+.a2hs.ios.cr .crbar .pill .url{flex:1;text-align:center}
+.a2hs.ios.cr .crbar .pill .ic{width:24px;height:24px;border-radius:12px;display:grid;place-items:center}
+.a2hs.ios.cr .crbar .sq{border-color:#eee;color:#eee}
+.a2hs.ios.cr .crbar .row{display:flex;justify-content:space-around;align-items:center;color:#eee;font-size:13px}
+.a2hs.ios.cr .crbar .row .pl{width:24px;height:24px;border-radius:50%;background:#5a5e64;display:grid;place-items:center}
+.a2hs.ios.cr .crbar .row .tb{width:15px;height:15px;border:1.5px solid #eee;border-radius:4px;font-size:9px;display:grid;place-items:center}

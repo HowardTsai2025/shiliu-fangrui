@@ -2,7 +2,7 @@
 import json,re,os,shutil
 data=open('build/data.json').read().replace('</','<\\/')
 # 網站版本號：每次改網站都加一（設定頁最下面會顯示，也是 sw.js 的快取名稱）
-VERSION=15
+VERSION=16
 body=open('web/app-body.html').read().replace('__DATA__',data).replace('__VERSION__',str(VERSION))
 # 加到主畫面動畫：從 scripts/components_src/ 組進來
 C='scripts/components_src/'; rd=lambda x: open(C+x,encoding='utf-8').read()
@@ -12,7 +12,7 @@ USE='<svg aria-hidden="true"><use href="#sl-logo"/></svg>'
 oneline=lambda x: re.sub(r'\s*\n\s*',' ',rd(x).replace('LOGO',USE)).replace('`','\\`')
 body=(body.replace('/*__A2HS_CSS__*/',rd('common.css')+rd('ios.css')+rd('and.css')+rd('ipad.css'))
           .replace('__A2HS_SYMBOL__',SYM).replace('/*__A2HS_ENGINE__*/',rd('engine.js'))
-          .replace('__A2HS_IOS__',oneline('ios.html')).replace('__A2HS_IPAD__',oneline('ipad.html')).replace('__A2HS_AND__',oneline('and.html')))
+          .replace('__A2HS_IOSCR__',oneline('ioscr.html')).replace('__A2HS_IOS__',oneline('ios.html')).replace('__A2HS_IPAD__',oneline('ipad.html')).replace('__A2HS_AND__',oneline('and.html')))
 os.makedirs('docs',exist_ok=True)
 # artifact preview (body only)
 open('build/preview-artifact.html','w').write(body)  # 給 Claude 網頁預覽用（只有內文）

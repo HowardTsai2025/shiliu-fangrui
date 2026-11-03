@@ -66,7 +66,7 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - 標題列：Logo＋「石榴放蕊」＋保存狀態。分頁（今日／目錄／搜尋／設定）有圖示＋字：手機（寬 ≤700）放在螢幕最下方像 App 的分頁列（使用者選定），電腦／平板放在標題列右側。
 - 字型：內文、主題標題、文章標題都用思源宋體（Noto Serif TC），標題用粗體；不提供字型切換（使用者決定）。
 - 從搜尋或目錄點進文章，上方有「‹ 回到搜尋結果／回到目錄」，回去時保留捲動位置。
-- iPhone／iPad 上不是 Safari 時（CriOS=Chrome、FxiOS、EdgiOS），加入主畫面教學裡的「Safari」自動換成實際瀏覽器名稱（brFix）。iPad Chrome 的分享鈕也在右上，動畫相符；iPhone Chrome 的動畫仍是 Safari 樣式，只換了文字（待使用者提供 iPhone Chrome 截圖再決定是否另做）。
+- iPhone／iPad 上不是 Safari 時（CriOS=Chrome、FxiOS、EdgiOS），加入主畫面教學裡的「Safari」自動換成實際瀏覽器名稱（brFix）。iPad Chrome 的分享鈕也在右上，動畫相符；iPhone Chrome 有專用動畫（components_src/ioscr.html，v16，依使用者截圖：網址列在下方、分享鈕在網址列右邊、下面一排 ← → ＋ 分頁 ⋯；流程 分享→加入主畫面→新增→完成）。
 - LINE 等 App 內建瀏覽器沒有「加入主畫面」，所以不顯示動畫，改顯示「用 Safari／Chrome 打開」按鈕＋「打開後就會出現圖解步驟」。
 - Android 平板動畫第 2 步寫「有些平板寫…」。
 - 分頁列任何按鈕連按兩下（450ms 內）→ 平滑捲回頁首（不重畫頁面）；點標題「石榴放蕊」或 Logo → 回到今日進度並捲到最上面（像回首頁）。
