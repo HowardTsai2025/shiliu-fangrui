@@ -20,7 +20,7 @@
 - `web/app-body.html`：網站全部的版面、樣式、程式（單一檔）。
 - `web/logo.svg`：Logo「晨光石榴」（使用者用 Nano Banana 產生的原圖描成向量，**照原圖，不要自行重新設計**）。顏色用 currentColor，網站標題列會跟配色變色。
 - `scripts/make_icons.py`：用 logo.svg 產生主畫面圖示（石榴紅底＋白果，使用者選定）、maskable、apple-touch、PDF 封面用白色 Logo（web/icons/cover-logo.png）。需要 playwright，只有換 Logo 時才要跑（`python3 build_all.py icons`）；產出的圖示都已 commit。
-- `web/firebase-config.js`：Firebase 設定，目前是 `null`（尚未申請）。
+- `web/firebase-config.js`：Firebase 設定（專案 ID `shi-liu-fang-rui`，Spark 免費方案；Firestore 在 asia-east1）。改成 `null` 就關掉 Google 登入。
 - `firestore.rules`：Firestore 安全規則（每人只能讀寫自己的 `users/{uid}`）。
 
 ## 重建
@@ -43,6 +43,7 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - 不要字體大小提示；「隱私說明」區塊已移除，不要加回。
 - 進度保存採「方案 ③」：不登入也能讀（存在本機 localStorage）；想永久保存可用 Google 登入（Firebase Auth + Firestore，文件 `users/{uid}`：start、read（篇號→true）、palette、theme）。
   另有「進度碼」（SL1-YYYYMMDD-base64url 位元表）可備份／還原。
+- 登入失敗會跳提示並顯示錯誤代碼（使用者自己關掉視窗則不提示）；請使用者截圖錯誤代碼來除錯。
 - 保存提醒：上方 ⚠ 未保存／✓ 已保存 標示；首次開啟歡迎卡；第一次按已讀的提示；第 7/30/100/200/300 篇與讀完主題時提醒；「以後再說」7 天不再提醒；已登入者不提醒。
 - 「把它加到手機主畫面」卡片（今日頁上方＋設定頁）：自動判斷手機——iPhone 只顯示 iPhone 動畫；Android 若 Chrome 提供安裝事件（beforeinstallprompt）就顯示「📲 一鍵加到主畫面」按鈕，動畫收在「按了沒反應？看圖解步驟」裡，否則直接顯示 Android 動畫；在 LINE 等 App 內建瀏覽器開啟時，改提示用 Safari／Chrome 打開（LINE 用網址參數 openExternalBrowser=1）。已是主畫面 App 時不顯示。「知道了，先不用」隱藏 30 天。
   動畫原始檔在 `scripts/components_src/`（共用 common.css、engine.js），`build_web.py` 會組進網站；`scripts/make_a2hs.py` 另產獨立元件與預覽。
@@ -62,7 +63,7 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 3. **上線後手機實測**：iPhone Safari 加入主畫面、Android Chrome「📲 一鍵加到主畫面」按鈕是否出現（需要正式網址＋service worker）、
    從 LINE 打開時「用 Safari／Chrome 打開」按鈕（網址參數 `openExternalBrowser=1`）是否有效、離線閱讀、進度碼。
    已測：✅ 進度碼產生／還原（iPhone）、✅ iPhone 設定頁輸入框不再放大／超出（v5 確認）。其餘待測。
-4. **Firebase（Google 登入保存進度）**：建專案 → Authentication 啟用 Google → 建 Firestore（選離台灣近的區域，如 asia-east1）→ 貼上 `firestore.rules`
+4. **Firebase（Google 登入保存進度）**（v6 已上線：Google 登入已啟用、授權網域已加 howardtsai2025.github.io、Firestore 建在 asia-east1、規則已發布；**待手機實測**，特別是 iPhone 主畫面 App 裡登入）：建專案 → Authentication 啟用 Google → 建 Firestore（選離台灣近的區域，如 asia-east1）→ 貼上 `firestore.rules`
    → Authentication「授權網域」加入 `<帳號>.github.io` → 把網頁應用程式設定貼進 `web/firebase-config.js` → `build_web.py` 的 VERSION 加一 → 重建、commit、push → 兩支手機實測同步。
 5. **之後可考慮**（使用者已知道，尚未決定）：Email 連結登入（免費方案每天只能寄 5 封，需綁卡升級 Blaze）、LINE 登入（需 Blaze + Identity Platform OIDC + LINE Developers）。Apple 登入不建議（年費）。
 

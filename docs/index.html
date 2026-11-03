@@ -347,8 +347,17 @@ function cloudUnread(n){ if(cloud.ref) cloud.ref.update({['read.'+n]:firebase.fi
 async function signIn(){
   if(!cloud.ready) return;
   const p=new firebase.auth.GoogleAuthProvider();
-  try{ await cloud.auth.signInWithPopup(p); }
-  catch(e){ if(e&&e.code&&/popup|operation-not-supported/.test(e.code)){ try{await cloud.auth.signInWithRedirect(p)}catch(_){} } }
+  const okMsg=()=>toast('<div>✓ 已登入！你的閱讀進度會自動保存在 Google 帳號裡，換手機用同一個帳號登入就會回來。</div><div class="btns"><button class="btn ghost small" id="t-ok">好</button></div>');
+  const failMsg=e=>{ const c=(e&&e.code)||'unknown';
+    if(/popup-closed-by-user|cancelled-popup-request|user-cancelled/.test(c)) return;   // 使用者自己關掉，不用提示
+    const why=/network-request-failed/.test(c)?'好像沒有連上網路，請確認網路後再試一次。'
+      :'請用 Safari（iPhone）或 Chrome（Android）打開這個網站再試一次。如果還是不行，請把這個畫面截圖給分享網站給你的人。';
+    toast(`<div>登入沒有成功。${why}</div><div class="note">錯誤代碼：${esc(c)}</div><div class="btns"><button class="btn ghost small" id="t-ok">好</button></div>`); };
+  try{ await cloud.auth.signInWithPopup(p); okMsg(); }
+  catch(e){
+    if(e&&e.code&&/popup-blocked|operation-not-supported/.test(e.code)){ try{await cloud.auth.signInWithRedirect(p)}catch(e2){failMsg(e2)} }
+    else failMsg(e);
+  }
 }
 function signOut(){ if(cloud.auth) cloud.auth.signOut(); }
 const saved=()=>!!cloud.user;
@@ -584,7 +593,7 @@ function renderSettings(){
    <div class="row" id="coderow" hidden><input class="inp" id="codeout" readonly style="font-family:monospace"><button class="btn ghost small" id="copycode">複製</button></div>
    <div class="row"><input class="inp" id="codein" placeholder="貼上進度碼，例如 SL1-20261024-…"><button class="btn small" id="usecode">還原</button></div>
    <div class="note" id="restoremsg" role="status"></div></div>
-  <div class="note" style="text-align:center;opacity:.7">版本 v5</div>
+  <div class="note" style="text-align:center;opacity:.7">版本 v6</div>
 `;
 }
 
