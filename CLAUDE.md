@@ -92,7 +92,7 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
   v14 分頁列連按兩下回頁首、點標題／Logo 回今日進度、iPhone 收鍵盤後分頁列漂浮修正（settle）；
   v15 iPhone／iPad 非 Safari 瀏覽器教學改寫實際名稱、LINE 內提示、Android 平板用詞；
   v16 iPhone Chrome 專用動畫（components_src/ioscr.html）。
-  回到 Claude Code：確認 `origin/main` 仍是 `e4b1c10` → 直接 `git push` → 請使用者看設定頁版本號是否為 v16。
+  ✅ 2026-11-03 已在 Claude Code 上線（fast-forward push，v16）；上線前測過 7 種裝置（含 iPhone Chrome）× 4 種字級、登入流程、離線、連按兩下回頁首、點標題回今日。
   上線後待使用者實測：iPhone 搜尋頁收鍵盤後分頁列是否回到底部、iPhone Chrome 動畫、連按兩下回頁首、點標題回今日。
 
 ## 尚未完成（下一步）
