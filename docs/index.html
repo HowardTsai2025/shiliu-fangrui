@@ -67,11 +67,12 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .bar .wrap{display:flex;align-items:center;gap:10px;padding-block:10px}
-.brand{font-family:var(--serif);font-weight:700;font-size:calc(19px*var(--k));color:var(--acct);letter-spacing:.14em;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.brand{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;font-family:var(--serif);font-weight:700;font-size:calc(19px*var(--k));color:var(--acct);letter-spacing:.14em;white-space:nowrap;display:flex;align-items:center;gap:8px}
 .brand .logo{width:28px;height:28px;flex:none}
 .chip{border:1px solid currentColor;background:transparent;border-radius:999px;padding:1px 9px;font-size:calc(12px*var(--k));white-space:nowrap}
 .chip.warn{color:var(--warn)} .chip.ok{color:var(--ok)}
 .tabs{margin-left:auto;display:flex;gap:2px}
+.tabs button{touch-action:manipulation}
 .tabs button{white-space:nowrap;border:none;background:none;padding:6px 10px;border-radius:999px;font-size:calc(14px*var(--k));color:var(--muted);display:inline-flex;align-items:center;gap:4px}
 .tabs .ti{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .tabs button[aria-pressed="true"]{background:var(--acc);color:var(--onacc)}
@@ -348,7 +349,7 @@ mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;bord
 <body>
 
 <header class="bar"><div class="wrap">
-  <div class="brand"><svg class="logo" aria-hidden="true" focusable="false"><use href="#sl-logo"/></svg><span>石榴放蕊</span></div>
+  <div class="brand" id="brand" role="button" tabindex="0" aria-label="石榴放蕊，回到今日進度"><svg class="logo" aria-hidden="true" focusable="false"><use href="#sl-logo"/></svg><span>石榴放蕊</span></div>
   <button class="chip warn" id="savechip" aria-expanded="false">⚠ 未保存</button>
   <nav class="tabs" aria-label="切換頁面">
     <button id="t-today" aria-pressed="true"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5zM12 6.5V19"/></svg><span>今日</span></button>
@@ -673,7 +674,7 @@ function renderSettings(){
    <div class="row" id="coderow" hidden><input class="inp" id="codeout" readonly style="font-family:monospace"><button class="btn ghost small" id="copycode">複製</button></div>
    <div class="row"><input class="inp" id="codein" placeholder="貼上進度碼，例如 SL1-20261024-…"><button class="btn small" id="usecode">還原</button></div>
    <div class="note" id="restoremsg" role="status"></div></div>
-  <div class="note" style="text-align:center;opacity:.7">版本 v13</div>
+  <div class="note" style="text-align:center;opacity:.7">版本 v14</div>
 `;
 }
 
@@ -731,10 +732,29 @@ function bind(){
     if(cloud.ref) cloud.ref.set({start:r.start,read:r.read,updatedAt:Date.now()},{merge:false}).then(()=>cloudWrite({palette:prefs.palette,theme:prefs.theme})).catch(()=>{});
     show('set'); $('#restoremsg').textContent=`已還原：${r.start?'開始日期 '+r.start+'，':''}已讀 ${Object.keys(r.read).length} 篇。`;});
 }
-$('#t-today').onclick=()=>{back=null; cur=todayNo(); show('today')};
-$('#t-toc').onclick=()=>{back=null; show('toc')};
-$('#t-search').onclick=()=>{back=null; show('search'); const q=$('#q'); if(q) q.focus()};
-$('#t-set').onclick=()=>{back=null; show('set')};
+/* 分頁列：按一下切換頁面；連按兩下回到頁首 */
+const SMOOTH=!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+function toTop(){ const a=document.activeElement; if(a&&a.blur&&a!==document.body) a.blur(); window.scrollTo({top:0,behavior:SMOOTH?'smooth':'auto'}); }
+let lastTap={id:'',t:0};
+function tab(id,fn){ $('#'+id).onclick=()=>{ const now=Date.now();
+  if(lastTap.id===id && now-lastTap.t<450){ lastTap={id:'',t:0}; toTop(); return; }
+  lastTap={id,t:now}; fn(); }; }
+const goToday=()=>{back=null; cur=todayNo(); show('today')};
+tab('t-today',goToday);
+tab('t-toc',()=>{back=null; show('toc')});
+tab('t-search',()=>{back=null; show('search'); const q=$('#q'); if(q) q.focus()});
+tab('t-set',()=>{back=null; show('set')});
+/* 點標題「石榴放蕊」或 Logo：回到今日進度（像回首頁） */
+const brand=$('#brand'); brand.onclick=()=>{ goToday(); window.scrollTo({top:0}); };
+brand.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); brand.onclick(); } };
+
+/* iPhone：在搜尋等輸入框打字、收起鍵盤後，固定在下方的分頁列有時會「漂浮」在畫面中間。
+   鍵盤收起後把畫面輕推一下，讓 Safari 重新算位置。 */
+const isField=el=>!!el&&el.matches&&el.matches('input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit]),textarea,select');
+function settle(){ const max=Math.max(0,document.documentElement.scrollHeight-window.innerHeight); window.scrollTo(0,Math.min(window.scrollY,max)); }
+document.addEventListener('focusout',e=>{ if(!isField(e.target)) return;
+  setTimeout(()=>{ if(!isField(document.activeElement)){ settle(); setTimeout(settle,300); } },60); });
+if(window.visualViewport) visualViewport.addEventListener('resize',()=>{ if(!isField(document.activeElement)) settle(); });
 
 applyPrefs(false);
 const hm=(location.hash||'').match(/^#a(\d{1,3})$/);
