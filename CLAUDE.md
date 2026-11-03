@@ -74,14 +74,14 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - 版本號：`scripts/build_web.py` 的 `VERSION`，同時是 sw.js 快取名稱，也顯示在設定頁最下面「版本 vN」（請使用者看這個確認手機拿到的是不是新版）。
 
 ## 交接紀錄（2026-11-03，Claude Code 雲端 → 回到 Claude 聊天）
-- 目前線上版本：**v13**，GitHub `main` 最新提交 `632093d`（交接包裡的 git 紀錄到這裡為止）。網站 = `docs/`，與線上完全一致。
+- 目前線上版本：**v13**，網站程式最後一次修改是提交 `632093d`；交接包的 git 紀錄與當時 GitHub `main` 完全相同。網站 = `docs/`，與線上完全一致。
 - 這段期間（v5→v13）做的事：iPhone 輸入框放大／超出修正、sw.js no-cache 與版本號、Google 登入上線並實測、字體大小整站縮放、
   用詞依裝置判斷、iPad／Android 平板動畫、分享預覽（歌七12＋og-image）、Android 動畫蓋分頁列修正、登入後隱藏登入按鈕、
   iPhone／iPad Safari 先引導加入主畫面、多處文字精簡（細節都已寫進上面「網站已定案的決定」）。
-- 在聊天裡繼續修改時：**每次改完請照常 `git commit`**（不用 push），讓紀錄接在 `632093d` 後面；版本號 `VERSION` 照常加一。
+- 在聊天裡繼續修改時：**每次改完請照常 `git commit`**（不用 push），讓紀錄接在交接包原本的紀錄後面；版本號 `VERSION` 照常加一。
   預覽可用 `build/preview-artifact.html`（`python3 build_all.py web` 會產生）。
 - **這段期間不要在 GitHub 網站上直接改檔案**，回來 deploy 時才能直接接上、不會衝突。
-- 回來 deploy 時：把整個資料夾（含 `.git`）打包上傳，Claude 會確認紀錄接在 `632093d` 之後，再推上 GitHub，請使用者看設定頁版本號確認。
+- 回來 deploy 時：把整個資料夾（含 `.git`）打包上傳，Claude 會比對 GitHub `main` 的最新提交，確認聊天裡的紀錄是接在它後面，再推上 GitHub，請使用者看設定頁版本號確認。
 - 注意：`scripts/make_og.py`、`make_icons.py` 需要 Python 版 playwright（只有換 Logo 才要跑）。
 
 ## 尚未完成（下一步）
