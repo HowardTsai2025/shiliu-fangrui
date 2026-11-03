@@ -301,7 +301,10 @@ const IS_TABLET=IS_IPAD||(IS_AND&&!/mobile/i.test(UA));
 const DEV=IS_TABLET?'平板':((IS_IOS||IS_AND||/mobi/i.test(UA))?'手機':'電腦');
 const THIS_DEV='這'+(DEV==='手機'?'支':'台')+DEV;
 const A2PLAYED={};
-const A2_AND=IS_TABLET?A2_AND0.replace('class="a2hs and"','class="a2hs and tab"').replace('aria-label="Android 加入主畫面','aria-label="Android 平板加入主畫面'):A2_AND0;
+const A2_AND=IS_TABLET?A2_AND0.replace('class="a2hs and"','class="a2hs and tab"').replace('aria-label="Android 加入主畫面','aria-label="Android 平板加入主畫面').replace('（有些手機寫','（有些平板寫'):A2_AND0;
+/* iPhone／iPad 上用的不一定是 Safari（例如 Chrome），教學裡的瀏覽器名稱跟著換 */
+const IOS_BR=/CriOS/i.test(UA)?'Chrome':(/FxiOS/i.test(UA)?'Firefox':(/EdgiOS/i.test(UA)?'Edge':'Safari'));
+const brFix=s=>IOS_BR==='Safari'?s:s.split('Safari').join(IOS_BR).replace('點網址列裡的「⋯」，再點「分享」','點右上角的「⋯」，再點「分享」');
 let installPrompt=null;
 /* iPhone／iPad 的 Safari 和主畫面 App 各自有獨立的儲存空間（登入、進度都不共用），所以在 Safari 裡先引導「加到主畫面」，到主畫面 App 再登入。
    使用者按了「知道了，先不用」（iosHint）就恢復一般流程。Android 的 Chrome 和安裝的 App 共用儲存，不需要。 */
@@ -312,13 +315,13 @@ addEventListener('appinstalled',()=>{ installPrompt=null; ui.iosHint=Date.now()+
   toast('<div>✓ 已加到主畫面！以後從主畫面的石榴圖示打開就可以了。</div><div class="btns"><button class="btn ghost small" id="t-ok">好</button></div>'); });
 function externalUrl(){ try{ const u=new URL(location.href); u.searchParams.set('openExternalBrowser','1'); return u.toString(); }catch(e){ return location.href; } }
 function a2Body(kind){
-  const browser=kind==='and'?'Chrome':'Safari';
+  const browser=kind==='and'?'Chrome':'Safari'; // LINE 裡要改開的瀏覽器
   if(IN_APP) return `<div class="a2box"><p style="margin:0">你現在是在 ${IS_LINE?'LINE':'App'} 裡面打開這個網頁，這裡沒辦法加到主畫面。請先改用 ${browser} 打開：</p>
-    ${IS_LINE?`<div class="btns"><a class="btn one" href="${esc(externalUrl())}">用 ${browser} 打開</a></div>`:`<p class="note" style="margin:0">點右上角的選單（⋯ 或 ⋮），選「用瀏覽器開啟」。</p>`}</div>`;
+    ${IS_LINE?`<div class="btns"><a class="btn one" href="${esc(externalUrl())}">用 ${browser} 打開</a></div><p class="note" style="margin:0">打開後，這裡就會出現加入主畫面的圖解步驟。</p>`:`<p class="note" style="margin:0">點右上角的選單（⋯ 或 ⋮），選「用瀏覽器開啟」。</p>`}</div>`;
   if(kind==='and' && installPrompt) return `<div class="a2box"><div class="btns"><button class="btn one" id="a2-install">📲 一鍵加到主畫面</button></div>
     <p class="note" style="margin:0">按下去會跳出視窗，再點「安裝」就完成了。</p>
     <details id="a2-more"><summary>按了沒反應？看圖解步驟</summary>${A2_AND}</details></div>`;
-  return `<div class="a2box">${kind==='ios'?A2_IOS:(kind==='ipad'?A2_IPAD:A2_AND)}</div>`;
+  return `<div class="a2box">${kind==='ios'?brFix(A2_IOS):(kind==='ipad'?brFix(A2_IPAD):A2_AND)}</div>`;
 }
 /* ---------- chrome ---------- */
 function refreshChrome(){
