@@ -357,8 +357,8 @@ const themeLabel=th=>`（${NUMS[th.i]}）${th.n}`;
 function welcomeCard(){
   return `<div class="card"><h2>歡迎使用《石榴放蕊》每日讀</h2>
   <p>一天一篇，共 365 篇。按「從今天開始讀」，今天就是第 1 天，之後每天打開會自動顯示當天的那一篇。</p>
-  <p class="note">📌 你的閱讀進度目前只存在${THIS_DEV}。${saveWay()}</p>
-  <div class="btns"><button class="btn" id="startnow">從今天開始讀</button>${cloud.ready?'<button class="btn ghost" id="w-login">用 Google 登入保存</button>':''}</div></div>`;
+  ${saved()?`<p class="note">✓ 已用 Google 帳號登入（${esc(cloud.user.email||'')}），你的閱讀進度會自動保存。</p>`:`<p class="note">📌 你的閱讀進度目前只存在${THIS_DEV}。${saveWay()}</p>`}
+  <div class="btns"><button class="btn" id="startnow">從今天開始讀</button>${cloud.ready&&!saved()?'<button class="btn ghost" id="w-login">用 Google 登入保存</button>':''}</div></div>`;
 }
 function a2Card(kind){
   return `<div class="card"><h2>把它加到${DEV}主畫面</h2>
@@ -370,7 +370,7 @@ function renderArticle(no){
   const a=ARTS[no], th=a.th, tn=todayNo(), isToday=!!state.start&&no===tn;
   let h='';
   if(!state.start) h+=welcomeCard();
-  else if(back||!isToday) h+=`<div class="backtoday">${back?`<button class="btn small" id="goback">‹ ${back.v==='search'?`回到搜尋結果「${esc(query.trim())}」`:'回到目錄'}</button>`:''}${!isToday?`<button class="btn ghost small" id="gotoday">回到今天（第 ${pad(tn)} 篇）</button>`:''}</div>`;
+  else if(back||!isToday) h+=`<div class="backtoday">${back?`<button class="btn small" id="goback">‹ ${back.v==='search'?`回到搜尋結果「${esc(query.trim())}」`:'回到目錄'}</button>`:''}${!isToday?`<button class="btn ghost small" id="gotoday">回到今日進度（第 ${pad(tn)} 篇）</button>`:''}</div>`;
   if(state.start && a2Kind() && Date.now()>ui.iosHint) h+=a2Card(a2Kind());
   if(th.a[0].no===no) h+=`<section class="opener"><div class="t">${esc(th.n)}</div><div class="note">第 ${pad(th.a[0].no)} 篇 – 第 ${pad(th.a[th.a.length-1].no)} 篇　共 ${th.a.length} 篇</div>${body(th.intro,true)}</section>`;
   h+=`<article class="art"><div class="meta"><span class="num">第 ${pad(no)} 篇</span><span class="tagline">${themeLabel(th)}${isToday?'・今日進度':''}</span></div>

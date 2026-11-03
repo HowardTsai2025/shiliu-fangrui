@@ -2,7 +2,7 @@
 import json,re,os,shutil
 data=open('build/data.json').read().replace('</','<\\/')
 # 網站版本號：每次改網站都加一（設定頁最下面會顯示，也是 sw.js 的快取名稱）
-VERSION=8
+VERSION=9
 body=open('web/app-body.html').read().replace('__DATA__',data).replace('__VERSION__',str(VERSION))
 # 加到主畫面動畫：從 scripts/components_src/ 組進來
 C='scripts/components_src/'; rd=lambda x: open(C+x,encoding='utf-8').read()
@@ -45,7 +45,7 @@ headpart=headpart.replace('<meta name="claude:viewport-fit-sides" content="cover
 doc=f'<!doctype html>\n<html lang="zh-Hant-TW">\n<head>\n{head_extra}\n{headpart}\n</head>\n<body>{rest}\n</body>\n</html>\n'
 open('docs/index.html','w').write(doc)
 for f in ['icon-192.png','icon-512.png','icon-maskable.png','apple-touch-icon.png','favicon.svg','og-image.png']: shutil.copy('web/icons/'+f,'docs/'+f)
-json.dump({"name":"石榴放蕊 每日讀","short_name":"石榴放蕊","lang":"zh-Hant-TW","start_url":"./","scope":"./","display":"standalone",
+json.dump({"name":"石榴放蕊","short_name":"石榴放蕊","lang":"zh-Hant-TW","start_url":"./","scope":"./","display":"standalone",
  "background_color":"#ffffff","theme_color":"#ffffff",
  "icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"},
           {"src":"icon-maskable.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]},open('docs/manifest.webmanifest','w'),ensure_ascii=False,indent=1)
