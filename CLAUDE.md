@@ -95,7 +95,10 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
   v15 iPhone／iPad 非 Safari 瀏覽器教學改寫實際名稱、LINE 內提示、Android 平板用詞；
   v16 iPhone Chrome 專用動畫（components_src/ioscr.html）。
   ✅ 2026-11-03 已在 Claude Code 上線（fast-forward push，v16）；上線前測過 7 種裝置（含 iPhone Chrome）× 4 種字級、登入流程、離線、連按兩下回頁首、點標題回今日。
-  （使用者已把 v16 推上線；之後在聊天裡又做了 v17：修正 v14 造成的滑動震動。推 v17 前先確認 origin/main 是 v16 那包的最後一筆 `c5ef334`。）
+- **聊天裡接著完成 v17～v19（2026-11-04，接在 `c5ef334` 後面，尚未 push）**：
+  v17 修正 v14 造成的 Safari 滑動震動；v18 設定頁「字型」選項（宋體／黑體／楷體／內建）；v19 登入過的人開網站立刻顯示「✓ 已保存」。
+  回到 Claude Code：`git fetch` 確認 `origin/main` 是 `c5ef334`（若使用者先前也推過 v17 那包，則會是 `e7ece59`，一樣接得上）→ `git push` → 請使用者看設定頁版本號是否為 **v19**。
+  上線後待使用者實測：Safari 滑動不再震動、搜尋頁收鍵盤後分頁列在底部、字型切換（含楷體載入）、登入後重開網站保存標示是否立刻顯示。
   上線後待使用者實測：iPhone 搜尋頁收鍵盤後分頁列是否回到底部、iPhone Chrome 動畫、連按兩下回頁首、點標題回今日。
 
 ## 尚未完成（下一步）
