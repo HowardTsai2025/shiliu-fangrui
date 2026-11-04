@@ -12,6 +12,7 @@
   --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
   --latin:Georgia,"Times New Roman",serif;
   --fs:18px;
+  --read:var(--serif); /* 閱讀字型（設定頁可換）：文章、標題、經文 */
   --k:1; /* 字體大小倍率＝字體大小÷18（小 .89／中 1／大 1.11／特大 1.22），整個網站的字都跟著縮放 */
   --acct:var(--acc); /* 文字用的強調色；黃色配色另設較深的金色，讓字看得清楚 */
 }
@@ -26,6 +27,9 @@
   :root[data-palette="y"]:not([data-theme="light"]){--bg:#15140f;--card:#1e1c15;--ink:#f1ecdc;--muted:#ada591;--line:#332f22;--acc:#f5c84a;--onacc:#1a1606;--acct:#f5c84a;--soft:#2a261a;--verse:#24211a;--bar:#c99a1e;--ok:#7cc7a0;--warn:#e0a865}
   :root[data-palette="c"]:not([data-theme="light"]){--bg:#14131c;--card:#1c1b27;--ink:#e8e6f3;--muted:#a19eb8;--line:#2c2a3c;--acc:#b7b2ec;--onacc:#14131c;--soft:#232136;--verse:#211f30;--bar:#6f6aae;--ok:#7cc7a0;--warn:#e0a865}
 }
+:root[data-font="sans"]{--read:var(--sans)}
+:root[data-font="sys"]{--read:system-ui,-apple-system,"PingFang TC","Microsoft JhengHei","Noto Sans CJK TC",sans-serif}
+:root[data-font="kai"]{--read:"LXGW WenKai TC",var(--serif)}
 :root[data-theme="dark"]{--bg:#0f141c;--card:#161d28;--ink:#e3e9f2;--muted:#95a1b3;--line:#243042;--acc:#90b8ea;--onacc:#0f141c;--soft:#1b2636;--verse:#18212f;--bar:#5b7fae;--ok:#7cc7a0;--warn:#e0a865;color-scheme:dark}
 :root[data-theme="dark"][data-palette="a"]{--bg:#111917;--card:#18221f;--ink:#e2ece9;--muted:#93a6a1;--line:#26332f;--acc:#86cdbd;--onacc:#111917;--soft:#1d2c28;--verse:#1a2925;--bar:#4f8f82;--ok:#86cdbd;--warn:#e0a865}
 :root[data-theme="dark"][data-palette="r"]{--bg:#171112;--card:#201819;--ink:#ece6e3;--muted:#a89c9a;--line:#352a2b;--acc:#d6b06e;--onacc:#171112;--soft:#2a2020;--verse:#241c1c;--bar:#9a7536;--ok:#7cc7a0;--warn:#e0a865}
@@ -67,8 +71,8 @@ main{padding-block:18px 90px}
 .num{background:var(--acc);color:var(--onacc);border-radius:4px;padding:1px 9px;font-weight:700;letter-spacing:.05em;font-variant-numeric:tabular-nums}
 .tagline{color:var(--muted)}
 .art{border-top:2px solid var(--acc);padding-top:10px}
-.art h1{font-family:var(--serif);font-weight:700;letter-spacing:.04em;font-size:calc(var(--fs) + 9px);line-height:1.35;margin:8px 0 14px;text-wrap:balance}
-.reading{font-family:var(--serif);font-size:var(--fs);line-height:1.95}
+.art h1{font-family:var(--read);font-weight:700;letter-spacing:.04em;font-size:calc(var(--fs) + 9px);line-height:1.35;margin:8px 0 14px;text-wrap:balance}
+.reading{font-family:var(--read);font-size:var(--fs);line-height:1.95}
 .reading p{margin:0 0 .9em;text-indent:2em;text-align:justify}
 .verse{background:var(--verse);border-left:3px solid var(--bar);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
 .verse .zh{font-weight:600}
@@ -85,14 +89,14 @@ main{padding-block:18px 90px}
 .backtoday{margin-bottom:14px;display:flex;flex-wrap:wrap;gap:8px}
 .opener{text-align:center;padding:20px 8px 24px;margin-bottom:18px;border-bottom:1px solid var(--line)}
 .opener .k{color:var(--acct);letter-spacing:.3em;font-size:calc(13px*var(--k))}
-.opener .t{font-family:var(--serif);font-weight:700;font-size:calc(30px*var(--k));color:var(--acct);letter-spacing:.2em;margin:4px 0}
-.opener .verse{border:none;text-align:center;border-radius:8px;max-width:520px;margin:12px auto 0;font-family:var(--serif)}
+.opener .t{font-family:var(--read);font-weight:700;font-size:calc(30px*var(--k));color:var(--acct);letter-spacing:.2em;margin:4px 0}
+.opener .verse{border:none;text-align:center;border-radius:8px;max-width:520px;margin:12px auto 0;font-family:var(--read)}
 .opener .ref{font-size:calc(13px*var(--k));color:var(--acct);margin-top:4px}
 .opener .eref{font-size:calc(12px*var(--k));color:var(--muted);font-family:var(--latin);font-style:italic}
 .note{font-size:calc(12.5px*var(--k));color:var(--muted)}
 .theme-block{margin-bottom:22px}
 .theme-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--acc);padding-bottom:4px;margin-bottom:6px}
-.theme-head h2{font-family:var(--serif);font-size:calc(20px*var(--k));color:var(--acct);margin:0}
+.theme-head h2{font-family:var(--read);font-size:calc(20px*var(--k));color:var(--acct);margin:0}
 .theme-head .c{font-size:calc(12.5px*var(--k));color:var(--muted);font-variant-numeric:tabular-nums}
 .prog{flex:1 1 80px;height:5px;background:var(--line);border-radius:3px;overflow:hidden;min-width:60px;align-self:center}
 .prog i{display:block;height:100%;background:var(--ok)}
@@ -107,7 +111,7 @@ main{padding-block:18px 90px}
 .inp{flex:1 1 8em;min-width:0;width:0;font:inherit;font-size:max(16px,calc(16px*var(--k)));padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
 .hit{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
 .hit .h{font-weight:700}
-.hit .s{font-family:var(--serif);font-size:calc(14px*var(--k));color:var(--muted);margin-top:2px}
+.hit .s{font-family:var(--read);font-size:calc(14px*var(--k));color:var(--muted);margin-top:2px}
 mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;border-radius:2px}
 .empty{color:var(--muted);text-align:center;padding:30px 0}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
@@ -150,11 +154,12 @@ mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;bord
 /* 按鈕、分頁、選項的字一律不換行（字體特大時也一樣；放不下時整顆按鈕換到下一行，不是字斷開） */
 .btn,.seg button,.sw button,.check,.chip,.tabs button,.a2hs .ctl button{white-space:nowrap}
 .seg{max-width:100%}
-.fsprev{font-family:var(--serif);font-size:var(--fs);line-height:1.8;background:var(--verse);border-left:3px solid var(--bar);border-radius:0 8px 8px 0;padding:8px 12px}
+.fsprev{font-family:var(--read);font-size:var(--fs);line-height:1.8;background:var(--verse);border-left:3px solid var(--bar);border-radius:0 8px 8px 0;padding:8px 12px}
 .a2box details[open] summary{margin-bottom:12px}
 /*__A2HS_CSS__*/
 </style>
-<script>try{var p=JSON.parse(localStorage.getItem("sl-prefs")||"{}");document.documentElement.setAttribute("data-palette",p.palette||"r");if(p.theme&&p.theme!=="system")document.documentElement.setAttribute("data-theme",p.theme)}catch(e){document.documentElement.setAttribute("data-palette","r")}</script>
+<script>function loadKai(){if(document.getElementById("kaicss"))return;var l=document.createElement("link");l.id="kaicss";l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap";document.head.appendChild(l)}
+try{var p=JSON.parse(localStorage.getItem("sl-prefs")||"{}");document.documentElement.setAttribute("data-palette",p.palette||"r");if(p.font&&p.font!=="serif")document.documentElement.setAttribute("data-font",p.font);if(p.font==="kai")loadKai();if(p.theme&&p.theme!=="system")document.documentElement.setAttribute("data-theme",p.theme)}catch(e){document.documentElement.setAttribute("data-palette","r")}</script>
 
 <header class="bar"><div class="wrap">
   <div class="brand" id="brand" role="button" tabindex="0" aria-label="石榴放蕊，回到今日進度"><svg class="logo" aria-hidden="true" focusable="false"><use href="#sl-logo"/></svg><span>石榴放蕊</span></div>
@@ -186,7 +191,7 @@ const PALETTES=[['r','石榴紅',['#ffffff','#7a1f2b','#b08a4a']],['b','晴空�
 function lsGet(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
 function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 let state=Object.assign({start:null,read:{}}, lsGet('sl-progress')||{});
-let prefs=Object.assign({fs:18,theme:'system',palette:'r'}, lsGet('sl-prefs')||{});
+let prefs=Object.assign({fs:18,theme:'system',palette:'r',font:'serif'}, lsGet('sl-prefs')||{});
 let ui=Object.assign({welcomed:false,firstToast:false,snoozeUntil:0,milestones:{},iosHint:0}, lsGet('sl-ui')||{});
 const saveUI=()=>lsSet('sl-ui',ui);
 
@@ -217,9 +222,9 @@ async function pullAndMerge(){
     const read=Object.assign({}, d.read||{}, state.read);
     Object.keys(read).forEach(k=>{if(!read[k]) delete read[k]});
     state.read=read; state.start=d.start||state.start;
-    if(d.palette) prefs.palette=d.palette; if(d.theme) prefs.theme=d.theme;
+    if(d.palette) prefs.palette=d.palette; if(d.theme) prefs.theme=d.theme; if(d.font) prefs.font=d.font;
     lsSet('sl-progress',state); applyPrefs(false);
-    await cloud.ref.set({start:state.start||null, read:state.read, palette:prefs.palette, theme:prefs.theme, updatedAt:Date.now()},{merge:true});
+    await cloud.ref.set({start:state.start||null, read:state.read, palette:prefs.palette, theme:prefs.theme, font:prefs.font, updatedAt:Date.now()},{merge:true});
   }catch(e){}
 }
 function cloudWrite(patch){ if(cloud.ref) cloud.ref.set(Object.assign({updatedAt:Date.now()},patch),{merge:true}).catch(()=>{}); }
@@ -256,9 +261,11 @@ function applyPrefs(write){
   r.style.setProperty('--fs',prefs.fs+'px'); r.style.setProperty('--k',String(prefs.fs/18));
   if(prefs.theme==='system') r.removeAttribute('data-theme'); else r.setAttribute('data-theme',prefs.theme);
   r.setAttribute('data-palette',prefs.palette);
+  if(prefs.font==='serif') r.removeAttribute('data-font'); else r.setAttribute('data-font',prefs.font);
+  if(prefs.font==='kai') loadKai();
   const m=document.querySelector('meta[name=theme-color]'); if(m) m.content=getComputedStyle(r).getPropertyValue('--bg').trim();
   lsSet('sl-prefs',prefs);
-  if(write) cloudWrite({palette:prefs.palette,theme:prefs.theme});
+  if(write) cloudWrite({palette:prefs.palette,theme:prefs.theme,font:prefs.font});
 }
 
 /* ---------- reminders ---------- */
@@ -435,8 +442,9 @@ function renderSettings(){
   <div class="panel"><h3>外觀</h3>
    <div class="row"><label class="l">配色</label><div class="sw">${PALETTES.map(([k,n,c])=>`<button data-pal="${k}" aria-pressed="${prefs.palette===k}"><i>${c.map(x=>`<b style="background:${x}"></b>`).join('')}</i>${n}</button>`).join('')}</div></div>
    <div class="row"><label class="l">深淺</label><div class="seg">${[['system','跟隨系統'],['light','淺色'],['dark','深色']].map(([k,n])=>`<button data-th="${k}" aria-pressed="${prefs.theme===k}">${n}</button>`).join('')}</div></div>
+   <div class="row"><label class="l">字型</label><div class="seg">${[['serif','宋體'],['sans','黑體'],['kai','楷體'],['sys',DEV+'內建']].map(([k,n])=>`<button data-font="${k}" aria-pressed="${prefs.font===k}">${n}</button>`).join('')}</div></div>
    <div class="row"><label class="l">字體大小</label><div class="seg">${[16,18,20,22].map((s,i)=>`<button data-fs="${s}" aria-pressed="${prefs.fs===s}">${['小','中','大','特大'][i]}</button>`).join('')}</div></div>
-   <div class="note">預覽（文章的字會是這個大小）：</div>
+   <div class="note">預覽（文章會是這個字型和大小）：</div>
    <div class="fsprev">耶和華阿，早晨你必聽我的聲音；早晨我必向你陳明我的心意，並要守望。</div></div>
   <div class="panel"><h3>進度碼（不登入也能備份）</h3>
    <div class="note">換${DEV}或清除瀏覽器資料前，先按「產生進度碼」，把那串碼存到 LINE 或備忘錄。之後貼回下面就能還原開始日期和已讀紀錄。</div>
@@ -487,6 +495,8 @@ function bind(){
     sd.addEventListener('click',()=>{try{sd.showPicker&&sd.showPicker()}catch(e){}}); }
   on('savestart',()=>{const v=$('#startd').value; if(v){state.start=v; cur=null; lsSet('sl-progress',state); cloudWrite({start:v}); show('set')}});
   document.querySelectorAll('[data-pal]').forEach(b=>b.onclick=()=>{prefs.palette=b.dataset.pal; applyPrefs(true); show('set')});
+  document.querySelectorAll('button[data-font]').forEach(b=>b.onclick=()=>{const y0=b.getBoundingClientRect().top; prefs.font=b.dataset.font; applyPrefs(true); show('set');
+    const nb=document.querySelector('button[data-font="'+prefs.font+'"]'); if(nb) window.scrollBy(0,nb.getBoundingClientRect().top-y0); });
   document.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>{prefs.theme=b.dataset.th; applyPrefs(true); show('set')});
   document.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{const y0=b.getBoundingClientRect().top; prefs.fs=+b.dataset.fs; applyPrefs(false); show('set');
     const nb=document.querySelector('[data-fs="'+prefs.fs+'"]'); if(nb) window.scrollBy(0,nb.getBoundingClientRect().top-y0); });
@@ -499,7 +509,7 @@ function bind(){
   on('usecode',()=>{const r=readCode($('#codein').value);
     if(!r){$('#restoremsg').textContent='這串碼看起來不完整。請確認是從「產生進度碼」複製的整串文字，開頭是 SL1-。';return}
     state.start=r.start; state.read=r.read; cur=null; lsSet('sl-progress',state);
-    if(cloud.ref) cloud.ref.set({start:r.start,read:r.read,updatedAt:Date.now()},{merge:false}).then(()=>cloudWrite({palette:prefs.palette,theme:prefs.theme})).catch(()=>{});
+    if(cloud.ref) cloud.ref.set({start:r.start,read:r.read,updatedAt:Date.now()},{merge:false}).then(()=>cloudWrite({palette:prefs.palette,theme:prefs.theme,font:prefs.font})).catch(()=>{});
     show('set'); $('#restoremsg').textContent=`已還原：${r.start?'開始日期 '+r.start+'，':''}已讀 ${Object.keys(r.read).length} 篇。`;});
 }
 /* 分頁列：按一下切換頁面；連按兩下回到頁首 */

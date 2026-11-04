@@ -64,7 +64,8 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
   平板：iPad 有專用動畫 `ipad.html/ipad.css`（上方工具列右邊的分享鈕 → 分享選單 → 加入主畫面 → 新增；**依 iPadOS 介面推測畫的，尚未用真 iPad 對照**，有人回報再修）；Android 平板用同一套 Chrome 動畫加 `.tab`（平板外框）。
   動畫元件的 class 不要和網站樣式撞名（曾撞到 `.pop`、`.dim`、`.list`）；`.a2hs` 有 `isolation:isolate`，標題列 z-index 20，避免動畫蓋到下方分頁列（Android 曾發生）。
 - 標題列：Logo＋「石榴放蕊」＋保存狀態。分頁（今日／目錄／搜尋／設定）有圖示＋字：手機（寬 ≤700）放在螢幕最下方像 App 的分頁列（使用者選定），電腦／平板放在標題列右側。
-- 字型：內文、主題標題、文章標題都用思源宋體（Noto Serif TC），標題用粗體；不提供字型切換（使用者決定）。
+- 字型：預設思源宋體（Noto Serif TC），標題粗體。v18 起設定頁「外觀」有「字型」：宋體／黑體（Noto Sans TC）／楷體（霞鶩文楷 LXGW WenKai TC，選了才從 Google Fonts 載入）／{DEV}內建（system-ui、蘋方）。
+  因試用者反應長時間看眼睛累而開放（使用者改變先前「不提供切換」的決定）。CSS 變數 `--read` 控制文章、文章標題、主題標題、經文、搜尋摘要、預覽；Logo 旁的「石榴放蕊」固定宋體。prefs.font 存本機並同步到 Firestore（font 欄位）。
 - 從搜尋或目錄點進文章，上方有「‹ 回到搜尋結果／回到目錄」，回去時保留捲動位置。
 - iPhone／iPad 上不是 Safari 時（CriOS=Chrome、FxiOS、EdgiOS），加入主畫面教學裡的「Safari」自動換成實際瀏覽器名稱（brFix）。iPad Chrome 的分享鈕也在右上，動畫相符；iPhone Chrome 有專用動畫（components_src/ioscr.html，v16，依使用者截圖：網址列在下方、分享鈕在網址列右邊、下面一排 ← → ＋ 分頁 ⋯；流程 分享→加入主畫面→新增→完成）。
 - LINE 等 App 內建瀏覽器沒有「加入主畫面」，所以不顯示動畫，改顯示「用 Safari／Chrome 打開」按鈕＋「打開後就會出現圖解步驟」。
