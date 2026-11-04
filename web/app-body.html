@@ -154,6 +154,8 @@ mark{background:color-mix(in srgb,var(--acc) 25%,transparent);color:inherit;bord
 /* 按鈕、分頁、選項的字一律不換行（字體特大時也一樣；放不下時整顆按鈕換到下一行，不是字斷開） */
 .btn,.seg button,.sw button,.check,.chip,.tabs button,.a2hs .ctl button{white-space:nowrap}
 .seg{max-width:100%}
+/* 很窄的手機（320px，例如初代 iPhone SE）字體特大時，「字型」四個選項會超出卡片 15px：縮小左右留白，字不變 */
+@media (max-width:340px){.seg button{padding-left:8px;padding-right:8px}}
 .fsprev{font-family:var(--read);font-size:var(--fs);line-height:1.8;background:var(--verse);border-left:3px solid var(--bar);border-radius:0 8px 8px 0;padding:8px 12px}
 .a2box details[open] summary{margin-bottom:12px}
 /*__A2HS_CSS__*/

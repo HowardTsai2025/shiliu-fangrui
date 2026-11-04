@@ -43,7 +43,7 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - 不要字體大小提示；「隱私說明」區塊已移除，不要加回。
 - 字體大小（小／中／大／特大＝16/18/20/22）：**整個網站的字都跟著縮放**（CSS 變數 `--k`＝字體大小÷18，app-body 樣式裡所有 `font-size` 都寫成 `calc(Npx*var(--k))`；新增樣式也要這樣寫）。
   **按鈕、分頁、選項的字絕對不能換行**（使用者要求；`white-space:nowrap`，放不下時整顆按鈕換行）。設定頁字體大小下方有預覽文字；按了畫面停在原處。
-  測試：iPhone／iPhone SE(320)／Android／iPad／Android 平板／電腦 × 4 種字級，檢查超出畫面與按鈕字換行（用 Range 算行數，別用高度判斷）。
+  測試：iPhone／iPhone SE(320)／Android／iPad／Android 平板／電腦 × 4 種字級，檢查超出畫面與按鈕字換行（用 Range 算行數，別用高度判斷），**也要檢查 `.seg` 的 scrollWidth 是否大於 clientWidth**（.seg 有 overflow:hidden，按鈕被切掉不會超出畫面，一般檢查抓不到；v20 曾發生「字型」列在 320px 特大時超出 15px，改成窄螢幕縮小 .seg 按鈕左右留白）。
 - 用詞依裝置自動判斷：`DEV`（手機／平板／電腦）、`THIS_DEV`（這支手機／這台平板／這台電腦）；固定文字用「換手機、平板或電腦」；深淺選項是「跟隨系統」。不要寫死「手機」。
 - 進度保存採「方案 ③」：不登入也能讀（存在本機 localStorage）；想永久保存可用 Google 登入（Firebase Auth + Firestore，文件 `users/{uid}`：start、read（篇號→true）、palette、theme）。
   另有「進度碼」（SL1-YYYYMMDD-base64url 位元表）可備份／還原。
@@ -95,9 +95,11 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
   v15 iPhone／iPad 非 Safari 瀏覽器教學改寫實際名稱、LINE 內提示、Android 平板用詞；
   v16 iPhone Chrome 專用動畫（components_src/ioscr.html）。
   ✅ 2026-11-03 已在 Claude Code 上線（fast-forward push，v16）；上線前測過 7 種裝置（含 iPhone Chrome）× 4 種字級、登入流程、離線、連按兩下回頁首、點標題回今日。
-- **聊天裡接著完成 v17～v19（2026-11-04，接在 `c5ef334` 後面，尚未 push）**：
+- **聊天裡接著完成 v17～v19（2026-11-04）**：
   v17 修正 v14 造成的 Safari 滑動震動；v18 設定頁「字型」選項（宋體／黑體／楷體／內建）；v19 登入過的人開網站立刻顯示「✓ 已保存」。
-  回到 Claude Code：`git fetch` 確認 `origin/main` 是 `c5ef334`（若使用者先前也推過 v17 那包，則會是 `e7ece59`，一樣接得上）→ `git push` → 請使用者看設定頁版本號是否為 **v19**。
+  ✅ 2026-11-04 已在 Claude Code 上線：因 GitHub 上多了一筆「v16 已上線」說明，v17～v19 改接在它後面（只有 CLAUDE.md 兩行說明不同，網站與 v19 包完全相同），
+  另加 **v20**：「字型」列在 320px 手機特大字體時超出卡片，窄螢幕縮小 .seg 按鈕左右留白。
+  下次從聊天回來：請先打包最新的（或請 Claude 從 GitHub 給一份新的交接包），避免兩邊紀錄分岔。
   上線後待使用者實測：Safari 滑動不再震動、搜尋頁收鍵盤後分頁列在底部、字型切換（含楷體載入）、登入後重開網站保存標示是否立刻顯示。
   上線後待使用者實測：iPhone 搜尋頁收鍵盤後分頁列是否回到底部、iPhone Chrome 動畫、連按兩下回頁首、點標題回今日。
 
