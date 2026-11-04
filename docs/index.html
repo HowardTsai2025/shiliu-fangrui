@@ -398,6 +398,9 @@ const saveUI=()=>lsSet('sl-ui',ui);
 
 /* ---------- cloud (Firebase, optional) ---------- */
 const cloud={ready:false,user:null,fs:null,auth:null,ref:null};
+/* 開網頁時 Firebase 要幾秒才確認登入狀態；這段時間如果上次是登入的，就先顯示「✓ 已保存」，避免一直閃「⚠ 未保存」。
+   （確認後若其實已登出，會自動改回未保存；這段時間按的已讀，確認登入後會合併上傳，不會漏） */
+cloud.pending=!!(window.FIREBASE_CONFIG&&window.FIREBASE_CONFIG.apiKey);
 const CLOUD_ON=!!(window.FIREBASE_CONFIG&&window.FIREBASE_CONFIG.apiKey);
 function loadScript(src){return new Promise((ok,no)=>{const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
 async function initCloud(){
@@ -411,7 +414,8 @@ async function initCloud(){
     try{await cloud.auth.getRedirectResult()}catch(e){}
     cloud.ready=true; refreshChrome();
     cloud.auth.onAuthStateChanged(async u=>{
-      cloud.user=u||null; cloud.ref=u?cloud.fs.collection('users').doc(u.uid):null;
+      cloud.user=u||null; cloud.ref=u?cloud.fs.collection('users').doc(u.uid):null; cloud.pending=false;
+      if(u) ui.signedIn={email:u.email||''}; else delete ui.signedIn; saveUI();
       if(u) await pullAndMerge();
       refreshChrome(); rerender();
     });
@@ -446,7 +450,8 @@ async function signIn(){
   }
 }
 function signOut(){ if(cloud.auth) cloud.auth.signOut(); }
-const saved=()=>!!cloud.user;
+const saved=()=>!!cloud.user||(cloud.pending&&!!ui.signedIn);
+const acctEmail=()=>(cloud.user&&cloud.user.email)||(ui.signedIn&&ui.signedIn.email)||'';
 
 /* ---------- day logic ---------- */
 function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
@@ -582,7 +587,7 @@ function refreshChrome(){
 function renderPop(){
   const p=$('#popwrap');
   p.innerHTML = saved()
-    ? `<div class="pop"><div>✓ 你的進度已存到 Google 帳號（${esc(cloud.user.email||'')}）。換手機、平板或電腦，只要用同一個帳號登入，進度就會回來。</div></div>`
+    ? `<div class="pop"><div>✓ 你的進度已存到 Google 帳號（${esc(acctEmail())}）。換手機、平板或電腦，只要用同一個帳號登入，進度就會回來。</div></div>`
     : `<div class="pop"><div>⚠ 你的閱讀進度目前只存在${THIS_DEV}的瀏覽器裡。清除瀏覽器資料或換${DEV}，紀錄會不見。</div><div>${saveWay()}</div><div class="btns">${cloud.ready?'<button class="btn small" id="p-login">用 Google 登入保存</button>':''}<button class="btn ghost small" id="p-set">${cloud.ready?'不登入，改用進度碼':'去產生進度碼'}</button></div></div>`;
   const l=$('#p-login'); if(l) l.onclick=()=>{p.hidden=true; signIn();};
   const s=$('#p-set'); if(s) s.onclick=()=>{p.hidden=true; $('#savechip').setAttribute('aria-expanded','false'); show('set');};
@@ -616,7 +621,7 @@ const themeLabel=th=>`（${NUMS[th.i]}）${th.n}`;
 function welcomeCard(){
   return `<div class="card"><h2>歡迎使用《石榴放蕊》</h2>
   <p>一天一篇，共 365 篇。</p>
-  ${saved()?`<p class="note">✓ 已用 Google 帳號登入（${esc(cloud.user.email||'')}），你的閱讀進度會自動保存。</p>`
+  ${saved()?`<p class="note">✓ 已用 Google 帳號登入（${esc(acctEmail())}），你的閱讀進度會自動保存。</p>`
     :(A2_FIRST()?`<p class="note">📱建議把網站先加到主畫面，從主畫面打開後再登入，這樣只要登入一次。</p>`:`<p class="note">📌 你的閱讀進度目前只存在${THIS_DEV}。${saveWay()}</p>`)}
   <div class="btns"><button class="btn" id="startnow">從今天開始讀</button>${cloud.ready&&!saved()&&!A2_FIRST()?'<button class="btn ghost" id="w-login">用 Google 登入保存</button>':''}</div></div>`;
 }
@@ -674,8 +679,8 @@ function readCode(raw){ const m=String(raw||'').replace(/\s+/g,'').match(/^SL1-(
   return {start,read}; }
 
 function renderSettings(){
-  const acct = !cloud.ready ? '' : saved()
-    ? `<div class="panel"><h3>帳號</h3><div>✓ 已用 Google 帳號登入：${esc(cloud.user.email||'')}</div><div class="note">你的開始日期、已讀紀錄和配色選擇都存在這個帳號，換手機、平板或電腦，用同一個帳號登入就會回來。</div><div class="btns"><button class="btn ghost small" id="signout">登出</button></div></div>`
+  const acct = (!cloud.ready&&!saved()) ? '' : saved()
+    ? `<div class="panel"><h3>帳號</h3><div>✓ 已用 Google 帳號登入：${esc(acctEmail())}</div><div class="note">你的開始日期、已讀紀錄和配色選擇都存在這個帳號，換手機、平板或電腦，用同一個帳號登入就會回來。</div><div class="btns"><button class="btn ghost small" id="signout">登出</button></div></div>`
     : `<div class="panel"><h3>帳號</h3><div>⚠ 尚未登入，進度只存在${THIS_DEV}。</div><div class="note">登入 Google 帳號是為了保存你的閱讀進度，換${DEV}或清除瀏覽器資料也不會不見。不登入也可以照常閱讀。</div>${IS_IOS&&!STANDALONE?`<div class="note">📱 ${IS_IPAD?'iPad':'iPhone'} 的主畫面 App 和 Safari 是分開的，在這裡登入後，加到主畫面時要再登入一次。</div>`:''}<div class="btns"><button class="btn small" id="signin">用 Google 登入保存</button></div></div>`;
   return acct + `<div class="panel"><h3>閱讀進度</h3>
    <div class="row"><label class="l" for="startd">開始日期</label><label class="datebox"><span id="startshow">${state.start?state.start.replace(/-/g,'/'):'尚未開始'}</span><input type="date" id="startd" value="${state.start||''}" aria-label="開始日期"></label><button class="btn small" id="savestart">儲存</button></div>
@@ -694,7 +699,7 @@ function renderSettings(){
    <div class="row" id="coderow" hidden><input class="inp" id="codeout" readonly style="font-family:monospace"><button class="btn ghost small" id="copycode">複製</button></div>
    <div class="row"><input class="inp" id="codein" placeholder="貼上進度碼，例如 SL1-20261024-…"><button class="btn small" id="usecode">還原</button></div>
    <div class="note" id="restoremsg" role="status"></div></div>
-  <div class="note" style="text-align:center;opacity:.7">版本 v18</div>
+  <div class="note" style="text-align:center;opacity:.7">版本 v19</div>
 `;
 }
 
