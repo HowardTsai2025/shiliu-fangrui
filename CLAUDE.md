@@ -93,6 +93,7 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
   v15 iPhone／iPad 非 Safari 瀏覽器教學改寫實際名稱、LINE 內提示、Android 平板用詞；
   v16 iPhone Chrome 專用動畫（components_src/ioscr.html）。
   ✅ 2026-11-03 已在 Claude Code 上線（fast-forward push，v16）；上線前測過 7 種裝置（含 iPhone Chrome）× 4 種字級、登入流程、離線、連按兩下回頁首、點標題回今日。
+  （使用者已把 v16 推上線；之後在聊天裡又做了 v17：修正 v14 造成的滑動震動。推 v17 前先確認 origin/main 是 v16 那包的最後一筆 `c5ef334`。）
   上線後待使用者實測：iPhone 搜尋頁收鍵盤後分頁列是否回到底部、iPhone Chrome 動畫、連按兩下回頁首、點標題回今日。
 
 ## 尚未完成（下一步）
