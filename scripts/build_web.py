@@ -2,7 +2,7 @@
 import json,re,os,shutil
 data=open('build/data.json').read().replace('</','<\\/')
 # 網站版本號：每次改網站都加一（設定頁最下面會顯示，也是 sw.js 的快取名稱）
-VERSION=16
+VERSION=17
 body=open('web/app-body.html').read().replace('__DATA__',data).replace('__VERSION__',str(VERSION))
 # 加到主畫面動畫：從 scripts/components_src/ 組進來
 C='scripts/components_src/'; rd=lambda x: open(C+x,encoding='utf-8').read()

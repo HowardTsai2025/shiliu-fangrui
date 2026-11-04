@@ -70,7 +70,7 @@ OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面
 - LINE 等 App 內建瀏覽器沒有「加入主畫面」，所以不顯示動畫，改顯示「用 Safari／Chrome 打開」按鈕＋「打開後就會出現圖解步驟」。
 - Android 平板動畫第 2 步寫「有些平板寫…」。
 - 分頁列任何按鈕連按兩下（450ms 內）→ 平滑捲回頁首（不重畫頁面）；點標題「石榴放蕊」或 Logo → 回到今日進度並捲到最上面（像回首頁）。
-- iPhone 輸入框收起鍵盤後，固定在下方的分頁列可能漂浮在畫面中間（短頁面最明顯，例如搜尋頁）：focusout 與 visualViewport resize 時呼叫 settle() 把捲動位置推回合法範圍。v14 加入，待使用者 iPhone 實測。
+- iPhone 輸入框收起鍵盤後，固定在下方的分頁列可能漂浮在畫面中間（短頁面最明顯，例如搜尋頁）：focusout 與 visualViewport resize 時呼叫 settle() 把捲動位置推回合法範圍。v14 加入；v17 修正：v14 在每次 visualViewport resize 都 scrollTo，滑動時 Safari 網址列伸縮會觸發，造成畫面震動 → 改成只在收鍵盤後 1.5 秒內、且真的超出範圍才推。
 - 輸入框字級一律 ≥16px（小於 16px 時 iPhone Safari 點輸入框會自動放大畫面、不縮回，畫面右邊被切掉）。不要用關閉縮放的方式解決（長輩需要能手動放大）。
   另外 `.panel` 是 grid，要保持 `grid-template-columns:minmax(0,1fr)`：iPhone 的輸入框預設很寬，少了這個會把卡片內容撐出螢幕右邊（Chromium 測不出來，測試時可把 input 的 size 設成 80 模擬）。
 - 分享預覽（LINE 等）：`build_web.py` 的 description／og 標籤，文字是使用者指定的經文「我們清晨起來往葡萄園去，看看葡萄發芽開花沒有，石榴放蕊沒有；我在那裏要將我的愛情給你。」（歌七12），不要改；

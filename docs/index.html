@@ -686,7 +686,7 @@ function renderSettings(){
    <div class="row" id="coderow" hidden><input class="inp" id="codeout" readonly style="font-family:monospace"><button class="btn ghost small" id="copycode">複製</button></div>
    <div class="row"><input class="inp" id="codein" placeholder="貼上進度碼，例如 SL1-20261024-…"><button class="btn small" id="usecode">還原</button></div>
    <div class="note" id="restoremsg" role="status"></div></div>
-  <div class="note" style="text-align:center;opacity:.7">版本 v16</div>
+  <div class="note" style="text-align:center;opacity:.7">版本 v17</div>
 `;
 }
 
@@ -763,10 +763,13 @@ brand.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); brand
 /* iPhone：在搜尋等輸入框打字、收起鍵盤後，固定在下方的分頁列有時會「漂浮」在畫面中間。
    鍵盤收起後把畫面輕推一下，讓 Safari 重新算位置。 */
 const isField=el=>!!el&&el.matches&&el.matches('input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit]),textarea,select');
-function settle(){ const max=Math.max(0,document.documentElement.scrollHeight-window.innerHeight); window.scrollTo(0,Math.min(window.scrollY,max)); }
+/* 只在「剛收起鍵盤」的 1.5 秒內、而且畫面真的捲出範圍時才推；平常滑動時 Safari 網址列伸縮也會觸發 resize，
+   那時去推畫面會打斷滑動、看起來像在震動（v14 的問題，v17 修正） */
+let kbClosedAt=0;
+function settle(){ const max=Math.max(0,document.documentElement.scrollHeight-window.innerHeight); if(window.scrollY>max+1) window.scrollTo(0,max); }
 document.addEventListener('focusout',e=>{ if(!isField(e.target)) return;
-  setTimeout(()=>{ if(!isField(document.activeElement)){ settle(); setTimeout(settle,300); } },60); });
-if(window.visualViewport) visualViewport.addEventListener('resize',()=>{ if(!isField(document.activeElement)) settle(); });
+  setTimeout(()=>{ if(!isField(document.activeElement)){ kbClosedAt=Date.now(); settle(); setTimeout(settle,300); } },60); });
+if(window.visualViewport) visualViewport.addEventListener('resize',()=>{ if(!isField(document.activeElement) && Date.now()-kbClosedAt<1500) settle(); });
 
 applyPrefs(false);
 const hm=(location.hash||'').match(/^#a(\d{1,3})$/);
