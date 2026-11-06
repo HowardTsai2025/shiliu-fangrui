@@ -32,6 +32,11 @@ python3 build_all.py icons  # 換了 web/logo.svg 才需要（要 playwright + c
 ```
 改內容 → 改 `content/*.txt`；改網站 → 改 `web/app-body.html`；改完都要重建並 commit `docs/`。
 
+## 重建 PDF 注意
+- 需要 WeasyPrint **70.0**（現行 PDF 由 70.0 產生）與系統字型 `fonts-noto-cjk`、`fonts-noto-cjk-extra`（Noto Serif/Sans CJK TC，含 Semi-Bold）、`fonts-liberation`（英文斜體）。缺字型會被換成別的字型，版面就變了。
+- 2026-11-06 在 Claude Code 驗證過：用舊內容重建的 PDF 與原檔逐頁文字／版面一致、抽樣頁面像素一致，之後才補上第 005 篇英文（只動到第 15～17 頁，總頁數 239 不變）。
+- 內容檔之間是接續的：一篇的中文經文可能在檔案最後一行，英文在下一個檔案第一行（例如第 026 篇在 05.txt／06.txt）。檢查內容時要把 01→25 接起來看，不要逐檔判斷。
+
 ## 繁體轉換注意
 OpenCC 會選錯的字放在 `scripts/build_pdf.py` 的 `FIX`（例如 麵／面、鐘／鍾、乾／幹、裡／里、髮）。新增內容後要掃一遍這類字。
 引號一律轉成「」『』。英文經文不轉換。
